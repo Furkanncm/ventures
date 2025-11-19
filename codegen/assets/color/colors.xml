@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary (Blue Base) -->
+    <color name="primary">#2563EB</color>         <!-- Blue 600 -->
+    <color name="onPrimary">#FFFFFF</color>
+
+    <!-- Secondary (Soft Blue / Cyan tones) -->
+    <color name="secondary">#0EA5E9</color>       <!-- Sky 500 -->
+    <color name="onSecondary">#FFFFFF</color>
+
+    <!-- Tertiary (Purple-Blue mix) -->
+    <color name="tertiary">#6366F1</color>        <!-- Indigo 500 -->
+    <color name="onTertiary">#FFFFFF</color>
+
+    <!-- Neutral & Grays -->
+    <color name="gray">#6B7280</color>            <!-- Gray 500 -->
+    <color name="backgroundDark">#0F172A</color>  <!-- Slate 900 -->
+    <color name="backgroundLight">#F1F5F9</color> <!-- Slate 100 -->
+    <color name="white">#FFFFFF</color>
+
+    <!-- Status Colors -->
+    <color name="onSuccess">#22C55E</color>       <!-- Green 500 -->
+    <color name="onError">#EF4444</color>         <!-- Red 500 -->
+</resources>

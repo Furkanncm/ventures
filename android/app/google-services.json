@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1037858245018",
+    "project_id": "ventures-ai-app-e3650",
+    "storage_bucket": "ventures-ai-app-e3650.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037858245018:android:6586a58bfd5b012ae3d223",
+        "android_client_info": {
+          "package_name": "com.example.venture"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0oMjRgKbVTLfEqe0wiS2lH4f0saLy67w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

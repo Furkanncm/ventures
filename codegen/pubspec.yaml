@@ -1,0 +1,59 @@
+name: codegen
+description: "A new Flutter package project."
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: ^3.9.2
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_gen: ^5.12.0
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Linting
+  very_good_analysis: ^10.0.0
+
+  # Generators
+  flutter_gen_runner: ^5.12.0
+  build_runner: ^2.10.2
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # To add assets to your package, add an assets section, like this:
+  assets:
+    - assets/image/
+  
+  # For details regarding assets in packages, see
+  # https://flutter.dev/to/asset-from-package
+  #
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+
+
+flutter_gen:
+  output: lib/gen/ # Optional (default: lib/gen/)
+  # line_length: 80 # Optional
+
+  # Optional
+  integrations:
+    image: true
+    flutter_svg: false
+    rive: false
+    lottie: true
+
+  colors:
+    inputs:
+      - assets/color/colors.xml
