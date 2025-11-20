@@ -27,7 +27,6 @@ class _BaseDialog extends StatelessWidget {
       ),
       content: VText(
         content,
-        type: VTextStyleType.titleSmall,
         maxLines: 3,
       ),
       actions: [

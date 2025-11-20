@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:ventures/common/widgets/text/v_text.dart';
 
 @immutable
-final class LgFaddedText extends StatelessWidget {
-  const LgFaddedText({
+final class VFaddedText extends StatelessWidget {
+  const VFaddedText({
     required this.text,
     super.key,
     this.textStyleType = VTextStyleType.bodyMedium,

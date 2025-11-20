@@ -54,14 +54,14 @@ mixin ImageViewMixin on ConsumerState<ImageView> {
       case ShareResultStatus.success:
         VSnackBar.show(
           context: context,
-          text: StringConstants.shareSuccess,
+          text: StringConstants.shareImageSuccess,
           type: SnackBarType.info,
         );
       case ShareResultStatus.dismissed:
       case ShareResultStatus.unavailable:
         VSnackBar.show(
           context: context,
-          text: StringConstants.shareFail,
+          text: StringConstants.shareImageFail,
           type: SnackBarType.error,
         );
     }

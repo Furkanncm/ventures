@@ -25,7 +25,7 @@ mixin ImageHistoryMixin on ConsumerState<ImageHistoryView> {
   }
 
   Future<void> onDeletePressed(File file) async {
-    await NewsAppDialogs.confirmationDialog(
+    await VDialogs.confirmationDialog(
       context: context,
       title: StringConstants.sure,
       content: StringConstants.deleteContent,
@@ -52,14 +52,14 @@ mixin ImageHistoryMixin on ConsumerState<ImageHistoryView> {
       case ShareResultStatus.success:
         VSnackBar.show(
           context: context,
-          text: StringConstants.shareSuccess,
+          text: StringConstants.shareImageSuccess,
           type: SnackBarType.info,
         );
       case ShareResultStatus.dismissed:
       case ShareResultStatus.unavailable:
         VSnackBar.show(
           context: context,
-          text: StringConstants.shareFail,
+          text: StringConstants.shareImageFail,
           type: SnackBarType.error,
         );
     }
@@ -80,13 +80,13 @@ mixin ImageHistoryMixin on ConsumerState<ImageHistoryView> {
     if (result) {
       VSnackBar.show(
         context: context,
-        text: StringConstants.shareSuccess,
+        text: StringConstants.shareImageSuccess,
         type: SnackBarType.info,
       );
     } else {
       VSnackBar.show(
         context: context,
-        text: StringConstants.saveFail,
+        text: StringConstants.shareImageFail,
         type: SnackBarType.error,
       );
     }

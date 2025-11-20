@@ -15,6 +15,7 @@ class DioManager {
     }
     return _dio!;
   }
+
   Future<void> init() async {
     _dio = Dio(
       BaseOptions(
@@ -29,7 +30,7 @@ class DioManager {
     _dio!.interceptors.add(
       LogInterceptor(
         requestBody: true,
-        responseBody: true, 
+        responseBody: true,
       ),
     );
   }

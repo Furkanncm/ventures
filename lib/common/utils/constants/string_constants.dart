@@ -11,6 +11,8 @@ final class StringConstants {
   );
   static final passwordRegex = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$');
 
+  static const String dateFormat = 'dd MMM yyyy - HH:mm';
+
   static const String registerFailed = 'Registration failed';
   static const String loginFailed = 'Login failed';
   static const String googleLoginSuccessful =
@@ -116,8 +118,24 @@ final class StringConstants {
   static const String noSavedImages = 'No saved images available yet.';
 
   // Sharing
-  static const String shareSuccess = 'Image shared successfully!';
-  static const String shareFail = 'Image could not be shared!';
-  static const String saveSuccess = 'Image saved successfully!';
-  static const String saveFail = 'Image could not be saved!';
+  static const String shareImageFail = 'Image could not be shared!';
+  static const String shareImageSuccess = 'Image shared successfully!';
+  static const String saveImageFail = 'Image could not be saved!';
+  static const String shareAudioFail = 'Audio could not be shared!';
+  static const String shareAudioSuccess = 'Audio shared successfully!';
+  static const String saveAudioFail = 'Audio could not be saved!';
+
+  // Text To Speech (TTS) Strings
+  static const String ttsTitle = 'Text to Speech';
+  static const String convertToSpeech = 'Convert to Speech';
+  static const String audioSaved = 'Audio Saved!';
+  static const String play = 'Play';
+  static const String fileSize = 'File Size';
+  static const String audioDataNullError =
+      'Audio data could not be retrieved (Null data).';
+  static const String audioHistoryTitle = 'Audio History';
+  static const String noAudioRecordedYet = 'No audio recorded yet.';
+  static const String deleteDialogTitle = 'Delete Recording';
+  static const String deleteDialogContent =
+      'Are you sure you want to delete this audio? This action cannot be undone.';
 }

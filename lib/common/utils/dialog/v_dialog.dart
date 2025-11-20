@@ -7,8 +7,8 @@ part 'widgets/base_dialog.dart';
 part 'widgets/dialog_icon.dart';
 part 'widgets/dlalog_buttons.dart';
 
-abstract class NewsAppDialogs {
-  NewsAppDialogs._();
+abstract class VDialogs {
+  VDialogs._();
 
   static Future<bool?> confirmationDialog({
     required BuildContext context,

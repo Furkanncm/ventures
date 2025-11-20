@@ -46,7 +46,7 @@ class ImageRepository implements IImageRepository {
   Future<(Uint8List, File)> generateImage(String prompt) async {
     final result = await remote.generateImage(prompt);
 
-    final imageFile=await saveImage(
+    final imageFile = await saveImage(
       result,
       'image_${DateTime.now().millisecondsSinceEpoch}.png',
     );

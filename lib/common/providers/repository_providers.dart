@@ -182,10 +182,12 @@ final ttsRepositoryProvider = Provider<TextToSpeechRepository>((ref) {
   return TextToSpeechRepository();
 });
 
-final ttsProvider =
-    StateNotifierProvider<TextToSpeechNotifier, TextToSpeechState>((ref) {
+final StateNotifierProvider<TextToSpeechNotifier, TextToSpeechState>
+ttsProvider =
+    StateNotifierProvider.autoDispose<TextToSpeechNotifier, TextToSpeechState>((
+      ref,
+    ) {
       final ttsRepo = ref.watch(ttsRepositoryProvider);
-      // History Repository'i inject ediyoruz
       final historyRepo = ref.watch(historyRepositoryProvider);
 
       return TextToSpeechNotifier(ttsRepo, historyRepo);
