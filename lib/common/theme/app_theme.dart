@@ -1,6 +1,6 @@
 import 'package:codegen/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:ventures/common/utils/padding/lg_padding.dart';
+import 'package:ventures/common/utils/padding/v_padding.dart';
 import 'package:ventures/common/widgets/text/v_text.dart';
 
 final class AppLightTheme {

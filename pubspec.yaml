@@ -34,13 +34,16 @@ dependencies:
   go_router: ^17.0.0
   equatable: ^2.0.7
   image_gallery_saver_plus: ^4.0.1
-  uuid: ^4.5.2
-  permission_handler: ^12.0.1
   stability_image_generation: ^1.0.0
   share_plus: ^12.0.1
+  uuid: ^4.2.1
+  intl: ^0.19.0 
 
   # Security
   flutter_dotenv: ^6.0.0
+
+  # Text To Speech 
+  audioplayers: ^5.2.1
   
   # Modules
   codegen:
@@ -53,7 +56,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^5.0.0
   json_serializable: ^6.11.1
   build_runner: ^2.7.1
   very_good_analysis: ^10.0.0

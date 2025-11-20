@@ -3,6 +3,8 @@ final class StringConstants {
 
   static const String appName = 'Ventures';
   static const String imagePackage = 'codegen';
+  static const String eventlabBaseUrl =
+      'https://api.elevenlabs.io/v1/text-to-speech/';
 
   static final emailRegExp = RegExp(
     r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$",
@@ -117,6 +119,5 @@ final class StringConstants {
   static const String shareSuccess = 'Image shared successfully!';
   static const String shareFail = 'Image could not be shared!';
   static const String saveSuccess = 'Image saved successfully!';
-static const String saveFail = 'Image could not be saved!';
-
+  static const String saveFail = 'Image could not be saved!';
 }

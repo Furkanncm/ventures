@@ -3,7 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:stability_image_generation/stability_image_generation.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/enum/pref_keys.dart';
-import 'package:ventures/data/remote/store_remote_ds.dart';
+import 'package:ventures/data/data_source/remote/store_remote_ds.dart';
 import 'package:ventures/domain/cache/cache_repository.dart';
 
 class ImageRemoteDS {

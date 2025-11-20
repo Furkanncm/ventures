@@ -22,4 +22,12 @@ final class CustomBoxDecoration extends BoxDecoration {
           end: Alignment.topCenter,
         ),
       );
+  CustomBoxDecoration.errorContainer()
+    : super(
+        color: Colors.red.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: ColorName.onError.withValues(alpha: 0.3),
+        ),
+      );
 }

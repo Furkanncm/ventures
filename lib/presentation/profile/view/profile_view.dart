@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/enum/v_value.dart';
-import 'package:ventures/common/utils/padding/lg_padding.dart';
+import 'package:ventures/common/utils/padding/v_padding.dart';
 import 'package:ventures/common/widgets/sized_box/v_sized_box.dart';
 import 'package:ventures/common/widgets/text/v_text.dart';
 import 'package:ventures/data/model/user/user_info.dart';

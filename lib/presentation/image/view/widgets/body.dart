@@ -21,12 +21,13 @@ final class _Body extends StatelessWidget {
       child: Column(
         spacing: 24,
         children: [
-          _InputCard(controller: controller),
-          VElevatedButton.fullWith(
+          InputCard(controller: controller),
+          VElevatedButton.withIconAndFullWith(
             onPressed: () async {
               FocusScope.of(context).unfocus();
               await onPressed?.call();
             },
+            icon: const Icon(Icons.gradient),
             label: StringConstants.generateButtonLabel,
           ),
           _ImageField(state: state, onSharePressed: onSharePressed),

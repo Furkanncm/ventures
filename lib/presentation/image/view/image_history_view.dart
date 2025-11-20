@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/decoration/box_decoration.dart';
-import 'package:ventures/common/utils/padding/lg_padding.dart';
+import 'package:ventures/common/utils/padding/v_padding.dart';
 import 'package:ventures/common/widgets/text/v_text.dart';
 import 'package:ventures/presentation/image/view/mixin/image_history_mixin.dart';
 

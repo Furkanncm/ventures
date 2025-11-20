@@ -5,7 +5,6 @@ import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/router/router.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/enum/route_path.dart';
-import 'package:ventures/common/utils/enum/share_type.dart';
 import 'package:ventures/common/utils/enum/snackbar_type.dart';
 import 'package:ventures/common/utils/extensions/future_extension.dart';
 import 'package:ventures/common/utils/snackbar/v_snackbar.dart';
@@ -47,10 +46,7 @@ mixin ImageViewMixin on ConsumerState<ImageView> {
     final imageFile = ref.read(imageGenerationProvider).imageFile;
     if (imageFile == null) return;
     final result = await _shareRepository
-        .shareImage(
-          imageFile.path,
-          ShareType.image,
-        )
+        .shareImage(imageFile.path)
         .withLoading(context);
     if (!mounted) return;
 

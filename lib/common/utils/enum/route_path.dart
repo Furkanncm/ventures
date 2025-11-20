@@ -3,6 +3,7 @@ enum RoutePaths {
   login('/login'),
   signUp('/signUp'),
   Audio('/audio'),
+  audioHistory('/AudioHistory'),
   Document('/document'),
   Image('/Image'),
   imageHistory('/imageHistory'),

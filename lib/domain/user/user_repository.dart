@@ -1,6 +1,6 @@
 import 'package:ventures/common/base/base_remote_response.dart';
 import 'package:ventures/data/model/user/user_info.dart';
-import 'package:ventures/data/remote/store_remote_ds.dart';
+import 'package:ventures/data/data_source/remote/store_remote_ds.dart';
 
 abstract class IUserRepository {
   Future<BaseRemoteResponse<UserInfoModel?>> getUser(String uid);

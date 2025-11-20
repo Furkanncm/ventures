@@ -8,7 +8,7 @@ final class _ImageField extends StatelessWidget {
   });
 
   final ImageGenerationState state;
-  final VoidCallback onSharePressed; 
+  final VoidCallback onSharePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +37,14 @@ final class _ImageField extends StatelessWidget {
                     child: Material(
                       color: Colors.black.withOpacity(
                         0.5,
-                      ), 
+                      ),
                       borderRadius: BorderRadius.circular(30),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(30),
                         onTap: onSharePressed,
-                        child: const Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Icon(
+                        child: Padding(
+                          padding: VPadding.all(),
+                          child: const Icon(
                             Icons.share_rounded,
                             color: Colors.white,
                             size: 24,

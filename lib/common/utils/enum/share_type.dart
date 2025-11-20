@@ -1,3 +1,1 @@
-enum ShareType {
-  audio, document, image
-}
+enum ShareType { audio, document, image }

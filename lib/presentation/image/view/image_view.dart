@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
-import 'package:ventures/common/utils/padding/lg_padding.dart';
+import 'package:ventures/common/utils/padding/v_padding.dart';
 import 'package:ventures/common/widgets/button/v_elevated_button.dart';
+import 'package:ventures/common/widgets/card/input_card.dart';
 import 'package:ventures/common/widgets/text/v_text.dart';
-import 'package:ventures/common/widgets/textfied/v_textfield.dart';
 import 'package:ventures/presentation/image/view/mixin/image_view_mixin.dart';
 import 'package:ventures/presentation/image/viewmodel/image_generation_state.dart';
 
 part 'widgets/app_bar.dart';
 part 'widgets/body.dart';
 part 'widgets/image_field.dart';
-part 'widgets/input_card.dart';
 
 @immutable
 final class ImageView extends ConsumerStatefulWidget {

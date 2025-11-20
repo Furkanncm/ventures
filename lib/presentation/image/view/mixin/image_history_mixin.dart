@@ -7,7 +7,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/dialog/v_dialog.dart';
-import 'package:ventures/common/utils/enum/share_type.dart';
 import 'package:ventures/common/utils/enum/snackbar_type.dart';
 import 'package:ventures/common/utils/extensions/future_extension.dart';
 import 'package:ventures/common/utils/snackbar/v_snackbar.dart';
@@ -45,10 +44,7 @@ mixin ImageHistoryMixin on ConsumerState<ImageHistoryView> {
 
   Future<void> onSharePressed(File imageFile) async {
     final result = await _shareRepository
-        .shareImage(
-          imageFile.path,
-          ShareType.image,
-        )
+        .shareImage(imageFile.path)
         .withLoading(context);
     if (!mounted) return;
 

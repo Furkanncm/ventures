@@ -1,12 +1,18 @@
-part of '../image_view.dart';
+import 'package:flutter/material.dart';
+import 'package:ventures/common/utils/constants/string_constants.dart';
+import 'package:ventures/common/utils/padding/v_padding.dart';
+import 'package:ventures/common/widgets/textfied/v_textfield.dart';
 
 @immutable
-final class _InputCard extends StatelessWidget {
-  const _InputCard({
+final class InputCard extends StatelessWidget {
+  const InputCard({
     required this.controller,
+    this.maxLines=2,
+    super.key,
   });
 
   final TextEditingController controller;
+  final int maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +26,7 @@ final class _InputCard extends StatelessWidget {
         child: VTextField(
           controller: controller,
           label: StringConstants.promptLabel,
-          maxLines: 2,
+          maxLines: maxLines,
         ),
       ),
     );

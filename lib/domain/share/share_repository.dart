@@ -1,11 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:ventures/common/utils/enum/share_type.dart';
 import 'package:ventures/common/utils/extensions/share_extension.dart';
-
-
-
 
 @immutable
 final class ShareRepository {
@@ -18,20 +14,30 @@ final class ShareRepository {
     return _instance!;
   }
 
-  /// [filePath]: Cihazdaki dosyanın tam yolu (örn: /data/user/0/.../image_123.png)
-  Future<ShareResultStatus> shareImage(
+  Future<ShareResultStatus> _shareFile(
     String filePath,
     ShareType shareType,
   ) async {
-    // Dosya yolunu XFile'a çeviriyoruz
     final file = XFile(filePath);
 
     final result = await Share.shareXFiles(
-      [file], // Paylaşılacak dosyalar listesi
-      subject: shareType.subject, // Genellikle E-posta konularında görünür
-      text: shareType.title,      // Resmin yanında gidecek mesaj/açıklama
+      [file],
+      subject: shareType.subject, 
+      text: shareType.title,     
     );
 
     return result.status;
+  }
+
+  Future<ShareResultStatus> shareAudio(String filePath) async {
+    return _shareFile(filePath, ShareType.audio);
+  }
+
+  Future<ShareResultStatus> shareImage(String filePath) async {
+    return _shareFile(filePath, ShareType.image);
+  }
+
+  Future<ShareResultStatus> shareDocument(String filePath) async {
+    return _shareFile(filePath, ShareType.document);
   }
 }

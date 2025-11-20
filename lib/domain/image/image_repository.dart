@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:ventures/common/utils/enum/pref_keys.dart';
-import 'package:ventures/data/remote/image_remote_ds.dart';
+import 'package:ventures/data/data_source/remote/image_remote_ds.dart';
 import 'package:ventures/domain/cache/cache_repository.dart';
 
 abstract class IImageRepository {

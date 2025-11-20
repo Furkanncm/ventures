@@ -10,7 +10,7 @@ import 'package:ventures/common/utils/enum/route_path.dart';
 import 'package:ventures/common/utils/enum/snackbar_type.dart';
 import 'package:ventures/common/utils/extensions/assets_extension.dart';
 import 'package:ventures/common/utils/extensions/future_extension.dart';
-import 'package:ventures/common/utils/padding/lg_padding.dart';
+import 'package:ventures/common/utils/padding/v_padding.dart';
 import 'package:ventures/common/utils/snackbar/v_snackbar.dart';
 import 'package:ventures/common/widgets/button/v_elevated_button.dart';
 import 'package:ventures/common/widgets/sized_box/v_sized_box.dart';

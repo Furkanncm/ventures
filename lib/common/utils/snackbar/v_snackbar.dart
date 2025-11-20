@@ -1,7 +1,7 @@
 import 'package:codegen/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:ventures/common/utils/enum/snackbar_type.dart';
-import 'package:ventures/common/utils/padding/lg_padding.dart';
+import 'package:ventures/common/utils/padding/v_padding.dart';
 import 'package:ventures/common/widgets/sized_box/v_sized_box.dart';
 import 'package:ventures/common/widgets/text/v_text.dart';
 

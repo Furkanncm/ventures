@@ -9,6 +9,7 @@ final class VElevatedButton extends StatelessWidget {
     required this.onPressed,
     this.isWithIcon = false,
     this.isCentered = false,
+    this.backgroundColor = ColorName.primary,
     this.icon,
     super.key,
   });
@@ -18,6 +19,8 @@ final class VElevatedButton extends StatelessWidget {
     required this.icon,
     required this.onPressed,
     this.isCentered = false,
+
+    this.backgroundColor = ColorName.primary,
     super.key,
   }) : isWithIcon = true;
 
@@ -26,6 +29,7 @@ final class VElevatedButton extends StatelessWidget {
     required this.onPressed,
     this.icon,
     this.isWithIcon = false,
+    this.backgroundColor = ColorName.primary,
     super.key,
   }) : isCentered = true;
 
@@ -33,6 +37,7 @@ final class VElevatedButton extends StatelessWidget {
     required this.label,
     required this.onPressed,
     required this.icon,
+    this.backgroundColor = ColorName.primary,
     super.key,
   }) : isCentered = true,
        isWithIcon = true;
@@ -42,6 +47,7 @@ final class VElevatedButton extends StatelessWidget {
   final bool isCentered;
   final VoidCallback? onPressed;
   final Widget? icon;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +66,9 @@ final class VElevatedButton extends StatelessWidget {
     );
     return ElevatedButton(
       onPressed: onPressed,
+      style: ElevatedButton.styleFrom().copyWith(
+        backgroundColor: WidgetStatePropertyAll(backgroundColor),
+      ),
       child: isCentered ? Center(child: rowWidget) : rowWidget,
     );
   }

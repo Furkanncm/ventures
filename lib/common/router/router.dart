@@ -9,6 +9,8 @@ import 'package:ventures/presentation/auth/splash/view/splash_view.dart';
 import 'package:ventures/presentation/image/view/image_history_view.dart';
 import 'package:ventures/presentation/image/view/image_view.dart';
 import 'package:ventures/presentation/profile/view/profile_view.dart';
+import 'package:ventures/presentation/text_to_speech/view/text_to_speech_history_view.dart';
+import 'package:ventures/presentation/text_to_speech/view/text_to_speech_view.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -39,11 +41,16 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: RoutePaths.Audio.path,
           name: RoutePaths.Audio.name,
-          pageBuilder: (context, state) => NoTransitionPage(
-            child: Container(
-              color: ColorName.primary,
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: TTSPage(),
+          ), routes: [
+            GoRoute(
+              path: RoutePaths.audioHistory.path,
+              name: RoutePaths.audioHistory.name,
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: AudioHistoryView()),
             ),
-          ),
+          ],
         ),
         GoRoute(
           path: RoutePaths.Image.path,

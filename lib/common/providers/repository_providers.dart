@@ -5,12 +5,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:riverpod/src/providers/stream_provider.dart';
-import 'package:ventures/data/remote/auth_remote_ds.dart';
-import 'package:ventures/data/remote/image_remote_ds.dart';
-import 'package:ventures/data/remote/store_remote_ds.dart';
+import 'package:ventures/data/data_source/remote/auth_remote_ds.dart';
+import 'package:ventures/data/data_source/remote/image_remote_ds.dart';
+import 'package:ventures/data/data_source/remote/store_remote_ds.dart';
+import 'package:ventures/data/model/text_to_speech/audio_record.dart';
+import 'package:ventures/domain/audio_record/audio_record_repository.dart';
+import 'package:ventures/domain/audio_record/audio_record_service.dart';
 import 'package:ventures/domain/auth/auth_repository.dart';
 import 'package:ventures/domain/cache/cache_repository.dart';
 import 'package:ventures/domain/image/image_repository.dart';
+import 'package:ventures/domain/text_to_speech/text_to_speech_repository.dart';
 import 'package:ventures/domain/user/user_repository.dart';
 import 'package:ventures/presentation/auth/login/viewmodel/login_notifier.dart';
 import 'package:ventures/presentation/auth/login/viewmodel/login_state.dart';
@@ -20,6 +24,8 @@ import 'package:ventures/presentation/image/viewmodel/image_generation_notifier.
 import 'package:ventures/presentation/image/viewmodel/image_generation_state.dart';
 import 'package:ventures/presentation/profile/viewmodel/profile_notifier.dart';
 import 'package:ventures/presentation/profile/viewmodel/profile_state.dart';
+import 'package:ventures/presentation/text_to_speech/viewmodel/text_to_speech_notifier.dart';
+import 'package:ventures/presentation/text_to_speech/viewmodel/text_to_speech_state.dart';
 
 // ---------------------------------------------------------------------------
 // AUTH REPOSITORY
@@ -170,4 +176,32 @@ final FutureProvider<List<File>> imageHistoryProvider =
     FutureProvider.autoDispose<List<File>>((ref) async {
       final repo = ref.watch(imageRepoProvider);
       return repo.listImages();
+    });
+
+final ttsRepositoryProvider = Provider<TextToSpeechRepository>((ref) {
+  return TextToSpeechRepository();
+});
+
+final ttsProvider =
+    StateNotifierProvider<TextToSpeechNotifier, TextToSpeechState>((ref) {
+      final ttsRepo = ref.watch(ttsRepositoryProvider);
+      // History Repository'i inject ediyoruz
+      final historyRepo = ref.watch(historyRepositoryProvider);
+
+      return TextToSpeechNotifier(ttsRepo, historyRepo);
+    });
+
+final audioStorageServiceProvider = Provider<TextToSpeechHistoryService>((ref) {
+  return TextToSpeechHistoryService();
+});
+
+final historyRepositoryProvider = Provider<IHistoryRepository>((ref) {
+  final service = ref.watch(audioStorageServiceProvider);
+  return HistoryRepository(service);
+});
+
+final FutureProvider<List<AudioRecord>> historyListProvider =
+    FutureProvider.autoDispose<List<AudioRecord>>((ref) async {
+      final repository = ref.watch(historyRepositoryProvider);
+      return repository.getAllRecords();
     });
