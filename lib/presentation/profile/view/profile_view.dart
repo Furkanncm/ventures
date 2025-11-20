@@ -10,7 +10,6 @@ import 'package:ventures/data/model/user/user_info.dart';
 import 'package:ventures/presentation/profile/viewmodel/profile_state.dart';
 
 part 'widgets/profile_header.dart';
-part 'widgets/profile_items_list.dart';
 
 @immutable
 final class ProfileView extends ConsumerWidget {
@@ -73,20 +72,6 @@ final class _Body extends StatelessWidget {
         children: [
           /// PROFILE HEADER
           _ProfileHeader(user: state.user!),
-
-          /// PUBLIC ITEMS
-          _ProfileItemsList(
-            title: StringConstants.profilePublicItems,
-            items: state.publicItems,
-            icon: Icons.public,
-          ),
-
-          /// HISTORY ITEMS
-          _ProfileItemsList(
-            title: StringConstants.profileHistoryItems,
-            items: state.historyItems,
-            icon: Icons.history,
-          ),
         ],
       ),
     );

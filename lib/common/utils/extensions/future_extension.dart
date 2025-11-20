@@ -7,7 +7,7 @@ import 'package:ventures/common/utils/snackbar/v_snackbar.dart';
 
 extension FutureLoadingExtension<T> on Future<T> {
   Future<T> withLoading(BuildContext context) async {
-  final dialogFuture = showDialog<void>(
+  final _ = showDialog<void>(
     context: context,
     barrierDismissible: false,
     builder: (_) => Center(

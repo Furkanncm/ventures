@@ -20,12 +20,6 @@ UserInfoModel _$UserInfoModelFromJson(Map<String, dynamic> json) =>
           SubscriptionType.free,
       freeUsageCount: (json['freeUsageCount'] as num?)?.toInt() ?? 0,
       maxFreeUsage: (json['maxFreeUsage'] as num?)?.toInt() ?? 5,
-      publicItems: (json['publicItems'] as List<dynamic>?)
-          ?.map((e) => e as Map<String, dynamic>)
-          .toList(),
-      historyItems: (json['historyItems'] as List<dynamic>?)
-          ?.map((e) => e as Map<String, dynamic>)
-          .toList(),
       errorReports: (json['errorReports'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -40,8 +34,6 @@ Map<String, dynamic> _$UserInfoModelToJson(UserInfoModel instance) =>
       'subscriptionType': _$SubscriptionTypeEnumMap[instance.subscriptionType]!,
       'freeUsageCount': instance.freeUsageCount,
       'maxFreeUsage': instance.maxFreeUsage,
-      'publicItems': instance.publicItems,
-      'historyItems': instance.historyItems,
       'errorReports': instance.errorReports,
     };
 

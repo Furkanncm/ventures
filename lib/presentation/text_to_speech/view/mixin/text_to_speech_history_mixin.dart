@@ -8,7 +8,6 @@ import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/dialog/v_dialog.dart';
 import 'package:ventures/common/utils/enum/snackbar_type.dart';
 import 'package:ventures/common/utils/extensions/future_extension.dart';
-import 'package:ventures/common/utils/extensions/string_extension.dart';
 import 'package:ventures/common/utils/snackbar/v_snackbar.dart';
 import 'package:ventures/data/model/text_to_speech/audio_record.dart';
 import 'package:ventures/domain/download/download_repository.dart';
@@ -83,13 +82,13 @@ mixin AudioHistoryMixin<T extends ConsumerStatefulWidget> on ConsumerState<T> {
   Future<void> downloadRecord(AudioRecord record) async {
     final fileName = 'Audio_${record.createdAt.millisecondsSinceEpoch}';
 
-    final path = await DownloadRepository.instance.saveAudioToDevice(
+    final result = await DownloadRepository.instance.saveAudioToDevice(
       filePath: record.filePath,
       fileName: fileName,
     );
 
     if (!mounted) return;
-    if (path.isNotNullOrNotEmpty) {
+    if (result) {
       VSnackBar.show(
         context: context,
         text: StringConstants.saveAudioSuccess,

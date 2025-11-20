@@ -1,12 +1,15 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ventures/common/base/base_user_model.dart';
 import 'package:ventures/common/utils/enum/subscription_type.dart';
 
 part 'user_info.g.dart';
 
+@immutable
 @JsonSerializable(explicitToJson: true)
-class UserInfoModel extends Equatable implements BaseUserModel<UserInfoModel> {
+final class UserInfoModel extends Equatable
+    implements BaseUserModel<UserInfoModel> {
   UserInfoModel({
     this.uid,
     this.email,
@@ -15,11 +18,8 @@ class UserInfoModel extends Equatable implements BaseUserModel<UserInfoModel> {
     this.subscriptionType = SubscriptionType.free,
     this.freeUsageCount = 0,
     this.maxFreeUsage = 5,
-    List<Map<String, dynamic>>? publicItems,
-    List<Map<String, dynamic>>? historyItems,
     List<String>? errorReports,
-  }) : publicItems = publicItems ?? [],
-       historyItems = historyItems ?? [],
+  }) : 
        errorReports = errorReports ?? [];
 
   factory UserInfoModel.fromJson(Map<String, dynamic> json) =>
@@ -34,9 +34,6 @@ class UserInfoModel extends Equatable implements BaseUserModel<UserInfoModel> {
   int freeUsageCount;
   int maxFreeUsage;
 
-  /// Now we store item maps directly inside the user doc
-  List<Map<String, dynamic>> publicItems;
-  List<Map<String, dynamic>> historyItems;
   List<String> errorReports;
 
   @override
@@ -57,13 +54,6 @@ class UserInfoModel extends Equatable implements BaseUserModel<UserInfoModel> {
     }
   }
 
-  void addPublicItem(Map<String, dynamic> item) {
-    if (!publicItems.any((e) => e['id'] == item['id'])) publicItems.add(item);
-  }
-
-  void addHistoryItem(Map<String, dynamic> item) {
-    if (!historyItems.any((e) => e['id'] == item['id'])) historyItems.add(item);
-  }
 
   void reportError(String error) {
     errorReports.add(error);
@@ -78,8 +68,6 @@ class UserInfoModel extends Equatable implements BaseUserModel<UserInfoModel> {
     SubscriptionType? subscriptionType,
     int? freeUsageCount,
     int? maxFreeUsage,
-    List<Map<String, dynamic>>? publicItems,
-    List<Map<String, dynamic>>? historyItems,
     List<String>? errorReports,
   }) {
     return UserInfoModel(
@@ -90,8 +78,6 @@ class UserInfoModel extends Equatable implements BaseUserModel<UserInfoModel> {
       subscriptionType: subscriptionType ?? this.subscriptionType,
       freeUsageCount: freeUsageCount ?? this.freeUsageCount,
       maxFreeUsage: maxFreeUsage ?? this.maxFreeUsage,
-      publicItems: publicItems ?? List.from(this.publicItems),
-      historyItems: historyItems ?? List.from(this.historyItems),
       errorReports: errorReports ?? List.from(this.errorReports),
     );
   }
@@ -105,8 +91,6 @@ class UserInfoModel extends Equatable implements BaseUserModel<UserInfoModel> {
     subscriptionType,
     freeUsageCount,
     maxFreeUsage,
-    publicItems,
-    historyItems,
     errorReports,
   ];
 }

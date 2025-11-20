@@ -14,30 +14,27 @@ final class DownloadRepository {
     return _instance!;
   }
 
-  
-
-  Future<String?> saveAudioToDevice({
+  Future<bool> saveAudioToDevice({
     required String filePath,
     required String fileName,
   }) async {
     try {
-      // 1. Dosyayı byte olarak oku
       final file = File(filePath);
-      if (!await file.exists()) return null;
+      if (!await file.exists()) return false;
 
       final bytes = await file.readAsBytes();
 
-      final path = await FileSaver.instance.saveFile(
-        name: fileName, // Dosya adı
+      await FileSaver.instance.saveFile(
+        name: fileName,
         bytes: bytes,
-        ext: 'mp3', // Uzantı
+        ext: 'mp3',
         mimeType: MimeType.mp3,
       );
 
-      return path;
+      return true;
     } catch (e) {
       debugPrint('Download Error: $e');
-      return null;
+      return false;
     }
   }
 }
