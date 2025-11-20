@@ -32,10 +32,10 @@ final class CustomBoxDecoration extends BoxDecoration {
       );
   CustomBoxDecoration.shareButton()
     : super(
-        color: ColorName.gray.withValues(alpha: 0.4),
+        color: ColorName.gray.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: ColorName.gray.withValues(alpha: 0.1),
+          color: ColorName.gray,
         ),
       );
 }

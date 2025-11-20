@@ -35,7 +35,7 @@ final class PlayAndShareButton extends StatelessWidget {
             height: 48,
             width: 48,
             decoration: CustomBoxDecoration.shareButton(),
-            child: const Icon(Icons.share, color: Colors.blueGrey),
+            child: const Icon(Icons.share, color: ColorName.gray),
           ),
         ),
       ],

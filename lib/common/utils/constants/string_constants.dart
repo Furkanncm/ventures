@@ -124,11 +124,12 @@ final class StringConstants {
   static const String shareAudioFail = 'Audio could not be shared!';
   static const String shareAudioSuccess = 'Audio shared successfully!';
   static const String saveAudioFail = 'Audio could not be saved!';
+  
+  static const String saveAudioSuccess = 'Audio save successfully!';
 
   // Text To Speech (TTS) Strings
   static const String ttsTitle = 'Text to Speech';
   static const String convertToSpeech = 'Convert to Speech';
-  static const String audioSaved = 'Audio Saved!';
   static const String play = 'Play';
   static const String fileSize = 'File Size';
   static const String audioDataNullError =
@@ -138,4 +139,6 @@ final class StringConstants {
   static const String deleteDialogTitle = 'Delete Recording';
   static const String deleteDialogContent =
       'Are you sure you want to delete this audio? This action cannot be undone.';
+  static const String downloadSuccess = 'Saved to Downloads!';
+  static const String downloadFail = 'Download failed!';
 }

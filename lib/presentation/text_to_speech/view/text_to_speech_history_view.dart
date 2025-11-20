@@ -59,6 +59,7 @@ class _AudioHistoryViewState extends ConsumerState<AudioHistoryView>
                 onPlayTap: () => togglePlay(record),
                 onDeleteTap: () => deleteRecord(record),
                 onShareTap: () => shareRecord(record),
+                onDownloadTap: () => downloadRecord(record),
               );
             },
           );

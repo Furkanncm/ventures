@@ -5,13 +5,18 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
+import 'package:ventures/common/utils/enum/pref_keys.dart';
 import 'package:ventures/common/utils/enum/share_prefs_keys.dart';
 import 'package:ventures/data/model/text_to_speech/audio_record.dart';
+import 'package:ventures/domain/cache/cache_repository.dart';
 import 'package:ventures/domain/shared_pref/share_pref_manager.dart';
 
 class TextToSpeechHistoryService {
   final Uuid _uuid = const Uuid();
   final SharedPrefsManager _prefsManager = SharedPrefsManager();
+  final String? uid = CacheRepository.instance.getString(
+    PrefKeys.isUserLoggedIn,
+  );
 
   Future<AudioRecord> saveAudio({
     required Uint8List bytes,
