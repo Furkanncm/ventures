@@ -18,8 +18,11 @@ UserInfoModel _$UserInfoModelFromJson(Map<String, dynamic> json) =>
             json['subscriptionType'],
           ) ??
           SubscriptionType.free,
-      freeUsageCount: (json['freeUsageCount'] as num?)?.toInt() ?? 0,
-      maxFreeUsage: (json['maxFreeUsage'] as num?)?.toInt() ?? 5,
+      imageGenUsage: (json['imageGenUsage'] as num?)?.toInt() ?? 0,
+      ttsUsage: (json['ttsUsage'] as num?)?.toInt() ?? 0,
+      docAnalysisUsage: (json['docAnalysisUsage'] as num?)?.toInt() ?? 0,
+      maxFreeLimitPerFeature:
+          (json['maxFreeLimitPerFeature'] as num?)?.toInt() ?? 3,
       errorReports: (json['errorReports'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -32,8 +35,10 @@ Map<String, dynamic> _$UserInfoModelToJson(UserInfoModel instance) =>
       'displayName': instance.displayName,
       'photoUrl': instance.photoUrl,
       'subscriptionType': _$SubscriptionTypeEnumMap[instance.subscriptionType]!,
-      'freeUsageCount': instance.freeUsageCount,
-      'maxFreeUsage': instance.maxFreeUsage,
+      'imageGenUsage': instance.imageGenUsage,
+      'ttsUsage': instance.ttsUsage,
+      'docAnalysisUsage': instance.docAnalysisUsage,
+      'maxFreeLimitPerFeature': instance.maxFreeLimitPerFeature,
       'errorReports': instance.errorReports,
     };
 

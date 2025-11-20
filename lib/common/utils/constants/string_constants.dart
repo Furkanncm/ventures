@@ -54,6 +54,8 @@ final class StringConstants {
   // Messages & Feedback
   // -----------------------------
   static const String messageSomethingWentWrong = 'Something went wrong 😅';
+  static const String freeLimitReached =
+      'Free usage limit reached. Please upgrade to Premium.';
 
   // -----------------------------
   // Validations
@@ -94,13 +96,16 @@ final class StringConstants {
   // -----------------------------
   // Profile Labels
   // -----------------------------
-  static const String profileTitle = 'My Account';
-  static const String profileNoName = 'No name available';
-  static const String profileNoEmail = 'No email available';
-  static const String profileSubscription = 'Subscription';
-  static const String profileFreeUsage = 'Free Usage';
-  static const String profilePublicItems = 'Shared Items';
-  static const String profileHistoryItems = 'History Items';
+  static const String profileTitle = 'Profile';
+  static const String subscriptionStatus = 'Subscription Status';
+  static const String freePlan = 'Free Plan';
+  static const String premiumPlan = 'Premium Plan';
+  static const String upgradeToPremium = 'Upgrade to Premium';
+  static const String unlimitedAccess =
+      'Get unlimited access to all AI features.';
+  static const String usageStatistics = 'Usage Statistics';
+  static const String remainingCredits = 'Remaining Credits';
+  static const String logout = 'Logout';
 
   // ImageView
   static const String imageGeneratorTitle = 'Image Generator';
@@ -124,7 +129,7 @@ final class StringConstants {
   static const String shareAudioFail = 'Audio could not be shared!';
   static const String shareAudioSuccess = 'Audio shared successfully!';
   static const String saveAudioFail = 'Audio could not be saved!';
-  
+
   static const String saveAudioSuccess = 'Audio save successfully!';
 
   // Text To Speech (TTS) Strings

@@ -10,31 +10,38 @@ final class _ProfileHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        // Avatar
         CircleAvatar(
           radius: 40,
           backgroundImage: user.photoUrl != null
               ? NetworkImage(user.photoUrl!)
               : null,
+          backgroundColor: ColorName.primary.withOpacity(0.2),
           child: user.photoUrl == null
-              ? const Icon(Icons.person, size: 40)
+              ? Text(
+                  (user.displayName ?? 'U')[0].toUpperCase(),
+                  style: const TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
               : null,
         ),
         VSizedBox.horizontalBox16,
+        // İsim ve Email
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               VText(
-                user.displayName ?? StringConstants.profileNoName,
-                type: VTextStyleType.titleLarge,
+                user.displayName ?? 'User',
+                type: VTextStyleType.titleMedium,
+                fontWeight: FontWeight.bold,
               ),
-              VText(user.email ?? StringConstants.profileNoEmail),
               VSizedBox.verticalBox4,
               VText(
-                '${StringConstants.profileSubscription}: ${user.subscriptionType.name}',
-              ),
-              VText(
-                '${StringConstants.profileFreeUsage}: ${user.freeUsageCount}/${user.maxFreeUsage}',
+                user.email ?? '',
+                color: Colors.grey,
               ),
             ],
           ),

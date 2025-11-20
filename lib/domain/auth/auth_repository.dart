@@ -24,12 +24,12 @@ abstract class IAuthRepository {
 class AuthRepository implements IAuthRepository {
   AuthRepository({
     required IAuthRemoteDS authRemoteDS,
-    required IStoreRemoteDS storeRemoteDS,
+    required IStorageRemoteDS storeRemoteDS,
   }) : _authRemoteDS = authRemoteDS,
        _storeRemoteDS = storeRemoteDS;
 
   final IAuthRemoteDS _authRemoteDS;
-  final IStoreRemoteDS _storeRemoteDS;
+  final IStorageRemoteDS _storeRemoteDS;
 
   /// ---------------------------
   /// SharedPreferences helper

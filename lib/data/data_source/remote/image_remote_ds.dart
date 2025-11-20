@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:stability_image_generation/stability_image_generation.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
+import 'package:ventures/common/utils/enum/feature_type.dart';
 import 'package:ventures/common/utils/enum/pref_keys.dart';
 import 'package:ventures/data/data_source/remote/store_remote_ds.dart';
 import 'package:ventures/domain/cache/cache_repository.dart';
@@ -11,7 +12,7 @@ class ImageRemoteDS {
     this.storeRemoteDS,
   );
 
-  final IStoreRemoteDS storeRemoteDS;
+  final IStorageRemoteDS storeRemoteDS;
 
   final ai = StabilityAI();
   final String? apiKey = dotenv.env['STABILITY_AI_API_KEY'];
@@ -76,6 +77,6 @@ class ImageRemoteDS {
 
   Future<void> incrementUserFreeUsage() async {
     if (uid == null) throw Exception(StringConstants.noUserLoggedIn);
-    await storeRemoteDS.incrementUserFreeUsage(uid!);
+    await storeRemoteDS.incrementUsage(uid!, FeatureType.imageGeneration);
   }
 }

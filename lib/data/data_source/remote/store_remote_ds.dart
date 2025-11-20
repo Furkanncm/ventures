@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ventures/common/base/base_remote_response.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/enum/collection_type.dart';
+import 'package:ventures/common/utils/enum/feature_type.dart'; // FeatureType Enum'ı
+import 'package:ventures/common/utils/enum/subscription_type.dart'; // SubscriptionType Enum'ı
 import 'package:ventures/data/model/user/user_info.dart';
 
-abstract class IStoreRemoteDS {
+abstract class IStorageRemoteDS {
   Future<BaseRemoteResponse<UserInfoModel?>> getUser(String uid);
   Future<BaseRemoteResponse<void>> setUser(UserInfoModel user);
   Future<BaseRemoteResponse<void>> addHistoryItem(String uid, String itemId);
@@ -12,11 +14,12 @@ abstract class IStoreRemoteDS {
   Future<BaseRemoteResponse<void>> reportError(String uid, String error);
   Future<BaseRemoteResponse<List<String>>> getPublicItems(String uid);
   Future<BaseRemoteResponse<List<String>>> getHistoryItems(String uid);
-  Future<void> incrementUserFreeUsage(String uid);
+  Future<BaseRemoteResponse<void>> incrementUsage(String uid, FeatureType type);
+  Future<BaseRemoteResponse<void>> upgradeToPremium(String uid);
 }
 
-class StoreRemoteDS implements IStoreRemoteDS {
-  StoreRemoteDS({FirebaseFirestore? firestore})
+class StorageRemoteDS implements IStorageRemoteDS {
+  StorageRemoteDS({FirebaseFirestore? firestore})
     : _firestore = firestore ?? FirebaseFirestore.instance;
 
   final FirebaseFirestore _firestore;
@@ -141,10 +144,59 @@ class StoreRemoteDS implements IStoreRemoteDS {
     });
   }
 
-  Future<void> incrementUserFreeUsage(String uid) async {
-    final userRef = _users.doc(uid);
-    await userRef.update({'freeUsageCount': FieldValue.increment(1)});
+  // --- YENİ EKLENEN METODLAR ---
+
+  /// Kullanıcının belirli bir özellik için kullanım sayısını artırır.
+  @override
+  Future<BaseRemoteResponse<void>> incrementUsage(
+    String uid,
+    FeatureType type,
+  ) async {
+    return safeCall(() async {
+      String fieldToUpdate;
+
+      // Hangi alanı güncelleyeceğimizi Enum'a göre belirliyoruz
+      switch (type) {
+        case FeatureType.imageGeneration:
+          fieldToUpdate = 'imageGenUsage';
+        case FeatureType.textToSpeech:
+          fieldToUpdate = 'ttsUsage';
+        case FeatureType.documentAnalysis:
+          fieldToUpdate = 'docAnalysisUsage';
+      }
+
+      // Firestore'da sadece o alanı 1 artırıyoruz (Atomik işlem)
+      await _users.doc(uid).update({
+        fieldToUpdate: FieldValue.increment(1),
+      });
+
+      return BaseRemoteResponse(
+        data: null,
+        success: true,
+        message: 'Usage incremented successfully',
+        statusCode: 200,
+      );
+    });
   }
+
+  /// Kullanıcıyı Premium'a geçirir (Fake Payment)
+  @override
+  Future<BaseRemoteResponse<void>> upgradeToPremium(String uid) async {
+    return safeCall(() async {
+      await _users.doc(uid).update({
+        'subscriptionType': SubscriptionType.premium.name, // Enum string değeri
+      });
+
+      return BaseRemoteResponse(
+        data: null,
+        success: true,
+        message: 'Upgraded to premium successfully',
+        statusCode: 200,
+      );
+    });
+  }
+
+  // --- YARDIMCI METOD ---
 
   Future<BaseRemoteResponse<T>> safeCall<T>(
     Future<BaseRemoteResponse<T>> Function() action,

@@ -34,7 +34,7 @@ import 'package:ventures/presentation/text_to_speech/viewmodel/text_to_speech_st
 final Provider<AuthRepository> authRepositoryProvider =
     Provider.autoDispose<AuthRepository>((ref) {
       final authRemoteDS = AuthRemoteDS();
-      final storeRemoteDS = StoreRemoteDS();
+      final storeRemoteDS = StorageRemoteDS();
       return AuthRepository(
         authRemoteDS: authRemoteDS,
         storeRemoteDS: storeRemoteDS,
@@ -46,7 +46,7 @@ final Provider<AuthRepository> authRepositoryProvider =
 // ---------------------------------------------------------------------------
 
 final userRepositoryProvider = Provider<IUserRepository>((ref) {
-  final remoteDS = StoreRemoteDS();
+  final remoteDS = StorageRemoteDS();
   return UserRepository(remoteDS);
 });
 
@@ -160,7 +160,7 @@ final StreamProvider<List<Map<String, dynamic>>> publicImagesProvider =
 
 final Provider<IImageRepository> imageRepoProvider =
     Provider.autoDispose<IImageRepository>((ref) {
-      final remote = ImageRemoteDS(StoreRemoteDS());
+      final remote = ImageRemoteDS(StorageRemoteDS());
       return ImageRepository(remote);
     });
 
@@ -189,8 +189,11 @@ ttsProvider =
     ) {
       final ttsRepo = ref.watch(ttsRepositoryProvider);
       final historyRepo = ref.watch(historyRepositoryProvider);
+      final userRepo = ref.read(
+        userRepositoryProvider,
+      ); // YENİ: User Repo lazım
 
-      return TextToSpeechNotifier(ttsRepo, historyRepo);
+      return TextToSpeechNotifier(ref, ttsRepo, historyRepo, userRepo);
     });
 
 final audioStorageServiceProvider = Provider<TextToSpeechHistoryService>((ref) {
