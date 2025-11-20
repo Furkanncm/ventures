@@ -13,7 +13,7 @@ final class ImageGrid extends StatelessWidget {
   final List<File> images;
   final Future<void> Function() onRefresh;
   final void Function(File file) onDelete;
-  final void Function(String path) onShare;
+  final void Function(File file) onShare;
   final void Function(Uint8List url) onDownload;
 
   @override
@@ -34,7 +34,7 @@ final class ImageGrid extends StatelessWidget {
 
           return ImageCardItem(
             file: file,
-            onShare: () => onShare(file.path),
+            onShare: () => onShare(file),
             onDelete: () => onDelete(file),
             onDownload: () => onDownload(file.readAsBytesSync()),
           );

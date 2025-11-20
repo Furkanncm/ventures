@@ -2,7 +2,8 @@ part of '../image_view.dart';
 
 @immutable
 final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
-  const _AppBar();
+  const _AppBar({required this.onRouteHistory});
+  final VoidCallback onRouteHistory;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       actions: [
         IconButton(
-          onPressed: () => router.goNamed(RoutePaths.imageHistory.name),
+          onPressed: onRouteHistory,
           icon: const Icon(Icons.history_outlined),
         ),
       ],

@@ -21,7 +21,7 @@ mixin ImageHistoryMixin on ConsumerState<ImageHistoryView> {
     super.initState();
     _shareRepository = ShareRepository.instance;
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.refresh(imageHistoryProvider);
+      final _ = ref.refresh(imageHistoryProvider);
     });
   }
 
@@ -38,14 +38,17 @@ mixin ImageHistoryMixin on ConsumerState<ImageHistoryView> {
         await repo.deleteImage(
           file.path.split('/').last,
         );
-        ref.refresh(imageHistoryProvider);
+        final _ = ref.refresh(imageHistoryProvider);
       },
     );
   }
 
-  Future<void> onSharePressed(String url) async {
+  Future<void> onSharePressed(File imageFile) async {
     final result = await _shareRepository
-        .share(url, ShareType.image)
+        .shareImage(
+          imageFile.path,
+          ShareType.image,
+        )
         .withLoading(context);
     if (!mounted) return;
 

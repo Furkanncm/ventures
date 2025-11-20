@@ -30,6 +30,7 @@ class _ImageHistoryViewState extends ConsumerState<ImageHistoryView>
 
     return Scaffold(
       appBar: AppBar(
+        forceMaterialTransparency: true,
         title: const VText(
           StringConstants.imageHistoryTitle,
           type: VTextStyleType.titleLarge,
@@ -41,7 +42,7 @@ class _ImageHistoryViewState extends ConsumerState<ImageHistoryView>
           if (images.isEmpty) {
             return ImageHistoryEmpty(
               onRefresh: () async {
-                ref.refresh(imageHistoryProvider);
+                final _=ref.refresh(imageHistoryProvider);
               },
             );
           }

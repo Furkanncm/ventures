@@ -6,10 +6,12 @@ final class _Body extends StatelessWidget {
     required this.state,
     required this.onPressed,
     required this.controller,
+    required this.onSharePressed,
   });
 
   final ImageGenerationState state;
   final Future<void> Function()? onPressed;
+  final VoidCallback onSharePressed;
   final TextEditingController controller;
 
   @override
@@ -17,15 +19,17 @@ final class _Body extends StatelessWidget {
     return Padding(
       padding: VPadding.pagePadding(),
       child: Column(
+        spacing: 24,
         children: [
           _InputCard(controller: controller),
-          VSizedBox.verticalBox24,
           VElevatedButton.fullWith(
-            onPressed: onPressed,
+            onPressed: () async {
+              FocusScope.of(context).unfocus();
+              await onPressed?.call();
+            },
             label: StringConstants.generateButtonLabel,
           ),
-          VSizedBox.verticalBox24,
-          _ImageField(state: state),
+          _ImageField(state: state, onSharePressed: onSharePressed),
         ],
       ),
     );

@@ -6,12 +6,13 @@ import 'package:path_provider/path_provider.dart';
 import 'package:ventures/common/utils/enum/pref_keys.dart';
 import 'package:ventures/data/remote/image_remote_ds.dart';
 import 'package:ventures/domain/cache/cache_repository.dart';
+
 abstract class IImageRepository {
   /// Kullanıcı UID'si
   String? get uid;
 
   /// Prompt'tan görüntü üretir ve kaydeder
-  Future<Uint8List> generateImage(String prompt);
+  Future<(Uint8List, File)> generateImage(String prompt);
 
   /// Görüntüyü UID klasörüne kaydeder
   Future<File> saveImage(Uint8List bytes, String fileName);
@@ -31,26 +32,30 @@ abstract class IImageRepository {
   /// Galeriye kaydeder (Android & iOS)
   Future<bool> saveImageToGallery(Uint8List bytes, String fileName);
 }
-class ImageRepository implements IImageRepository{
+
+class ImageRepository implements IImageRepository {
   ImageRepository(this.remote);
   final ImageRemoteDS remote;
 
+  @override
   String? get uid =>
       CacheRepository.instance.getString(PrefKeys.isUserLoggedIn);
 
   /// Yeni resim oluştur → UID klasörüne kaydet → bytes'ı geri döndür
-  Future<Uint8List> generateImage(String prompt) async {
+  @override
+  Future<(Uint8List, File)> generateImage(String prompt) async {
     final result = await remote.generateImage(prompt);
 
-    await saveImage(
+    final imageFile=await saveImage(
       result,
       'image_${DateTime.now().millisecondsSinceEpoch}.png',
     );
 
-    return result;
+    return (result, imageFile);
   }
 
   /// UID altına resim kaydet
+  @override
   Future<File> saveImage(Uint8List bytes, String fileName) async {
     final dir = await _userImagesDirectory;
     final file = File('${dir.path}/$fileName');
@@ -72,6 +77,7 @@ class ImageRepository implements IImageRepository{
   }
 
   /// UID klasöründen bir resmi yükle
+  @override
   Future<Uint8List?> loadImage(String fileName) async {
     try {
       final dir = await _userImagesDirectory;
@@ -88,12 +94,14 @@ class ImageRepository implements IImageRepository{
   }
 
   /// Bu kullanıcıya ait tüm resimleri listele
+  @override
   Future<List<File>> listImages() async {
     final dir = await _userImagesDirectory;
     return dir.listSync().whereType<File>().toList();
   }
 
   /// Bu kullanıcıya ait tek resmi sil
+  @override
   Future<void> deleteImage(String fileName) async {
     final dir = await _userImagesDirectory;
     final file = File('${dir.path}/$fileName');
@@ -104,6 +112,7 @@ class ImageRepository implements IImageRepository{
   }
 
   /// Bu kullanıcının tüm resimlerini sil
+  @override
   Future<void> clearAll() async {
     final dir = await _userImagesDirectory;
 
@@ -113,6 +122,7 @@ class ImageRepository implements IImageRepository{
   }
 
   /// Galeriye kaydet
+  @override
   Future<bool> saveImageToGallery(Uint8List bytes, String fileName) async {
     final result = await ImageGallerySaverPlus.saveImage(
       bytes,

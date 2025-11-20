@@ -152,17 +152,22 @@ final StreamProvider<List<Map<String, dynamic>>> publicImagesProvider =
       return controller.stream;
     });
 
-final imageRepoProvider = Provider<IImageRepository>((ref) {
-  final remote = ImageRemoteDS(StoreRemoteDS());
-  return ImageRepository(remote);
-});
-
-final imageGenerationProvider =
-    StateNotifierProvider<ImageGenerationNotifier, ImageGenerationState>((ref) {
-      final repo = ref.watch(imageRepoProvider);
-      return ImageGenerationNotifier(repo);
+final Provider<IImageRepository> imageRepoProvider =
+    Provider.autoDispose<IImageRepository>((ref) {
+      final remote = ImageRemoteDS(StoreRemoteDS());
+      return ImageRepository(remote);
     });
-final imageHistoryProvider = FutureProvider<List<File>>((ref) async {
-  final repo = ref.watch(imageRepoProvider);
-  return repo.listImages();
-});
+
+final StateNotifierProvider<ImageGenerationNotifier, ImageGenerationState>
+imageGenerationProvider =
+    StateNotifierProvider.autoDispose<
+      ImageGenerationNotifier,
+      ImageGenerationState
+    >((ref) {
+      return ImageGenerationNotifier(ref.read(imageRepoProvider));
+    });
+final FutureProvider<List<File>> imageHistoryProvider =
+    FutureProvider.autoDispose<List<File>>((ref) async {
+      final repo = ref.watch(imageRepoProvider);
+      return repo.listImages();
+    });
