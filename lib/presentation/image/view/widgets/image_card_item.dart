@@ -1,4 +1,5 @@
 part of '../image_history_view.dart';
+
 @immutable
 final class ImageCardItem extends StatelessWidget {
   const ImageCardItem({
@@ -16,69 +17,146 @@ final class ImageCardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-      elevation: 6,
+      elevation: 2, // Biraz daha belirgin olması için artırılabilir
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       clipBehavior: Clip.antiAlias,
-      child: Stack(
+      child: Padding(
+        padding: VPadding.all(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Resim alanı esnek bırakıldı, kalan alanı dolduracak
+            Expanded(
+              child: _ImageDisplay(file: file),
+            ),
+
+            VSizedBox.verticalBox12,
+            Divider(height: 1, color: theme.dividerColor.withValues(alpha: .5)),
+            VSizedBox.verticalBox12,
+
+            // Butonlar
+            _ActionButtons(
+              onDownloadTap: onDownload,
+              onShareTap: onShare,
+              onDeleteTap: onDelete,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+@immutable
+final class _ImageDisplay extends StatelessWidget {
+  const _ImageDisplay({required this.file});
+
+  final File file;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => VDialogs.photoDialog(context:context, file:file),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
+          ),
+          image: DecorationImage(
+            image: FileImage(file),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
+
+
+}
+
+@immutable
+final class _ActionButtons extends StatelessWidget {
+  const _ActionButtons({
+    required this.onDownloadTap,
+    required this.onShareTap,
+    required this.onDeleteTap,
+  });
+
+  final VoidCallback onDownloadTap;
+  final VoidCallback onShareTap;
+  final VoidCallback onDeleteTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 54,
+      child: Row(
         children: [
-          Positioned.fill(
-            child: Image.file(
-              file,
-              fit: BoxFit.cover,
-            ),
+          _TonalActionButton(
+            icon: Icons.download_rounded,
+            color: ColorName.onSuccess,
+            onTap: onDownloadTap,
           ),
-
-          /// Sağ üst - İndir
-          Positioned(
-            top: 8,
-            right: 8,
-            child: IconButton(
-              onPressed: onDownload,
-              icon: const Icon(
-                Icons.download,
-                color: Colors.white,
-                size: 26,
-              ),
-            ),
+          VSizedBox.horizontalBox8,
+          _TonalActionButton(
+            icon: Icons.share_rounded,
+            color: ColorName.gray,
+            onTap: onShareTap,
           ),
-
-          /// Alt: paylaş (sol) - sil (sağ)
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: VPadding.all() / 3,
-              decoration: const CustomBoxDecoration.blackToTransparent(),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  /// Sol alt - Paylaş
-                  IconButton(
-                    onPressed: onShare,
-                    icon: const Icon(
-                      Icons.share,
-                      color: Colors.white,
-                    ),
-                  ),
-
-                  /// Sağ alt - Sil
-                  IconButton(
-                    onPressed: onDelete,
-                    icon: const Icon(
-                      Icons.delete,
-                      color: Colors.redAccent,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          VSizedBox.horizontalBox8,
+          _TonalActionButton(
+            icon: Icons.delete_outline_rounded,
+            color: ColorName.onError,
+            onTap: onDeleteTap,
           ),
         ],
       ),
     );
   }
 }
+
+@immutable
+final class _TonalActionButton extends StatelessWidget {
+  const _TonalActionButton({
+    required this.icon,
+    required this.color,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final Color color;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final backgroundColor = color.withValues(
+      alpha: 0.1,
+    ); // Arka planı bir tık belirginleştirdim
+    return Expanded(
+      child: Material(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(14), // Radius biraz artırıldı
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(14),
+          splashColor: color.withValues(alpha: 0.2),
+          highlightColor: color.withValues(alpha: 0.1),
+          child: Center(
+            child: Icon(
+              icon,
+              color: color.withValues(alpha: 1), // Rengi tam opak yaptım
+              size: 26, // DEĞİŞİKLİK: İkon boyutu büyütüldü (20 -> 26)
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+

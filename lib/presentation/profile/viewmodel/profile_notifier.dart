@@ -10,10 +10,12 @@ import 'package:ventures/domain/user/user_repository.dart';
 import 'package:ventures/presentation/profile/viewmodel/profile_state.dart';
 
 class ProfileNotifier extends StateNotifier<ProfileState> {
-  ProfileNotifier(this._repository, this._cache, this.authRepository)
-    : super(ProfileState.initial()) {
-    getUser();
-  }
+ProfileNotifier(
+    this._repository,
+    this._cache,
+    this.authRepository, {
+    UserInfoModel? initialUser, // Constructor'a ekledik
+  }) : super(ProfileState.initial().copyWith(user: initialUser));
 
   final IUserRepository _repository;
   final ICacheRepository _cache;

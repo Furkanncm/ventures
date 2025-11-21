@@ -10,6 +10,7 @@ final class ImageGrid extends StatelessWidget {
     required this.onDownload,
     super.key,
   });
+
   final List<File> images;
   final Future<void> Function() onRefresh;
   final void Function(File file) onDelete;
@@ -21,17 +22,16 @@ final class ImageGrid extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: onRefresh,
       child: GridView.builder(
-        padding: VPadding.all() / 2,
+        padding: VPadding.all(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
-          childAspectRatio: 0.8,
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 16,
+          childAspectRatio: 0.55,
         ),
         itemCount: images.length,
         itemBuilder: (context, index) {
           final file = images[index];
-
           return ImageCardItem(
             file: file,
             onShare: () => onShare(file),

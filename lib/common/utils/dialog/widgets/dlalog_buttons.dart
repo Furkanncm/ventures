@@ -1,6 +1,7 @@
 part of '../v_dialog.dart';
 
-class _DialogButtons extends StatelessWidget {
+@immutable
+final class _DialogButtons extends StatelessWidget {
   const _DialogButtons(
     this.negativeButtonLabel,
     this.positiveButtonLabel,
@@ -22,7 +23,7 @@ class _DialogButtons extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(width: 8),
+        VSizedBox.horizontalBox8,
         Expanded(
           child: VElevatedButton(
             onPressed: () {

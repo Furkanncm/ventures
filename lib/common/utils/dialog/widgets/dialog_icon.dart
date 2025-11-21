@@ -1,6 +1,7 @@
 part of '../v_dialog.dart';
 
-class _DialogIcon extends StatelessWidget {
+@immutable
+final class _DialogIcon extends StatelessWidget {
   const _DialogIcon();
 
   @override

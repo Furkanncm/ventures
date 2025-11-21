@@ -1,6 +1,7 @@
 part of '../v_dialog.dart';
 
-class _BaseDialog extends StatelessWidget {
+@immutable
+final class _BaseDialog extends StatelessWidget {
   const _BaseDialog({
     required this.title,
     required this.content,

@@ -1,11 +1,19 @@
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:codegen/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:ventures/common/utils/padding/v_padding.dart';
 import 'package:ventures/common/widgets/button/v_elevated_button.dart';
+import 'package:ventures/common/widgets/sized_box/v_sized_box.dart';
 import 'package:ventures/common/widgets/text/v_text.dart';
 
 part 'widgets/base_dialog.dart';
 part 'widgets/dialog_icon.dart';
 part 'widgets/dlalog_buttons.dart';
+part 'widgets/full_image_dialog.dart';
 
 abstract class VDialogs {
   VDialogs._();
@@ -29,6 +37,17 @@ abstract class VDialogs {
           positiveButtonLabel: positiveButtonLabel,
         );
       },
+    );
+  }
+
+  static Future<void> photoDialog({
+    required BuildContext context,
+    required File file,
+  }) async {
+    return showAdaptiveDialog<void>(
+      context: context,
+      barrierColor: Colors.transparent,
+      builder: (context) => _FullImageDialog(file: file),
     );
   }
 }

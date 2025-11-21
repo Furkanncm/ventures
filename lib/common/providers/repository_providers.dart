@@ -5,10 +5,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:riverpod/src/providers/stream_provider.dart';
+import 'package:ventures/common/utils/enum/pref_keys.dart';
 import 'package:ventures/data/data_source/remote/auth_remote_ds.dart';
 import 'package:ventures/data/data_source/remote/image_remote_ds.dart';
 import 'package:ventures/data/data_source/remote/store_remote_ds.dart';
 import 'package:ventures/data/model/text_to_speech/audio_record.dart';
+import 'package:ventures/data/model/user/user_info.dart';
 import 'package:ventures/domain/audio_record/audio_record_repository.dart';
 import 'package:ventures/domain/audio_record/audio_record_service.dart';
 import 'package:ventures/domain/auth/auth_repository.dart';
@@ -57,15 +59,18 @@ final userRepositoryProvider = Provider<IUserRepository>((ref) {
 final StateNotifierProvider<ProfileNotifier, ProfileState>
 profileNotifierProvider =
     StateNotifierProvider.autoDispose<ProfileNotifier, ProfileState>((ref) {
-      final userRepository = ref.read(userRepositoryProvider);
-      final cacheRepository = ref.read(cacheRepositoryProvider);
-      final authRepository = ref.read(authRepositoryProvider);
+      final repo = ref.read(userRepositoryProvider);
+      final cache = ref.read(cacheRepositoryProvider);
+      final auth = ref.read(authRepositoryProvider);
 
-      return ProfileNotifier(
-        userRepository,
-        cacheRepository,
-        authRepository,
-      );
+      // --- KRİTİK NOKTA ---
+      // Startup provider'ını dinliyoruz. Veri geldiği anda ProfileNotifier'a başlangıç verisi olarak veriyoruz.
+      final startupAsync = ref.watch(appStartupProvider);
+
+      // Başlangıç kullanıcısı (Eğer startup tamamlandıysa veriyi al, yoksa null)
+      final initialUser = startupAsync.value;
+
+      return ProfileNotifier(repo, cache, auth, initialUser: initialUser);
     });
 
 // ---------------------------------------------------------------------------
@@ -210,3 +215,26 @@ final FutureProvider<List<AudioRecord>> historyListProvider =
       final repository = ref.watch(historyRepositoryProvider);
       return repository.getAllRecords();
     });
+
+final appStartupProvider = FutureProvider<UserInfoModel?>((ref) async {
+  // 1. Bağımlılıkları al
+  final cache = ref.read(cacheRepositoryProvider);
+  final userRepo = ref.read(userRepositoryProvider);
+
+  // 2. Cache Kontrolü
+  final uid = cache.getString(PrefKeys.isUserLoggedIn);
+
+  // Eğer ID yoksa null dön (Login ekranına gidecek)
+  if (uid == null || uid.isEmpty) {
+    return null;
+  }
+
+  // 3. Repository'den Kullanıcıyı Çek
+  final response = await userRepo.getUser(uid);
+
+  if (response.success ?? false && response.data != null) {
+    return response.data; // Kullanıcı verisi dolu dönüyor
+  } else {
+    return null; // Hata varsa null dön (Login'e gidecek)
+  }
+});
