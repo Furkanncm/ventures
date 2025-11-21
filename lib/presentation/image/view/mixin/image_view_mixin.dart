@@ -4,6 +4,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/router/router.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
+import 'package:ventures/common/utils/enum/feature_type.dart';
 import 'package:ventures/common/utils/enum/route_path.dart';
 import 'package:ventures/common/utils/enum/snackbar_type.dart';
 import 'package:ventures/common/utils/extensions/future_extension.dart';
@@ -13,9 +14,10 @@ import 'package:ventures/presentation/image/view/image_view.dart';
 import 'package:ventures/presentation/image/viewmodel/image_generation_state.dart';
 
 mixin ImageViewMixin on ConsumerState<ImageView> {
-  late final TextEditingController controller;
+ late final TextEditingController controller;
   late final ImageGenerationState state;
   late final ShareRepository _shareRepository;
+  
   @override
   void initState() {
     super.initState();
@@ -24,17 +26,38 @@ mixin ImageViewMixin on ConsumerState<ImageView> {
     state = ref.read(imageGenerationProvider);
   }
 
-  Future<void> generateImage() async {
+Future<void> generateImage() async {
+    // 1. Kullanıcıyı ve Limitini Kontrol Et
+    final user = ref.read(profileNotifierProvider).user;
+
+    // Kullanıcı yoksa veya limiti dolmuşsa
+    if (user != null && !user.hasCredit(FeatureType.imageGeneration)) {
+      // Hata mesajını direkt burada gösteriyoruz
+      VSnackBar.show(
+        context: context,
+        text: StringConstants.freeLimitReached, // "Limitiniz doldu..."
+        type: SnackBarType.error,
+      );
+      return; // İşlemi burada kes, Notifier'a gitme
+    }
+
     final prompt = controller.text.trim();
+
     if (prompt.isNotEmpty) {
-      await ref
+      FocusScope.of(context).unfocus();
+
+      final result = await ref
           .read(imageGenerationProvider.notifier)
           .generate(prompt)
-          .withLoading(context)
-          .withSnackbar(
-            context,
-            successMessage: StringConstants.imageSuccessMessage,
-          );
+          .withLoading(context);
+
+      if (result) {
+        VSnackBar.show(
+          context: context,
+          text: StringConstants.imageSuccessMessage,
+          type: SnackBarType.success,
+        );
+      }
     }
   }
 

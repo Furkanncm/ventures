@@ -44,6 +44,7 @@ final class VText extends StatelessWidget {
       overflow: overflow,
       textAlign: textAlign,
       style: TextStyle(
+        
         color:
             color ??
             (Theme.brightnessOf(context) == Brightness.light

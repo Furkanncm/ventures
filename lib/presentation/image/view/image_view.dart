@@ -25,6 +25,7 @@ class _ImageViewState extends ConsumerState<ImageView> with ImageViewMixin {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(imageGenerationProvider);
+
     return Scaffold(
       appBar: _AppBar(onRouteHistory: onRouteHistory),
       body: _Body(

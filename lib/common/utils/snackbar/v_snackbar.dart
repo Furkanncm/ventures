@@ -42,6 +42,7 @@ final class VSnackBar {
               Expanded(
                 child: VText(
                   text,
+                  maxLines: 3,
                   color: ColorName.backgroundLight,
                 ),
               ),

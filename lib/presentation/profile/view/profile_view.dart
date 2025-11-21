@@ -12,7 +12,6 @@ import 'package:ventures/data/model/user/user_info.dart';
 import 'package:ventures/presentation/profile/viewmodel/profile_state.dart';
 
 part 'widgets/logout_button.dart';
-// Parçalanmış Widgetlar
 part 'widgets/profile_header.dart';
 part 'widgets/subscription_card.dart';
 part 'widgets/usage_statistics.dart';

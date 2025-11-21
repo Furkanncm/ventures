@@ -22,8 +22,8 @@ final class ShareRepository {
 
     final result = await Share.shareXFiles(
       [file],
-      subject: shareType.subject, 
-      text: shareType.title,     
+      subject: shareType.subject,
+      text: shareType.title,
     );
 
     return result.status;

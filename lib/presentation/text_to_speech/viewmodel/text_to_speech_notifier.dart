@@ -42,7 +42,7 @@ class TextToSpeechNotifier extends StateNotifier<TextToSpeechState> {
         isLoading: false,
         errorMessage: StringConstants.freeLimitReached,
       );
-      return;
+      return; 
     }
 
     state = state.copyWith(isLoading: true);
@@ -65,8 +65,9 @@ class TextToSpeechNotifier extends StateNotifier<TextToSpeechState> {
           user.uid!,
           FeatureType.textToSpeech,
         );
-
-        _ref.read(profileNotifierProvider.notifier).getUser();
+        _ref
+            .read(profileNotifierProvider.notifier)
+            .incrementLocalUsage(FeatureType.textToSpeech);
 
         state = state.copyWith(
           isLoading: false,

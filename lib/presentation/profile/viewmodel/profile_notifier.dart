@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:ventures/common/router/router.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
+import 'package:ventures/common/utils/enum/feature_type.dart';
 import 'package:ventures/common/utils/enum/pref_keys.dart';
 import 'package:ventures/common/utils/enum/route_path.dart';
 import 'package:ventures/data/model/user/user_info.dart';
@@ -10,7 +11,7 @@ import 'package:ventures/domain/user/user_repository.dart';
 import 'package:ventures/presentation/profile/viewmodel/profile_state.dart';
 
 class ProfileNotifier extends StateNotifier<ProfileState> {
-ProfileNotifier(
+  ProfileNotifier(
     this._repository,
     this._cache,
     this.authRepository, {
@@ -93,5 +94,31 @@ ProfileNotifier(
         error: response.message ?? StringConstants.errorUnknown,
       );
     }
+  }
+
+  void incrementLocalUsage(FeatureType type) {
+    final currentUser = state.user;
+    if (currentUser == null) return;
+
+    UserInfoModel updatedUser;
+
+    // İlgili sayacı 1 artırıyoruz
+    switch (type) {
+      case FeatureType.imageGeneration:
+        updatedUser = currentUser.copyWith(
+          imageGenUsage: (currentUser.imageGenUsage) + 1,
+        );
+      case FeatureType.textToSpeech:
+        updatedUser = currentUser.copyWith(
+          ttsUsage: (currentUser.ttsUsage) + 1,
+        );
+      case FeatureType.documentAnalysis:
+        updatedUser = currentUser.copyWith(
+          docAnalysisUsage: (currentUser.docAnalysisUsage) + 1,
+        );
+    }
+
+    // State'i güncelliyoruz, böylece ProfileView otomatik olarak bunu algılar
+    state = state.copyWith(user: updatedUser);
   }
 }

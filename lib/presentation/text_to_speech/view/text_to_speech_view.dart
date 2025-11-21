@@ -6,9 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/router/router.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
-import 'package:ventures/common/utils/decoration/box_decoration.dart';
 import 'package:ventures/common/utils/enum/route_path.dart';
+import 'package:ventures/common/utils/enum/snackbar_type.dart';
 import 'package:ventures/common/utils/padding/v_padding.dart';
+import 'package:ventures/common/utils/snackbar/v_snackbar.dart';
 import 'package:ventures/common/widgets/button/v_elevated_button.dart';
 import 'package:ventures/common/widgets/card/input_card.dart';
 import 'package:ventures/common/widgets/text/v_fadded_text.dart';
@@ -18,7 +19,6 @@ import 'package:ventures/presentation/text_to_speech/view/mixin/text_to_speech_m
 import 'package:ventures/presentation/text_to_speech/view/widgets/play_share_button.dart';
 
 part 'widgets/action_button.dart';
-part 'widgets/error_display.dart';
 part 'widgets/input_section.dart';
 part 'widgets/player_control.dart';
 
@@ -34,6 +34,16 @@ class _TTSPageState extends ConsumerState<TTSPage> with TTSMixin {
   @override
   Widget build(BuildContext context) {
     final ttsState = ref.watch(ttsProvider);
+    ref.listen(ttsProvider, (previous, next) {
+      if (next.errorMessage != null &&
+          next.errorMessage == StringConstants.freeLimitReached) {
+        VSnackBar.show(
+          context: context,
+          text: StringConstants.freeLimitReached,
+          type: SnackBarType.error,
+        );
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -55,10 +65,9 @@ class _TTSPageState extends ConsumerState<TTSPage> with TTSMixin {
           children: [
             _TTSInputSection(controller: textController),
 
-            _TTSActionButton(onTap: onConvertPressed),
-
-            if (ttsState.errorMessage != null)
-              _TTSErrorDisplay(errorMessage: ttsState.errorMessage!),
+            _TTSActionButton(
+              onTap: ttsState.isLoading ? () {} : onConvertPressed,
+            ),
 
             if (ttsState.audioRecord != null && !ttsState.isLoading)
               _TTSPlayerControl(

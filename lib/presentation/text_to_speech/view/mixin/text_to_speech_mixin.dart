@@ -32,7 +32,9 @@ mixin TTSMixin<T extends ConsumerStatefulWidget> on ConsumerState<T> {
   }
 
   Future<void> shareRecord(String filePath) async {
-  final result=  await ShareRepository.instance.shareAudio(filePath).withLoading(context);
+    final result = await ShareRepository.instance
+        .shareAudio(filePath)
+        .withLoading(context);
     if (!mounted) return;
 
     switch (result) {

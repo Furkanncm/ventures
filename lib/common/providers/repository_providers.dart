@@ -57,22 +57,18 @@ final userRepositoryProvider = Provider<IUserRepository>((ref) {
 // ---------------------------------------------------------------------------
 
 final StateNotifierProvider<ProfileNotifier, ProfileState>
-profileNotifierProvider =
-    StateNotifierProvider.autoDispose<ProfileNotifier, ProfileState>((ref) {
-      final repo = ref.read(userRepositoryProvider);
-      final cache = ref.read(cacheRepositoryProvider);
-      final auth = ref.read(authRepositoryProvider);
+profileNotifierProvider = StateNotifierProvider<ProfileNotifier, ProfileState>((
+  ref,
+) {
+  final repo = ref.read(userRepositoryProvider);
+  final cache = ref.read(cacheRepositoryProvider);
+  final auth = ref.read(authRepositoryProvider);
 
-      // --- KRİTİK NOKTA ---
-      // Startup provider'ını dinliyoruz. Veri geldiği anda ProfileNotifier'a başlangıç verisi olarak veriyoruz.
-      final startupAsync = ref.watch(appStartupProvider);
+  final startupAsync = ref.watch(appStartupProvider);
+  final initialUser = startupAsync.value;
 
-      // Başlangıç kullanıcısı (Eğer startup tamamlandıysa veriyi al, yoksa null)
-      final initialUser = startupAsync.value;
-
-      return ProfileNotifier(repo, cache, auth, initialUser: initialUser);
-    });
-
+  return ProfileNotifier(repo, cache, auth, initialUser: initialUser);
+});
 // ---------------------------------------------------------------------------
 // LOGIN NOTIFIER
 // ---------------------------------------------------------------------------
@@ -175,7 +171,7 @@ imageGenerationProvider =
       ImageGenerationNotifier,
       ImageGenerationState
     >((ref) {
-      return ImageGenerationNotifier(ref.read(imageRepoProvider));
+      return ImageGenerationNotifier(ref.read(imageRepoProvider), ref);
     });
 final FutureProvider<List<File>> imageHistoryProvider =
     FutureProvider.autoDispose<List<File>>((ref) async {
@@ -232,7 +228,7 @@ final appStartupProvider = FutureProvider<UserInfoModel?>((ref) async {
   // 3. Repository'den Kullanıcıyı Çek
   final response = await userRepo.getUser(uid);
 
-  if (response.success ?? false && response.data != null) {
+  if (response.success ?? false) {
     return response.data; // Kullanıcı verisi dolu dönüyor
   } else {
     return null; // Hata varsa null dön (Login'e gidecek)
