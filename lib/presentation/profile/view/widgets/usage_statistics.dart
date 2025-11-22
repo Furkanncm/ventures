@@ -20,7 +20,7 @@ final class _UsageStatistics extends StatelessWidget {
 
         // 1. Resim Üretme Kotası
         _UsageBar(
-          label: 'Image Generation',
+          label: StringConstants.imageGeneration,
           current: user.imageGenUsage,
           max: user.maxFreeLimitPerFeature,
           color: ColorName.primary,
@@ -29,7 +29,7 @@ final class _UsageStatistics extends StatelessWidget {
 
         // 2. TTS Kotası
         _UsageBar(
-          label: 'Text to Speech',
+          label: StringConstants.textToSpeech,
           current: user.ttsUsage,
           max: user.maxFreeLimitPerFeature,
           color: ColorName.onSuccess,
@@ -38,7 +38,7 @@ final class _UsageStatistics extends StatelessWidget {
 
         // 3. Doküman Analiz Kotası
         _UsageBar(
-          label: 'Document Analysis',
+          label: StringConstants.documentAnalysis,
           current: user.docAnalysisUsage,
           max: user.maxFreeLimitPerFeature,
           color: ColorName.onError,
@@ -74,20 +74,20 @@ class _UsageBar extends StatelessWidget {
           children: [
             VText(label),
             VText(
-              '$current / $max Used',
+              '$current / $max ${StringConstants.used}',
               type: VTextStyleType.bodySmall,
-              color: Colors.grey,
+              color: ColorName.gray,
             ),
           ],
         ),
-        const SizedBox(height: 6),
+        VSizedBox.horizontalBox8,
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: LinearProgressIndicator(
             value: progress > 1 ? 1 : progress,
             minHeight: 8,
             backgroundColor: Colors.grey.shade200,
-            color: remaining == 0 ? Colors.red : color,
+            color: remaining == 0 ? ColorName.onError : color,
           ),
         ),
       ],

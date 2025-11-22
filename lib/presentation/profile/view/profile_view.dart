@@ -46,8 +46,6 @@ final class ProfileView extends ConsumerWidget {
                 child: VText(StringConstants.errorUserNotFound),
               );
             }
-
-            // 4. Her şey yolunda
             return _Body(state: state, notifier: notifier);
           },
         ),

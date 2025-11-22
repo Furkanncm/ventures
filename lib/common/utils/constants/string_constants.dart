@@ -203,7 +203,6 @@ final class StringConstants {
   static const String venturesBrand = 'VENTURES AI';
   static const String dateGenerated = 'DATE GENERATED';
   static const String type = 'TYPE';
-  static const String typeValue = 'Document Analysis';
   static const String poweredBy = 'Powered by Ventures App';
   static const String page = 'Page';
   static const String of = 'of';
@@ -213,4 +212,8 @@ final class StringConstants {
   static const String pdfDocument = 'PDF Document';
   static const String noPreviewAvailable = 'No Preview Available';
   static const String close = 'Close';
+  static const String imageGeneration = 'Image Generation';
+  static const String textToSpeech = 'Text to Speech';
+  static const String documentAnalysis = 'Document Analysis';
+  static const String used = 'Used';
 }

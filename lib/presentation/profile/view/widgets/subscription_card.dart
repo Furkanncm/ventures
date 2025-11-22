@@ -17,11 +17,12 @@ final class _SubscriptionCard extends StatelessWidget {
     return Container(
       padding: VPadding.all(),
       decoration: BoxDecoration(
-        // Premium ise Altın rengi, değilse gri/beyaz
-        color: isPremium ? Colors.amber.shade100 : Colors.grey.shade100,
+        color: isPremium
+            ? ColorName.primary.withValues(alpha: 0.1)
+            : ColorName.gray.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isPremium ? Colors.amber : Colors.grey.shade300,
+          color: isPremium ? ColorName.primary : ColorName.gray,
           width: 2,
         ),
       ),
@@ -31,7 +32,7 @@ final class _SubscriptionCard extends StatelessWidget {
             children: [
               Icon(
                 isPremium ? Icons.verified : Icons.stars_rounded,
-                color: isPremium ? Colors.orange : Colors.grey,
+                color: isPremium ? ColorName.primary : ColorName.gray,
                 size: 32,
               ),
               VSizedBox.horizontalBox12,
@@ -45,7 +46,9 @@ final class _SubscriptionCard extends StatelessWidget {
                           : StringConstants.freePlan,
                       type: VTextStyleType.titleMedium,
                       fontWeight: FontWeight.w800,
-                      color: isPremium ? Colors.brown : Colors.black,
+                      color: isPremium
+                          ? ColorName.primary
+                          : ColorName.backgroundDark,
                     ),
                     if (!isPremium)
                       const VText(
@@ -57,14 +60,12 @@ final class _SubscriptionCard extends StatelessWidget {
               ),
             ],
           ),
-
-          // Eğer Free ise "Yükselt" butonu göster
           if (!isPremium) ...[
             VSizedBox.verticalBox16,
             VElevatedButton(
               onPressed: onUpgradeTap,
               label: StringConstants.upgradeToPremium,
-              backgroundColor: Colors.black,
+              backgroundColor: ColorName.backgroundDark,
             ),
           ],
         ],
