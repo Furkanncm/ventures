@@ -16,7 +16,7 @@ final class _ProfileHeader extends StatelessWidget {
           backgroundImage: user.photoUrl != null
               ? NetworkImage(user.photoUrl!)
               : null,
-          backgroundColor: ColorName.primary.withOpacity(0.2),
+          backgroundColor: ColorName.primary.withValues(alpha:  .2),
           child: user.photoUrl == null
               ? Text(
                   (user.displayName ?? 'U')[0].toUpperCase(),

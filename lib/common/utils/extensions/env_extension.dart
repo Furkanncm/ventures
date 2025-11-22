@@ -10,6 +10,8 @@ extension EnvExtension on EnvType {
         return 'STABILITY_AI_API_KEY';
       case EnvType.eventlabApiKey:
         return 'EVENTLAB_AI_API_KEY';
+      case EnvType.geminiApiKey:
+        return 'GEMINI_API_KEY';
     }
   }
 

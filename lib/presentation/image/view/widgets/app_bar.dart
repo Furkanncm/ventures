@@ -7,13 +7,9 @@ final class _AppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      elevation: 0,
-      title: const VText(
-        StringConstants.imageGeneratorTitle,
-        type: VTextStyleType.titleLarge,
-      ),
-      centerTitle: true,
+    return VAppbar(
+      title: StringConstants.imageGeneratorTitle,
+
       actions: [
         IconButton(
           onPressed: onRouteHistory,

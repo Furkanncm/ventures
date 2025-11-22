@@ -4,10 +4,11 @@ import 'dart:typed_data';
 import 'package:codegen/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ventures/common/dialog/v_dialog.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
-import 'package:ventures/common/utils/dialog/v_dialog.dart';
 import 'package:ventures/common/utils/padding/v_padding.dart';
+import 'package:ventures/common/widgets/appbar/v_app_bar.dart';
 import 'package:ventures/common/widgets/sized_box/v_sized_box.dart';
 import 'package:ventures/common/widgets/text/v_text.dart';
 import 'package:ventures/presentation/image/view/mixin/image_history_mixin.dart';
@@ -31,14 +32,7 @@ class _ImageHistoryViewState extends ConsumerState<ImageHistoryView>
     final imagesAsync = ref.watch(imageHistoryProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        title: const VText(
-          StringConstants.imageHistoryTitle,
-          type: VTextStyleType.titleLarge,
-        ),
-        centerTitle: true,
-      ),
+      appBar: const VAppbar(title: StringConstants.imageHistoryTitle),
       body: imagesAsync.when(
         data: (images) {
           if (images.isEmpty) {

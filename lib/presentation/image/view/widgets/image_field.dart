@@ -35,9 +35,7 @@ final class _ImageField extends StatelessWidget {
                     top: 12,
                     right: 12,
                     child: Material(
-                      color: Colors.black.withOpacity(
-                        0.5,
-                      ),
+                      color: Colors.black.withValues(alpha: 0.5),
                       borderRadius: BorderRadius.circular(30),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(30),
@@ -46,7 +44,7 @@ final class _ImageField extends StatelessWidget {
                           padding: VPadding.all(),
                           child: const Icon(
                             Icons.share_rounded,
-                            color: Colors.white,
+                            color: ColorName.backgroundLight,
                             size: 24,
                           ),
                         ),

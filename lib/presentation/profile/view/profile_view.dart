@@ -1,11 +1,12 @@
 import 'package:codegen/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ventures/common/dialog/v_dialog.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
-import 'package:ventures/common/utils/dialog/v_dialog.dart';
 import 'package:ventures/common/utils/enum/subscription_type.dart';
 import 'package:ventures/common/utils/padding/v_padding.dart';
+import 'package:ventures/common/widgets/appbar/v_app_bar.dart';
 import 'package:ventures/common/widgets/button/v_elevated_button.dart';
 import 'package:ventures/common/widgets/sized_box/v_sized_box.dart';
 import 'package:ventures/common/widgets/text/v_text.dart';
@@ -28,30 +29,21 @@ final class ProfileView extends ConsumerWidget {
     final notifier = ref.read(profileNotifierProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const VText(
-          StringConstants.profileTitle,
-          type: VTextStyleType.titleLarge,
-        ),
-      ),
+      appBar: const VAppbar(title: StringConstants.profileTitle),
       body: RefreshIndicator(
         onRefresh: () async => notifier.getUser(),
         child: Builder(
           builder: (context) {
-            // 1. Yükleniyor durumu
             if (state.isLoading) {
               return const Center(child: CircularProgressIndicator());
             }
 
-            // 2. Hata durumu
             if (state.error != null) {
               return Center(child: VText(state.error!));
             }
-
-            // 3. User null ama yükleme bitmiş (Bu durumda login'e atabilirsin veya hata mesajı)
             if (state.user == null) {
               return const Center(
-                child: VText('Kullanıcı bilgisi bulunamadı.'),
+                child: VText(StringConstants.errorUserNotFound),
               );
             }
 
@@ -68,11 +60,11 @@ final class ProfileView extends ConsumerWidget {
 final class _Body extends StatelessWidget {
   const _Body({
     required this.state,
-    required this.notifier, // Premium upgrade için gerekli
+    required this.notifier,
   });
 
   final ProfileState state;
-  final ProfileNotifier notifier; // ProfileNotifier tipini verebilirsin
+  final ProfileNotifier notifier;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +76,6 @@ final class _Body extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// 1. PROFİL BAŞLIĞI (Avatar + İsim)
           _ProfileHeader(user: user),
 
           VSizedBox.verticalBox24,
@@ -92,32 +83,19 @@ final class _Body extends StatelessWidget {
           _SubscriptionCard(
             user: user,
             onUpgradeTap: () async {
-              // Notifier üzerinden upgrade işlemini tetikle
               await notifier.upgradeToPremium();
-
-              if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Welcome to Premium Club! 🌟'),
-                    backgroundColor: Colors.amber,
-                  ),
-                );
-              }
             },
           ),
 
           VSizedBox.verticalBox24,
 
-          /// 3. KULLANIM İSTATİSTİKLERİ (Progress Barlar)
           if (user.subscriptionType == SubscriptionType.free)
             _UsageStatistics(user: user),
 
           VSizedBox.verticalBox24,
 
-          /// 4. ÇIKIŞ BUTONU
           const _LogoutButton(),
 
-          // Alt kısımda boşluk bırakmak için
           VSizedBox.verticalBox48,
         ],
       ),

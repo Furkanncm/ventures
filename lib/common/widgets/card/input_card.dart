@@ -7,7 +7,7 @@ import 'package:ventures/common/widgets/textfied/v_textfield.dart';
 final class InputCard extends StatelessWidget {
   const InputCard({
     required this.controller,
-    this.maxLines=2,
+    this.maxLines = 3,
     super.key,
   });
 

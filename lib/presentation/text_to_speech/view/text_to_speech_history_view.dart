@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/padding/v_padding.dart';
+import 'package:ventures/common/widgets/appbar/v_app_bar.dart';
 import 'package:ventures/common/widgets/sized_box/v_sized_box.dart';
 import 'package:ventures/common/widgets/text/v_fadded_text.dart';
 import 'package:ventures/common/widgets/text/v_text.dart';
@@ -29,12 +30,7 @@ class _AudioHistoryViewState extends ConsumerState<AudioHistoryView>
     final historyAsync = ref.watch(historyListProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const VText(
-          StringConstants.audioHistoryTitle,
-          type: VTextStyleType.titleLarge,
-        ),
-      ),
+      appBar: const VAppbar(title: StringConstants.audioHistoryTitle),
       body: historyAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, stack) =>

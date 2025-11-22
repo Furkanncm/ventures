@@ -5,6 +5,7 @@ enum RoutePaths {
   Audio('/audio'),
   audioHistory('/AudioHistory'),
   Document('/document'),
+  documentHistory('/documentHistory'),
   Image('/Image'),
   imageHistory('/imageHistory'),
   Profile('/Profile');

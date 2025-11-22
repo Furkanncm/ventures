@@ -4,7 +4,7 @@ import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/enum/feature_type.dart';
 import 'package:ventures/data/model/text_to_speech/text_to_speech_request.dart';
-import 'package:ventures/domain/audio_record/audio_record_repository.dart';
+import 'package:ventures/domain/history/history_repository.dart';
 import 'package:ventures/domain/text_to_speech/text_to_speech_repository.dart';
 import 'package:ventures/domain/user/user_repository.dart';
 import 'package:ventures/presentation/text_to_speech/viewmodel/text_to_speech_state.dart';

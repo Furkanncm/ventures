@@ -40,8 +40,8 @@ final class _SubscriptionCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     VText(
-                      isPremium 
-                          ? StringConstants.premiumPlan 
+                      isPremium
+                          ? StringConstants.premiumPlan
                           : StringConstants.freePlan,
                       type: VTextStyleType.titleMedium,
                       fontWeight: FontWeight.w800,
@@ -57,7 +57,7 @@ final class _SubscriptionCard extends StatelessWidget {
               ),
             ],
           ),
-          
+
           // Eğer Free ise "Yükselt" butonu göster
           if (!isPremium) ...[
             VSizedBox.verticalBox16,
@@ -66,7 +66,7 @@ final class _SubscriptionCard extends StatelessWidget {
               label: StringConstants.upgradeToPremium,
               backgroundColor: Colors.black,
             ),
-          ]
+          ],
         ],
       ),
     );

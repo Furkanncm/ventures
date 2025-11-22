@@ -8,13 +8,12 @@ final class ProfileState extends Equatable {
     this.error,
   });
 
-  // Başlangıç durumu için factory
   factory ProfileState.initial() {
     return const ProfileState();
   }
 
   final bool isLoading;
-  final UserInfoModel? user; // İçinde kredi bilgileri var
+  final UserInfoModel? user; 
   final String? error;
 
   ProfileState copyWith({
@@ -25,7 +24,8 @@ final class ProfileState extends Equatable {
     return ProfileState(
       isLoading: isLoading ?? this.isLoading,
       user: user ?? this.user,
-      error: error, // Hata null gönderilirse temizlensin diye null check yapmıyoruz
+      error:
+          error, 
     );
   }
 

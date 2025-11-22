@@ -10,6 +10,7 @@ import 'package:ventures/common/utils/enum/route_path.dart';
 import 'package:ventures/common/utils/enum/snackbar_type.dart';
 import 'package:ventures/common/utils/padding/v_padding.dart';
 import 'package:ventures/common/utils/snackbar/v_snackbar.dart';
+import 'package:ventures/common/widgets/appbar/v_app_bar.dart';
 import 'package:ventures/common/widgets/button/v_elevated_button.dart';
 import 'package:ventures/common/widgets/card/input_card.dart';
 import 'package:ventures/common/widgets/text/v_fadded_text.dart';
@@ -46,11 +47,8 @@ class _TTSPageState extends ConsumerState<TTSPage> with TTSMixin {
     });
 
     return Scaffold(
-      appBar: AppBar(
-        title: const VText(
-          StringConstants.ttsTitle,
-          type: VTextStyleType.titleLarge,
-        ),
+      appBar: VAppbar(
+        title: StringConstants.ttsTitle,
         actions: [
           IconButton(
             onPressed: () => router.goNamed(RoutePaths.audioHistory.name),

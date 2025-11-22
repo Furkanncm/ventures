@@ -1,1 +1,1 @@
-enum SharedPrefsKeys { audioHistory }
+enum SharedPrefsKeys { audioHistory,documentHistory }

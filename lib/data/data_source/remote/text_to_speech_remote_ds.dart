@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ventures/common/network/dio_manager.dart';
+import 'package:ventures/common/utils/constants/api_constants.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/enum/env_type.dart';
 import 'package:ventures/common/utils/extensions/env_extension.dart';
@@ -19,12 +20,11 @@ class TextToSpeechRemoteDS {
 
     try {
       final dio = DioManager().dio;
+      final url = ApiConstants.getElevenLabsUrl(request.voiceId);
 
       final response = await dio.post(
-        '${StringConstants.eventlabBaseUrl}${request.voiceId}',
-
+        url,
         data: request.toJson(),
-
         options: Options(
           responseType: ResponseType.bytes,
           headers: {

@@ -24,7 +24,7 @@ final class PlayAndShareButton extends StatelessWidget {
             backgroundColor: ColorName.onSuccess,
             onPressed: onPlay,
             icon: const Icon(Icons.play_arrow),
-            label: 'Oynat',
+            label: 'Play',
           ),
         ),
         VSizedBox.horizontalBox12,

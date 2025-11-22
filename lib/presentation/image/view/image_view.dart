@@ -1,8 +1,10 @@
+import 'package:codegen/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/padding/v_padding.dart';
+import 'package:ventures/common/widgets/appbar/v_app_bar.dart';
 import 'package:ventures/common/widgets/button/v_elevated_button.dart';
 import 'package:ventures/common/widgets/card/input_card.dart';
 import 'package:ventures/common/widgets/text/v_text.dart';

@@ -57,7 +57,6 @@ class StorageRemoteDS implements IStorageRemoteDS {
     });
   }
 
-
   @override
   Future<BaseRemoteResponse<void>> reportError(String uid, String error) async {
     return safeCall(() async {
@@ -72,7 +71,6 @@ class StorageRemoteDS implements IStorageRemoteDS {
       );
     });
   }
-
 
   @override
   Future<BaseRemoteResponse<void>> incrementUsage(
@@ -92,7 +90,6 @@ class StorageRemoteDS implements IStorageRemoteDS {
           fieldToUpdate = 'docAnalysisUsage';
       }
 
-      // Firestore'da sadece o alanı 1 artırıyoruz (Atomik işlem)
       await _users.doc(uid).update({
         fieldToUpdate: FieldValue.increment(1),
       });
@@ -100,7 +97,7 @@ class StorageRemoteDS implements IStorageRemoteDS {
       return BaseRemoteResponse(
         data: null,
         success: true,
-        message: 'Usage incremented successfully',
+        message: null,
         statusCode: 200,
       );
     });
@@ -110,13 +107,13 @@ class StorageRemoteDS implements IStorageRemoteDS {
   Future<BaseRemoteResponse<void>> upgradeToPremium(String uid) async {
     return safeCall(() async {
       await _users.doc(uid).update({
-        'subscriptionType': SubscriptionType.premium.name, // Enum string değeri
+        'subscriptionType': SubscriptionType.premium.name,
       });
 
       return BaseRemoteResponse(
         data: null,
         success: true,
-        message: 'Upgraded to premium successfully',
+        message: null,
         statusCode: 200,
       );
     });

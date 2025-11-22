@@ -1,4 +1,3 @@
-import 'package:codegen/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ventures/common/utils/enum/route_path.dart';
@@ -6,6 +5,8 @@ import 'package:ventures/common/widgets/bottom_navigation_bar/v_bottom_navigatio
 import 'package:ventures/presentation/auth/login/view/login_view.dart';
 import 'package:ventures/presentation/auth/sign_up/view/sign_up_view.dart';
 import 'package:ventures/presentation/auth/splash/view/splash_view.dart';
+import 'package:ventures/presentation/document_analysis/view/document_analysis_history_view.dart';
+import 'package:ventures/presentation/document_analysis/view/document_analysis_view.dart';
 import 'package:ventures/presentation/image/view/image_history_view.dart';
 import 'package:ventures/presentation/image/view/image_view.dart';
 import 'package:ventures/presentation/profile/view/profile_view.dart';
@@ -43,7 +44,8 @@ final GoRouter router = GoRouter(
           name: RoutePaths.Audio.name,
           pageBuilder: (context, state) => const NoTransitionPage(
             child: TTSPage(),
-          ), routes: [
+          ),
+          routes: [
             GoRoute(
               path: RoutePaths.audioHistory.path,
               name: RoutePaths.audioHistory.name,
@@ -69,11 +71,17 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: RoutePaths.Document.path,
           name: RoutePaths.Document.name,
-          pageBuilder: (context, state) => NoTransitionPage(
-            child: Container(
-              color: ColorName.secondary,
-            ),
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: DocumentAnalysisView(),
           ),
+          routes: [
+            GoRoute(
+              path: RoutePaths.documentHistory.path,
+              name: RoutePaths.documentHistory.name,
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: DocumentHistoryView()),
+            ),
+          ],
         ),
         GoRoute(
           path: RoutePaths.Profile.path,

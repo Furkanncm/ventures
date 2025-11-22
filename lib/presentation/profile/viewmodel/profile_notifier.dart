@@ -115,7 +115,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     }
   }
 
-  void incrementLocalUsage(FeatureType type) {
+  Future<void> incrementLocalUsage(FeatureType type) async {
     final currentUser = _repository.currentUser ?? state.user;
     if (currentUser == null) return;
 
@@ -138,5 +138,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
 
     _repository.setCurrentUser(updatedUser);
     state = state.copyWith(user: updatedUser);
+    await _repository.incrementUsage(currentUser.uid!, type);
   }
 }

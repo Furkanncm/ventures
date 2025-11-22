@@ -113,12 +113,14 @@ final class _DownloadAndShareButtons extends StatelessWidget {
         _TonalActionButton(
           icon: Icons.download_rounded,
           color: ColorName.onSuccess,
+          label: 'Download', // YENİ
           onTap: onDownloadTap,
         ),
         VSizedBox.horizontalBox12,
         _TonalActionButton(
           icon: Icons.share_rounded,
           color: ColorName.gray,
+          label: 'Share', // YENİ
           onTap: onShareTap,
         ),
       ],
@@ -152,7 +154,7 @@ final class _TitleAndDate extends StatelessWidget {
           Row(
             children: [
               Icon(
-                Icons.access_time_rounded,
+                Icons.calendar_today_rounded,
                 size: 14,
                 color: theme.hintColor,
               ),
@@ -222,11 +224,13 @@ final class _TonalActionButton extends StatelessWidget {
     required this.icon,
     required this.color,
     required this.onTap,
+    this.label, // YENİ PARAMETRE
   });
 
   final IconData icon;
   final Color color;
   final VoidCallback onTap;
+  final String? label; // YENİ
 
   @override
   Widget build(BuildContext context) {
@@ -251,6 +255,18 @@ final class _TonalActionButton extends StatelessWidget {
                   color: color.withValues(alpha: 0.9),
                   size: 22,
                 ),
+                // Eğer Label varsa göster
+                if (label != null) ...[
+                  const SizedBox(width: 8),
+                  Text(
+                    label!,
+                    style: TextStyle(
+                      color: color.withValues(alpha: 0.9),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
               ],
             ),
           ),

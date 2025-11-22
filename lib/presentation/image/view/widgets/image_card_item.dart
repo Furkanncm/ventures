@@ -59,7 +59,7 @@ final class _ImageDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => VDialogs.photoDialog(context:context, file:file),
+      onTap: () => VDialogs.photoDialog(context: context, file: file),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
@@ -74,8 +74,6 @@ final class _ImageDisplay extends StatelessWidget {
       ),
     );
   }
-
-
 }
 
 @immutable
@@ -133,13 +131,11 @@ final class _TonalActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = color.withValues(
-      alpha: 0.1,
-    ); // Arka planı bir tık belirginleştirdim
+    final backgroundColor = color.withValues(alpha: 0.1);
     return Expanded(
       child: Material(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(14), // Radius biraz artırıldı
+        borderRadius: BorderRadius.circular(14),
         child: InkWell(
           onTap: onTap,
           borderRadius: BorderRadius.circular(14),
@@ -148,8 +144,8 @@ final class _TonalActionButton extends StatelessWidget {
           child: Center(
             child: Icon(
               icon,
-              color: color.withValues(alpha: 1), // Rengi tam opak yaptım
-              size: 26, // DEĞİŞİKLİK: İkon boyutu büyütüldü (20 -> 26)
+              color: color.withValues(alpha: 1),
+              size: 26,
             ),
           ),
         ),
@@ -157,6 +153,3 @@ final class _TonalActionButton extends StatelessWidget {
     );
   }
 }
-
-
-

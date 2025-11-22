@@ -8,7 +8,7 @@ class TextToSpeechRequest extends Equatable {
   const TextToSpeechRequest({
     required this.text,
     this.modelId = 'eleven_multilingual_v2',
-    this.voiceId = '21m00Tcm4TlvDq8ikWAM', // Default: Rachel
+    this.voiceId = '21m00Tcm4TlvDq8ikWAM', 
     this.voiceSettings = const ElevenLabsVoiceSettings(),
   });
 
