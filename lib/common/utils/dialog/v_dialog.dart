@@ -1,10 +1,8 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:codegen/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
+import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/padding/v_padding.dart';
 import 'package:ventures/common/widgets/button/v_elevated_button.dart';
 import 'package:ventures/common/widgets/sized_box/v_sized_box.dart';
@@ -32,6 +30,27 @@ abstract class VDialogs {
         return _BaseDialog(
           title: title,
           content: content,
+          onPositiveButton: onPositiveButton,
+          negativeButtonLabel: negativeButtonLabel,
+          positiveButtonLabel: positiveButtonLabel,
+        );
+      },
+    );
+  }
+
+  static Future<bool?> logOutDialog({
+    required BuildContext context,
+
+    required VoidCallback onPositiveButton,
+    String positiveButtonLabel = StringConstants.logout,
+    String negativeButtonLabel = 'No',
+  }) async {
+    return showAdaptiveDialog<bool>(
+      context: context,
+      builder: (context) {
+        return _BaseDialog(
+          title: StringConstants.logoutDialogTitle,
+          content: StringConstants.logoutDialogContent,
           onPositiveButton: onPositiveButton,
           negativeButtonLabel: negativeButtonLabel,
           positiveButtonLabel: positiveButtonLabel,

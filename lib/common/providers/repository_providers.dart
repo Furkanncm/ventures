@@ -22,6 +22,7 @@ import 'package:ventures/presentation/auth/login/viewmodel/login_notifier.dart';
 import 'package:ventures/presentation/auth/login/viewmodel/login_state.dart';
 import 'package:ventures/presentation/auth/sign_up/viewmodel/sign_up_notifier.dart';
 import 'package:ventures/presentation/auth/sign_up/viewmodel/sign_up_state.dart';
+import 'package:ventures/presentation/auth/splash/viewmodel/splash_notifier.dart';
 import 'package:ventures/presentation/image/viewmodel/image_generation_notifier.dart';
 import 'package:ventures/presentation/image/viewmodel/image_generation_state.dart';
 import 'package:ventures/presentation/profile/viewmodel/profile_notifier.dart';
@@ -51,42 +52,6 @@ final userRepositoryProvider = Provider<IUserRepository>((ref) {
   final remoteDS = StorageRemoteDS();
   return UserRepository(remoteDS);
 });
-
-// ---------------------------------------------------------------------------
-// PROFILE NOTIFIER
-// ---------------------------------------------------------------------------
-
-final StateNotifierProvider<ProfileNotifier, ProfileState>
-profileNotifierProvider = StateNotifierProvider<ProfileNotifier, ProfileState>((
-  ref,
-) {
-  final repo = ref.read(userRepositoryProvider);
-  final cache = ref.read(cacheRepositoryProvider);
-  final auth = ref.read(authRepositoryProvider);
-
-  final startupAsync = ref.watch(appStartupProvider);
-  final initialUser = startupAsync.value;
-
-  return ProfileNotifier(repo, cache, auth, initialUser: initialUser);
-});
-// ---------------------------------------------------------------------------
-// LOGIN NOTIFIER
-// ---------------------------------------------------------------------------
-
-final StateNotifierProvider<LoginNotifier, LoginState> loginNotifierProvider =
-    StateNotifierProvider.autoDispose<LoginNotifier, LoginState>(
-      (ref) => LoginNotifier(ref.read(authRepositoryProvider)),
-    );
-
-// ---------------------------------------------------------------------------
-// SIGNUP NOTIFIER
-// ---------------------------------------------------------------------------
-
-final StateNotifierProvider<SignUpNotifier, SignUpState>
-signUpNotifierProvider =
-    StateNotifierProvider.autoDispose<SignUpNotifier, SignUpState>(
-      (ref) => SignUpNotifier(ref.read(authRepositoryProvider)),
-    );
 
 // ---------------------------------------------------------------------------
 // CACHE
@@ -217,20 +182,63 @@ final appStartupProvider = FutureProvider<UserInfoModel?>((ref) async {
   final cache = ref.read(cacheRepositoryProvider);
   final userRepo = ref.read(userRepositoryProvider);
 
-  // 2. Cache Kontrolü
   final uid = cache.getString(PrefKeys.isUserLoggedIn);
 
-  // Eğer ID yoksa null dön (Login ekranına gidecek)
   if (uid == null || uid.isEmpty) {
     return null;
   }
 
-  // 3. Repository'den Kullanıcıyı Çek
   final response = await userRepo.getUser(uid);
 
   if (response.success ?? false) {
-    return response.data; // Kullanıcı verisi dolu dönüyor
+    return response.data;
   } else {
-    return null; // Hata varsa null dön (Login'e gidecek)
+    return null;
   }
 });
+
+// SPLASH PROVIDER (Yeni)
+final StateNotifierProvider<SplashNotifier, SplashStatus> splashProvider =
+    StateNotifierProvider.autoDispose<SplashNotifier, SplashStatus>((ref) {
+      return SplashNotifier(
+        ref.read(userRepositoryProvider),
+        ref.read(cacheRepositoryProvider),
+      );
+    });
+
+// ---------------------------------------------------------------------------
+// PROFILE NOTIFIER (Sadeleşti)
+// ---------------------------------------------------------------------------
+final StateNotifierProvider<ProfileNotifier, ProfileState>
+profileNotifierProvider = StateNotifierProvider<ProfileNotifier, ProfileState>((
+  ref,
+) {
+  final repo = ref.read(userRepositoryProvider);
+  final cache = ref.read(cacheRepositoryProvider);
+  final auth = ref.read(authRepositoryProvider);
+
+  // ARTIK SADECE BUNLAR YETERLİ:
+  return ProfileNotifier(repo, cache, auth);
+});
+
+// LOGIN NOTIFIER (GÜNCELLENDİ)
+final StateNotifierProvider<LoginNotifier, LoginState> loginNotifierProvider =
+    StateNotifierProvider.autoDispose<LoginNotifier, LoginState>(
+      (ref) => LoginNotifier(
+        ref.read(authRepositoryProvider),
+        ref.read(userRepositoryProvider),
+        ref, // <--- BURAYA REF EKLİYORUZ
+      ),
+    );
+
+// ---------------------------------------------------------------------------
+// SIGNUP NOTIFIER (User Repo Eklendi)
+// ---------------------------------------------------------------------------
+final StateNotifierProvider<SignUpNotifier, SignUpState> signUpNotifierProvider =
+    StateNotifierProvider.autoDispose<SignUpNotifier, SignUpState>(
+      (ref) => SignUpNotifier(
+        ref.read(authRepositoryProvider),
+        ref.read(userRepositoryProvider),
+        ref, // <--- BURAYA REF EKLİYORUZ
+      ),
+    );

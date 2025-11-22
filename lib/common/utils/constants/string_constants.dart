@@ -106,6 +106,8 @@ final class StringConstants {
   static const String usageStatistics = 'Usage Statistics';
   static const String remainingCredits = 'Remaining Credits';
   static const String logout = 'Logout';
+  static const String logoutDialogTitle = 'Logging Out';
+  static const String logoutDialogContent = 'Are you sure you want to leave?';
 
   // ImageView
   static const String imageGeneratorTitle = 'Image Generator';

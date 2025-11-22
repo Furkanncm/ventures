@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
+import 'package:ventures/common/utils/dialog/v_dialog.dart';
 import 'package:ventures/common/utils/enum/subscription_type.dart';
 import 'package:ventures/common/utils/padding/v_padding.dart';
 import 'package:ventures/common/widgets/button/v_elevated_button.dart';
 import 'package:ventures/common/widgets/sized_box/v_sized_box.dart';
 import 'package:ventures/common/widgets/text/v_text.dart';
 import 'package:ventures/data/model/user/user_info.dart';
+import 'package:ventures/presentation/profile/viewmodel/profile_notifier.dart';
 import 'package:ventures/presentation/profile/viewmodel/profile_state.dart';
 
 part 'widgets/logout_button.dart';
@@ -33,15 +35,30 @@ final class ProfileView extends ConsumerWidget {
         ),
       ),
       body: RefreshIndicator(
-        // Aşağı çekince verileri yenile
         onRefresh: () async => notifier.getUser(),
-        child: state.isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : state.error != null
-            ? Center(child: VText(state.error!))
-            : state.user == null
-            ? const Center(child: CircularProgressIndicator())
-            : _Body(state: state, notifier: notifier),
+        child: Builder(
+          builder: (context) {
+            // 1. Yükleniyor durumu
+            if (state.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            // 2. Hata durumu
+            if (state.error != null) {
+              return Center(child: VText(state.error!));
+            }
+
+            // 3. User null ama yükleme bitmiş (Bu durumda login'e atabilirsin veya hata mesajı)
+            if (state.user == null) {
+              return const Center(
+                child: VText('Kullanıcı bilgisi bulunamadı.'),
+              );
+            }
+
+            // 4. Her şey yolunda
+            return _Body(state: state, notifier: notifier);
+          },
+        ),
       ),
     );
   }
@@ -55,7 +72,7 @@ final class _Body extends StatelessWidget {
   });
 
   final ProfileState state;
-  final dynamic notifier; // ProfileNotifier tipini verebilirsin
+  final ProfileNotifier notifier; // ProfileNotifier tipini verebilirsin
 
   @override
   Widget build(BuildContext context) {

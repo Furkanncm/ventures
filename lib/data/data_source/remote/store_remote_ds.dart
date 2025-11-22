@@ -9,11 +9,7 @@ import 'package:ventures/data/model/user/user_info.dart';
 abstract class IStorageRemoteDS {
   Future<BaseRemoteResponse<UserInfoModel?>> getUser(String uid);
   Future<BaseRemoteResponse<void>> setUser(UserInfoModel user);
-  Future<BaseRemoteResponse<void>> addHistoryItem(String uid, String itemId);
-  Future<BaseRemoteResponse<void>> addPublicItem(String uid, String itemId);
   Future<BaseRemoteResponse<void>> reportError(String uid, String error);
-  Future<BaseRemoteResponse<List<String>>> getPublicItems(String uid);
-  Future<BaseRemoteResponse<List<String>>> getHistoryItems(String uid);
   Future<BaseRemoteResponse<void>> incrementUsage(String uid, FeatureType type);
   Future<BaseRemoteResponse<void>> upgradeToPremium(String uid);
 }
@@ -61,41 +57,6 @@ class StorageRemoteDS implements IStorageRemoteDS {
     });
   }
 
-  @override
-  Future<BaseRemoteResponse<void>> addHistoryItem(
-    String uid,
-    String itemId,
-  ) async {
-    return safeCall(() async {
-      await _users.doc(uid).update({
-        'historyItems': FieldValue.arrayUnion([itemId]),
-      });
-      return BaseRemoteResponse(
-        data: null,
-        success: true,
-        message: StringConstants.historyItemAdded,
-        statusCode: 200,
-      );
-    });
-  }
-
-  @override
-  Future<BaseRemoteResponse<void>> addPublicItem(
-    String uid,
-    String itemId,
-  ) async {
-    return safeCall(() async {
-      await _users.doc(uid).update({
-        'publicItems': FieldValue.arrayUnion([itemId]),
-      });
-      return BaseRemoteResponse(
-        data: null,
-        success: true,
-        message: StringConstants.publicItemAdded,
-        statusCode: 200,
-      );
-    });
-  }
 
   @override
   Future<BaseRemoteResponse<void>> reportError(String uid, String error) async {
@@ -112,41 +73,7 @@ class StorageRemoteDS implements IStorageRemoteDS {
     });
   }
 
-  @override
-  Future<BaseRemoteResponse<List<String>>> getPublicItems(String uid) async {
-    return safeCall(() async {
-      final doc = await _users.doc(uid).get();
-      final data = doc.data() as Map<String, dynamic>?;
-      final items = data?['publicItems'] as List<dynamic>?;
 
-      return BaseRemoteResponse(
-        data: items?.map((e) => e.toString()).toList() ?? [],
-        success: true,
-        message: StringConstants.publicItemsFetched,
-        statusCode: 200,
-      );
-    });
-  }
-
-  @override
-  Future<BaseRemoteResponse<List<String>>> getHistoryItems(String uid) async {
-    return safeCall(() async {
-      final doc = await _users.doc(uid).get();
-      final data = doc.data() as Map<String, dynamic>?;
-      final items = data?['historyItems'] as List<dynamic>?;
-
-      return BaseRemoteResponse(
-        data: items?.map((e) => e.toString()).toList() ?? [],
-        success: true,
-        message: StringConstants.historyItemsFetched,
-        statusCode: 200,
-      );
-    });
-  }
-
-  // --- YENİ EKLENEN METODLAR ---
-
-  /// Kullanıcının belirli bir özellik için kullanım sayısını artırır.
   @override
   Future<BaseRemoteResponse<void>> incrementUsage(
     String uid,
@@ -179,7 +106,6 @@ class StorageRemoteDS implements IStorageRemoteDS {
     });
   }
 
-  /// Kullanıcıyı Premium'a geçirir (Fake Payment)
   @override
   Future<BaseRemoteResponse<void>> upgradeToPremium(String uid) async {
     return safeCall(() async {
@@ -195,8 +121,6 @@ class StorageRemoteDS implements IStorageRemoteDS {
       );
     });
   }
-
-  // --- YARDIMCI METOD ---
 
   Future<BaseRemoteResponse<T>> safeCall<T>(
     Future<BaseRemoteResponse<T>> Function() action,

@@ -55,14 +55,17 @@ class AuthRepository implements IAuthRepository {
     );
 
     if ((response.success ?? false) && response.data != null) {
+      final uid = response.data!.uid!;
+
+      // Kayıt anında kullanıcı yeni olduğu için direkt yazabiliriz
       final userInfo = UserInfoModel(
-        uid: response.data!.uid,
+        uid: uid,
         displayName: response.data!.displayName ?? '',
         email: response.data!.email ?? '',
       );
       await _storeRemoteDS.setUser(userInfo);
 
-      await _setUserLoggedIn(response.data?.uid);
+      await _setUserLoggedIn(uid);
     }
 
     return response;
@@ -89,22 +92,35 @@ class AuthRepository implements IAuthRepository {
   }
 
   /// ---------------------------
-  /// Login Google
+  /// Login Google (DÜZELTİLDİ)
   /// ---------------------------
   @override
   Future<BaseRemoteResponse<AuthUser>> loginWithGoogle() async {
     final response = await _authRemoteDS.loginWithGoogle();
 
     if ((response.success ?? false) && response.data != null) {
-      final userInfo = UserInfoModel(
-        uid: response.data!.uid,
-        displayName: response.data!.displayName ?? '',
-        email: response.data!.email ?? '',
-        photoUrl: response.data!.photoUrl,
-      );
-      await _storeRemoteDS.setUser(userInfo);
+      final uid = response.data!.uid!;
 
-      await _setUserLoggedIn(response.data?.uid);
+      // 1. ÖNCE KONTROL ET: Bu kullanıcı veritabanında var mı?
+      final userCheck = await _storeRemoteDS.getUser(uid);
+
+      if (userCheck.success ?? false ) {
+        // DURUM A: Kullanıcı ZATEN VAR (Eski kullanıcı).
+        // Veritabanına YAZMA! Mevcut ttsUsage vs. korunsun.
+        // Sadece oturumu cache'e kaydet.
+        await _setUserLoggedIn(uid);
+      } else {
+        // DURUM B: Kullanıcı YOK (İlk defa Google ile giriyor).
+        // Yeni model oluştur ve kaydet.
+        final userInfo = UserInfoModel(
+          uid: uid,
+          displayName: response.data!.displayName ?? '',
+          email: response.data!.email ?? '',
+          photoUrl: response.data!.photoUrl,
+        );
+        await _storeRemoteDS.setUser(userInfo);
+        await _setUserLoggedIn(uid);
+      }
     }
 
     return response;

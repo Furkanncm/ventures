@@ -23,7 +23,6 @@ part 'widgets/sign_up_buttons.dart';
 part 'widgets/sign_up_footer.dart';
 part 'widgets/sign_up_form.dart';
 part 'widgets/sign_up_header.dart';
-
 @immutable
 class SignUpView extends ConsumerStatefulWidget {
   const SignUpView({super.key});
@@ -32,11 +31,15 @@ class SignUpView extends ConsumerStatefulWidget {
   ConsumerState<SignUpView> createState() => _SignUpViewState();
 }
 
-class _SignUpViewState extends ConsumerState<SignUpView>
-    with SignUpListenerMixin {
+class _SignUpViewState extends ConsumerState<SignUpView> with SignUpListenerMixin {
   @override
   Widget build(BuildContext context) {
+    // Listener'ı çalıştır (Hata mesajları için)
     useSignUpListener(context, ref);
+    
+    // Loading durumunu izle (Butonlarda loading göstermek istersen)
+    final state = ref.watch(signUpNotifierProvider);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -63,10 +66,15 @@ class _SignUpViewState extends ConsumerState<SignUpView>
                         displayNameController: displayNameController,
                       ),
                       VSizedBox.verticalBox24,
-                      SignUpButtons(
-                        onEmailRegisterPressed: register,
-                        onGoogleRegisterPressed: registerWithGoogle,
-                      ),
+                      
+                      // Butonlara loading state'ini de verebilirsin
+                      state.isLoading 
+                        ? const CircularProgressIndicator()
+                        : SignUpButtons(
+                            onEmailRegisterPressed: register, // Mixin'den geliyor
+                            onGoogleRegisterPressed: registerWithGoogle, // Mixin'den geliyor
+                          ),
+                          
                       const SignUpFooter(),
                     ],
                   ),

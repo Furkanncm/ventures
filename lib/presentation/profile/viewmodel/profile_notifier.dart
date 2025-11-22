@@ -14,9 +14,10 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
   ProfileNotifier(
     this._repository,
     this._cache,
-    this.authRepository, {
-    UserInfoModel? initialUser, // Constructor'a ekledik
-  }) : super(ProfileState.initial().copyWith(user: initialUser));
+    this.authRepository,
+  ) : super(ProfileState.initial()) {
+    _init();
+  }
 
   final IUserRepository _repository;
   final ICacheRepository _cache;
@@ -24,9 +25,27 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
 
   String? get uid => _cache.getString(PrefKeys.isUserLoggedIn);
 
+  void _init() {
+    if (_repository.currentUser != null) {
+      state = state.copyWith(
+        user: _repository.currentUser,
+        isLoading: false,
+      );
+    } else {
+      getUser();
+    }
+  }
+
   Future<void> getUser() async {
+    if (state.user == null) {
+      state = state.copyWith(isLoading: true);
+    }
+
     final userId = uid;
-    if (userId == null) return;
+    if (userId == null) {
+      state = state.copyWith(isLoading: false);
+      return;
+    }
 
     final response = await _repository.getUser(userId);
 
@@ -43,7 +62,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     }
   }
 
-  /// Kullanıcıyı Güncelle
   Future<void> updateUser(UserInfoModel user) async {
     state = state.copyWith(isLoading: true);
     final response = await _repository.setUser(user);
@@ -55,38 +73,39 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     }
   }
 
-  /// Premium'a Yükselt (Fake Payment Logic)
+  // --- EKSİK OLAN FONKSİYON BU ---
   Future<void> upgradeToPremium() async {
     final userId = uid;
     if (userId == null) return;
 
     state = state.copyWith(isLoading: true);
 
-    // Repository üzerinden işlemi yap
     await _repository.upgradeToPremium(userId);
 
-    // İşlem bitince kullanıcı verisini (ve abonelik tipini) tekrar çek
-    await getUser();
-
-    state = state.copyWith(isLoading: false);
+    if (_repository.currentUser != null) {
+      state = state.copyWith(user: _repository.currentUser, isLoading: false);
+    } else {
+      await getUser();
+    }
   }
+  // -------------------------------
 
-  /// Hata Raporla
   Future<void> reportError(String error) async {
     final userId = uid;
     if (userId == null) return;
-
     await _repository.reportError(userId, error);
   }
 
-  /// Çıkış Yap
   Future<void> logout() async {
     state = state.copyWith(isLoading: true);
 
     final response = await authRepository.logout();
 
     if (response.success ?? false) {
-      state = state.copyWith(isLoading: false);
+      await _cache.remove(PrefKeys.isUserLoggedIn);
+      _repository.clearCurrentUser();
+
+      state = ProfileState.initial();
       router.goNamed(RoutePaths.login.name);
     } else {
       state = state.copyWith(
@@ -97,12 +116,11 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
   }
 
   void incrementLocalUsage(FeatureType type) {
-    final currentUser = state.user;
+    final currentUser = _repository.currentUser ?? state.user;
     if (currentUser == null) return;
 
     UserInfoModel updatedUser;
 
-    // İlgili sayacı 1 artırıyoruz
     switch (type) {
       case FeatureType.imageGeneration:
         updatedUser = currentUser.copyWith(
@@ -118,7 +136,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
         );
     }
 
-    // State'i güncelliyoruz, böylece ProfileView otomatik olarak bunu algılar
+    _repository.setCurrentUser(updatedUser);
     state = state.copyWith(user: updatedUser);
   }
 }

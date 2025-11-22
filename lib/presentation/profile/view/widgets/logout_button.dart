@@ -10,7 +10,17 @@ final class _LogoutButton extends ConsumerWidget {
       width: double.infinity,
       child: OutlinedButton.icon(
         onPressed: () async {
-          await ref.read(profileNotifierProvider.notifier).logout();
+          // 1. Dialog'u göster ve cevabı bekle
+          final shouldLogout = await VDialogs.logOutDialog(
+            context: context,
+            onPositiveButton: () async =>
+                ref.read(profileNotifierProvider.notifier).logout(),
+          );
+
+          // 2. Eğer cevap 'true' ise (kullanıcı onay verdiyse) çıkış yap
+          if (shouldLogout ?? false) {
+            await ref.read(profileNotifierProvider.notifier).logout();
+          }
         },
         icon: const Icon(Icons.logout, color: Colors.red),
         label: const VText(
@@ -20,7 +30,9 @@ final class _LogoutButton extends ConsumerWidget {
         style: OutlinedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 16),
           side: const BorderSide(color: Colors.red),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
       ),
     );

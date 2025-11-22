@@ -21,7 +21,7 @@ mixin SignUpListenerMixin on ConsumerState<SignUpView> {
   void useSignUpListener(BuildContext context, WidgetRef ref) {
     ref.listen<SignUpState>(signUpNotifierProvider, (prev, next) {
       if (next.user != null) {
-        router.goNamed(RoutePaths.Audio.name);
+        router.goNamed(RoutePaths.Image.name);
       }
 
       // Hata varsa Snackbar göster
@@ -40,9 +40,9 @@ mixin SignUpListenerMixin on ConsumerState<SignUpView> {
     final notifier = ref.read(signUpNotifierProvider.notifier);
     await notifier
         .register(
-          emailController.text,
-          passwordController.text,
-          displayNameController.text,
+          emailController.text.trim(),
+          passwordController.text.trim(),
+          displayNameController.text.trim(),
         )
         .withLoading(context)
         .withSnackbar(context, successMessage: StringConstants.registerSuccess);

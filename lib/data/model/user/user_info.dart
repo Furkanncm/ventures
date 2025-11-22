@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart'; 
+import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ventures/common/base/base_user_model.dart';
 import 'package:ventures/common/utils/enum/feature_type.dart';
@@ -64,15 +64,41 @@ final class UserInfoModel extends Equatable
   }
 
   UserInfoModel consumeCredit(FeatureType type) {
-    if (subscriptionType == SubscriptionType.premium) return this;
+    if (subscriptionType == SubscriptionType.premium) {
+      switch (type) {
+        case FeatureType.imageGeneration:
+          return copyWith(imageGenUsage: imageGenUsage + 1);
+        case FeatureType.textToSpeech:
+          return copyWith(ttsUsage: ttsUsage + 1);
+        case FeatureType.documentAnalysis:
+          return copyWith(docAnalysisUsage: docAnalysisUsage + 1);
+      }
+    }
 
+    // Free kullanıcı ise Max Limit'i (3) geçmesine izin verme
     switch (type) {
       case FeatureType.imageGeneration:
-        return copyWith(imageGenUsage: imageGenUsage + 1);
+        final newValue = imageGenUsage + 1;
+        return copyWith(
+          // Eğer yeni değer max'tan büyükse max'ı yaz, değilse yeniyi yaz
+          imageGenUsage: newValue > maxFreeLimitPerFeature
+              ? maxFreeLimitPerFeature
+              : newValue,
+        );
       case FeatureType.textToSpeech:
-        return copyWith(ttsUsage: ttsUsage + 1);
+        final newValue = ttsUsage + 1;
+        return copyWith(
+          ttsUsage: newValue > maxFreeLimitPerFeature
+              ? maxFreeLimitPerFeature
+              : newValue,
+        );
       case FeatureType.documentAnalysis:
-        return copyWith(docAnalysisUsage: docAnalysisUsage + 1);
+        final newValue = docAnalysisUsage + 1;
+        return copyWith(
+          docAnalysisUsage: newValue > maxFreeLimitPerFeature
+              ? maxFreeLimitPerFeature
+              : newValue,
+        );
     }
   }
 
