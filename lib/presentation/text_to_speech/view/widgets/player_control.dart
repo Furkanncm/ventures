@@ -18,11 +18,6 @@ final class _TTSPlayerControl extends StatelessWidget {
       spacing: 12,
       children: [
         const Divider(),
-        const VText(
-          StringConstants.play,
-          color: ColorName.onSuccess,
-          fontWeight: FontWeight.bold,
-        ),
         PlayAndShareButton(onPlay: onPlay, onShare: onShare),
         FutureBuilder<int>(
           future: File(record.filePath).length(),

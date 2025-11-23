@@ -21,7 +21,7 @@ final class _MessageBubble extends StatelessWidget {
           if (!isUser) ...[
             const CircleAvatar(
               radius: 16,
-              backgroundColor: ColorName.secondary,
+              backgroundColor: ColorName.primary,
               child: Icon(
                 Icons.smart_toy_rounded,
                 size: 18,
@@ -34,7 +34,7 @@ final class _MessageBubble extends StatelessWidget {
             child: Container(
               padding: const VPadding.messageBubblePadding(),
               decoration: BoxDecoration(
-                color: isUser ? ColorName.secondary : ColorName.backgroundLight,
+                color: isUser ? ColorName.primary : ColorName.backgroundLight,
                 borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(20),
                   topRight: const Radius.circular(20),
@@ -50,6 +50,9 @@ final class _MessageBubble extends StatelessWidget {
                 message.text,
                 type: VTextStyleType.bodyLarge,
                 maxLines: 15,
+                color: isUser
+                    ? ColorName.backgroundLight
+                    : ColorName.backgroundDark,
               ),
             ),
           ),

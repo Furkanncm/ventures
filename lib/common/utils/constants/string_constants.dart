@@ -6,6 +6,8 @@ final class StringConstants {
   static const String eventlabBaseUrl =
       'https://api.elevenlabs.io/v1/text-to-speech/';
 
+  static const String defaultVoice = '21m00Tcm4TlvDq8ikWAM';
+
   static final emailRegExp = RegExp(
     r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$",
   );
@@ -234,6 +236,16 @@ final class StringConstants {
   static const String suggestCredit = 'How much credit do I have? 💎';
   static const String suggestAppInfo = 'Tell me about this app 🚀';
   static const String suggestTTS = 'How to convert text to speech? 🗣️';
+
+  // Voice Accents (Aksanlar)
+  static const String accentAmerican = 'American';
+  static const String accentBritish = 'British';
+  static const String accentAustralian = 'Australian';
+  static const String accentIndian = 'Indian';
+  static const String accentAfrican = 'African';
+  static const String accentGeneral = 'General';
+
+  static const String selectVoice = 'Select Voice';
 
   static const String aiSystemInstruction = '''
 You are the AI Assistant for the "Ventures" mobile application.

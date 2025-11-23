@@ -46,10 +46,8 @@ class Part extends Equatable {
 
   factory Part.fromJson(Map<String, dynamic> json) => _$PartFromJson(json);
 
-  // Text prompt için
   final String? text;
 
-  // Görsel verisi için (Google API'de 'inline_data' olarak geçer)
   @JsonKey(name: 'inline_data')
   final InlineData? inlineData;
 

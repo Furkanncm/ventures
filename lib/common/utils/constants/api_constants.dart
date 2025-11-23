@@ -16,6 +16,8 @@ final class ApiConstants {
 
   static const String elevenLabsBaseUrl =
       'https://api.elevenlabs.io/v1/text-to-speech';
+  static const String elevenLabsVoicesUrl =
+      'https://api.elevenlabs.io/v1/voices';
 
   static String getElevenLabsUrl(String voiceId) {
     return '$elevenLabsBaseUrl/$voiceId';
