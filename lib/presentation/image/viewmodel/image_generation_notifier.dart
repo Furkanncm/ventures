@@ -20,7 +20,6 @@ class ImageGenerationNotifier extends StateNotifier<ImageGenerationState> {
       state = state.copyWith(loading: true);
       final (bytes, imageFile) = await repo.generateImage(prompt);
 
-      // Profildeki sayacı artır
       ref
           .read(profileNotifierProvider.notifier)
           .incrementLocalUsage(FeatureType.imageGeneration);

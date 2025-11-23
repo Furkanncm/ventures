@@ -27,18 +27,15 @@ mixin ImageViewMixin on ConsumerState<ImageView> {
   }
 
 Future<void> generateImage() async {
-    // 1. Kullanıcıyı ve Limitini Kontrol Et
     final user = ref.read(profileNotifierProvider).user;
 
-    // Kullanıcı yoksa veya limiti dolmuşsa
     if (user != null && !user.hasCredit(FeatureType.imageGeneration)) {
-      // Hata mesajını direkt burada gösteriyoruz
       VSnackBar.show(
         context: context,
-        text: StringConstants.freeLimitReached, // "Limitiniz doldu..."
+        text: StringConstants.freeLimitReached, 
         type: SnackBarType.error,
       );
-      return; // İşlemi burada kes, Notifier'a gitme
+      return; 
     }
 
     final prompt = controller.text.trim();

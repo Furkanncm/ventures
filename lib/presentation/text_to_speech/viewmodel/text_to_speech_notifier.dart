@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
@@ -6,7 +8,6 @@ import 'package:ventures/common/utils/enum/feature_type.dart';
 import 'package:ventures/data/model/text_to_speech/text_to_speech_request.dart';
 import 'package:ventures/domain/history/history_repository.dart';
 import 'package:ventures/domain/text_to_speech/text_to_speech_repository.dart';
-import 'package:ventures/domain/user/user_repository.dart';
 import 'package:ventures/presentation/text_to_speech/viewmodel/text_to_speech_state.dart';
 
 class TextToSpeechNotifier extends StateNotifier<TextToSpeechState> {
@@ -14,13 +15,11 @@ class TextToSpeechNotifier extends StateNotifier<TextToSpeechState> {
     this._ref,
     this._repository,
     this._historyRepository,
-    this._userRepository,
   ) : super(TextToSpeechState.initial());
 
   final Ref _ref;
   final TextToSpeechRepository _repository;
   final IHistoryRepository _historyRepository;
-  final IUserRepository _userRepository;
 
   Future<void> convertTextToSpeech({
     required String text,
@@ -42,7 +41,7 @@ class TextToSpeechNotifier extends StateNotifier<TextToSpeechState> {
         isLoading: false,
         errorMessage: StringConstants.freeLimitReached,
       );
-      return; 
+      return;
     }
 
     state = state.copyWith(isLoading: true);
@@ -61,13 +60,11 @@ class TextToSpeechNotifier extends StateNotifier<TextToSpeechState> {
           text: text,
         );
 
-        await _userRepository.incrementUsage(
-          user.uid!,
-          FeatureType.textToSpeech,
+        unawaited(
+          _ref
+              .read(profileNotifierProvider.notifier)
+              .incrementLocalUsage(FeatureType.textToSpeech),
         );
-        _ref
-            .read(profileNotifierProvider.notifier)
-            .incrementLocalUsage(FeatureType.textToSpeech);
 
         state = state.copyWith(
           isLoading: false,

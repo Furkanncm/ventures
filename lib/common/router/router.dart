@@ -5,6 +5,7 @@ import 'package:ventures/common/widgets/bottom_navigation_bar/v_bottom_navigatio
 import 'package:ventures/presentation/auth/login/view/login_view.dart';
 import 'package:ventures/presentation/auth/sign_up/view/sign_up_view.dart';
 import 'package:ventures/presentation/auth/splash/view/splash_view.dart';
+import 'package:ventures/presentation/chat/view/chat_view.dart';
 import 'package:ventures/presentation/document_analysis/view/document_analysis_history_view.dart';
 import 'package:ventures/presentation/document_analysis/view/document_analysis_view.dart';
 import 'package:ventures/presentation/image/view/image_history_view.dart';
@@ -33,6 +34,11 @@ final GoRouter router = GoRouter(
       name: RoutePaths.signUp.name,
       path: RoutePaths.signUp.path,
       builder: (context, state) => const SignUpView(),
+    ),
+    GoRoute(
+      name: RoutePaths.chat.name,
+      path: RoutePaths.chat.path,
+      builder: (context, state) => const ChatView(),
     ),
 
     ShellRoute(

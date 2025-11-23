@@ -21,9 +21,7 @@ final class BehindContainer extends StatelessWidget {
       width: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: isCurrentIndex
-            ? ColorName.primary.withValues(alpha: 0.1)
-            : null,
+        color: isCurrentIndex ? ColorName.primary.withValues(alpha: 0.1) : null,
       ),
       child: Icon(isCurrentIndex ? selectedIcon : unSelectedIcon),
     );

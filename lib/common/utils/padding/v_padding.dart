@@ -32,6 +32,13 @@ final class VPadding extends EdgeInsets {
         horizontal: 12,
         vertical: 16,
       );
+      const VPadding.messageBubblePadding()
+    : super.symmetric(
+        horizontal: 16,
+        vertical: 12,
+      );
 
   const VPadding.cardPadding() : super.symmetric(horizontal: 16, vertical: 8);
+
+  const VPadding.onlyBottomPadding(): super.only(bottom: 12);
 }

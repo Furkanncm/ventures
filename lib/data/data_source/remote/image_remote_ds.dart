@@ -26,7 +26,6 @@ class ImageRemoteDS {
       apiKey: apiKey!,
       imageAIStyle: imageAIStyle,
     );
-    await incrementUserFreeUsage();
     return result;
   }
 

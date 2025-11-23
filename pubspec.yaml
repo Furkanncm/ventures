@@ -16,6 +16,7 @@ dependencies:
   firebase_auth: ^6.1.2
   cloud_firestore: ^6.1.0
   google_sign_in: ^6.1.6
+  firebase_crashlytics: ^5.0.5
 
   # State Managment
   flutter_riverpod: ^3.0.3
@@ -34,12 +35,14 @@ dependencies:
   go_router: ^17.0.0
   equatable: ^2.0.7
   image_gallery_saver_plus: ^4.0.1
-  stability_image_generation: ^1.0.0
   share_plus: ^12.0.1
   uuid: ^4.2.1
   intl: ^0.19.0 
   file_saver: ^0.2.14
   image_picker: ^1.2.1
+  cupertino_icons: ^1.0.8
+  flutter_markdown: ^0.7.7+1
+  pdf: ^3.11.3
 
   # Security
   flutter_dotenv: ^6.0.0
@@ -51,11 +54,9 @@ dependencies:
   codegen:
     path: codegen
   
-
-  cupertino_icons: ^1.0.8
+  # AI
+  stability_image_generation: ^1.0.0
   google_generative_ai: ^0.4.7
-  flutter_markdown: ^0.7.7+1
-  pdf: ^3.11.3
 
 dev_dependencies:
   flutter_test:

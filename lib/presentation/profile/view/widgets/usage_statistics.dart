@@ -41,7 +41,7 @@ final class _UsageStatistics extends StatelessWidget {
           label: StringConstants.documentAnalysis,
           current: user.docAnalysisUsage,
           max: user.maxFreeLimitPerFeature,
-          color: ColorName.onError,
+          color: ColorName.tertiary,
         ),
       ],
     );

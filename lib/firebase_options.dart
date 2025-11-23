@@ -63,6 +63,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1037858245018',
     projectId: 'ventures-ai-app-e3650',
     storageBucket: 'ventures-ai-app-e3650.firebasestorage.app',
+    androidClientId: '1037858245018-vjp2dkg3pud5589vf6bufuaq16o7v6fq.apps.googleusercontent.com',
+    iosClientId: '1037858245018-njj8rebp6afdb36b10rqfp3cvecrnbeq.apps.googleusercontent.com',
     iosBundleId: 'com.example.venture',
   );
+
 }

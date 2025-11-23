@@ -216,4 +216,39 @@ final class StringConstants {
   static const String textToSpeech = 'Text to Speech';
   static const String documentAnalysis = 'Document Analysis';
   static const String used = 'Used';
+
+  static const String chatTitle = 'Ventures Assistant 🤖';
+  static const String chatInputHint = 'Ask a question...';
+  static const String aiApiKeyNotFound = 'API Key not found';
+  static const String aiErrorPrefix = 'AI could not respond:';
+  static const String aiUnknownResponse = 'Could not understand.';
+  static const String online = 'Online';
+  static const String aiTyping = 'AI is thinking...';
+  static const String howCanIHelp = 'How can I help you today?';
+  static const String clearChat = 'Clear Chat';
+  static const String thinking = 'Thinking...';
+
+  // Chat Suggestions
+  static const String suggestImage = 'How to create an image? 🎨';
+  static const String suggestPdf = 'Can you analyze a PDF? 📄';
+  static const String suggestCredit = 'How much credit do I have? 💎';
+  static const String suggestAppInfo = 'Tell me about this app 🚀';
+  static const String suggestTTS = 'How to convert text to speech? 🗣️';
+
+  static const String aiSystemInstruction = '''
+You are the AI Assistant for the "Ventures" mobile application.
+Your Goal: Answer user questions about the app and guide them.
+
+App Features:
+1. Document Analysis: Users can upload images or PDFs to be analyzed by AI.
+2. Text to Speech (TTS): Converts text to speech, downloadable as MP3.
+3. Image Generation: Generates images from text prompts.
+4. History: All transactions (Docs, Audio, Images) are saved in history.
+5. Credit System: Free users have 3 daily credits per feature. Premium is unlimited.
+
+Rules:
+- NEVER answer general questions like history, math, coding, or weather.
+- If asked about non-app topics, reply: "I can only assist with the Ventures app."
+- Keep answers concise, polite, and use emojis.
+''';
 }

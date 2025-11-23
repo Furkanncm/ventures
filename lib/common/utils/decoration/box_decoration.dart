@@ -38,4 +38,16 @@ final class CustomBoxDecoration extends BoxDecoration {
           color: ColorName.gray.withValues(alpha: 0.3),
         ),
       );
+
+  CustomBoxDecoration.chatGradient()
+    : super(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            ColorName.backgroundLight,
+            ColorName.primary.withValues(alpha: 0.05),
+          ],
+        ),
+      );
 }

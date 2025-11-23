@@ -20,7 +20,7 @@ import 'package:flutter/material.dart';
 /// Naming conventions:
 /// - `verticalBoxX`: vertical spacing (height = X)
 /// - `horizontalBoxX`: horizontal spacing (width = X)
-/// - `extraSmall`, `small`, `medium`, etc.: square boxes with equal width & height.
+/// - `extraSmall`, `small`, `medium`, etc.: square boxes 
 final class VSizedBox {
   VSizedBox._();
 

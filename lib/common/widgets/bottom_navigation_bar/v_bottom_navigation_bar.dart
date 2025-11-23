@@ -1,3 +1,4 @@
+import 'package:codegen/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ventures/common/router/router.dart';
@@ -25,11 +26,27 @@ final class AppNavigationBar extends StatelessWidget {
 
     return Scaffold(
       body: child,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await context.pushNamed(RoutePaths.chat.name);
+        },
+        backgroundColor: ColorName.primary,
+        elevation: 4,
+        child: const Icon(
+          Icons.chat_bubble_outline_rounded,
+          color: ColorName.backgroundLight,
+          size: 28,
+        ),
+      ),
+
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (index) {
           router.go(tabs[index]);
         },
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
         items: [
           BottomNavigationBarItem(
             icon: BehindContainer(
@@ -55,7 +72,6 @@ final class AppNavigationBar extends StatelessWidget {
             ),
             label: RoutePaths.Document.name,
           ),
-
           BottomNavigationBarItem(
             icon: BehindContainer(
               isCurrentIndex: currentIndex == 3,

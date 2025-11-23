@@ -27,7 +27,7 @@ final class _SelectionContainer extends StatelessWidget {
           image: (state.selectedBytes != null && state.mimeType == 'image/jpeg')
               ? DecorationImage(
                   image: MemoryImage(state.selectedBytes!),
-                  fit: BoxFit.contain,
+                  fit: BoxFit.fill,
                 )
               : null,
         ),

@@ -8,6 +8,7 @@ enum RoutePaths {
   documentHistory('/documentHistory'),
   Image('/Image'),
   imageHistory('/imageHistory'),
+  chat('/Chat'),
   Profile('/Profile');
 
   const RoutePaths(this.path);
