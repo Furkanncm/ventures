@@ -31,17 +31,12 @@ class AuthRepository implements IAuthRepository {
   final IAuthRemoteDS _authRemoteDS;
   final IStorageRemoteDS _storeRemoteDS;
 
-  /// ---------------------------
-  /// SharedPreferences helper
-  /// ---------------------------
+
   Future<void> _setUserLoggedIn(String? uid) async {
     if (uid == null) return;
     await CacheRepository.instance.setString(PrefKeys.isUserLoggedIn, uid);
   }
 
-  /// ---------------------------
-  /// Register
-  /// ---------------------------
   @override
   Future<BaseRemoteResponse<AuthUser>> registerWithEmail({
     required String email,
@@ -57,7 +52,6 @@ class AuthRepository implements IAuthRepository {
     if ((response.success ?? false) && response.data != null) {
       final uid = response.data!.uid!;
 
-      // Kayıt anında kullanıcı yeni olduğu için direkt yazabiliriz
       final userInfo = UserInfoModel(
         uid: uid,
         displayName: response.data!.displayName ?? '',
@@ -71,9 +65,7 @@ class AuthRepository implements IAuthRepository {
     return response;
   }
 
-  /// ---------------------------
-  /// Login Email
-  /// ---------------------------
+
   @override
   Future<BaseRemoteResponse<AuthUser>> loginWithEmail({
     required String email,
@@ -91,9 +83,7 @@ class AuthRepository implements IAuthRepository {
     return response;
   }
 
-  /// ---------------------------
-  /// Login Google (DÜZELTİLDİ)
-  /// ---------------------------
+
   @override
   Future<BaseRemoteResponse<AuthUser>> loginWithGoogle() async {
     final response = await _authRemoteDS.loginWithGoogle();
@@ -101,17 +91,11 @@ class AuthRepository implements IAuthRepository {
     if ((response.success ?? false) && response.data != null) {
       final uid = response.data!.uid!;
 
-      // 1. ÖNCE KONTROL ET: Bu kullanıcı veritabanında var mı?
       final userCheck = await _storeRemoteDS.getUser(uid);
 
       if (userCheck.success ?? false ) {
-        // DURUM A: Kullanıcı ZATEN VAR (Eski kullanıcı).
-        // Veritabanına YAZMA! Mevcut ttsUsage vs. korunsun.
-        // Sadece oturumu cache'e kaydet.
         await _setUserLoggedIn(uid);
       } else {
-        // DURUM B: Kullanıcı YOK (İlk defa Google ile giriyor).
-        // Yeni model oluştur ve kaydet.
         final userInfo = UserInfoModel(
           uid: uid,
           displayName: response.data!.displayName ?? '',
@@ -126,9 +110,7 @@ class AuthRepository implements IAuthRepository {
     return response;
   }
 
-  /// ---------------------------
-  /// Logout
-  /// ---------------------------
+
   @override
   Future<BaseRemoteResponse<void>> logout() async {
     final response = await _authRemoteDS.logout();
@@ -140,9 +122,6 @@ class AuthRepository implements IAuthRepository {
     return response;
   }
 
-  /// ---------------------------
-  /// Current User
-  /// ---------------------------
   @override
   BaseRemoteResponse<AuthUser> getCurrentUser() {
     return _authRemoteDS.getCurrentUser();

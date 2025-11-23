@@ -33,19 +33,7 @@ final class _MessageBubble extends StatelessWidget {
           Flexible(
             child: Container(
               padding: const VPadding.messageBubblePadding(),
-              decoration: BoxDecoration(
-                color: isUser ? ColorName.primary : ColorName.backgroundLight,
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(20),
-                  topRight: const Radius.circular(20),
-                  bottomLeft: isUser
-                      ? const Radius.circular(20)
-                      : const Radius.circular(4),
-                  bottomRight: isUser
-                      ? const Radius.circular(4)
-                      : const Radius.circular(20),
-                ),
-              ),
+              decoration: CustomBoxDecoration.messageDecoration(isUser: isUser),
               child: VText(
                 message.text,
                 type: VTextStyleType.bodyLarge,

@@ -63,8 +63,6 @@ class TextToSpeechNotifier extends StateNotifier<TextToSpeechState> {
       return;
     }
 
-    state = state.copyWith(isLoading: true);
-
     final currentVoiceId =
         state.selectedVoice?.voiceId ?? StringConstants.defaultVoice;
 

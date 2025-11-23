@@ -28,14 +28,15 @@ part 'widgets/player_control.dart';
 part 'widgets/voice_selector.dart';
 
 @immutable
-final class TTSPage extends ConsumerStatefulWidget {
-  const TTSPage({super.key});
+final class TextToSpeechView extends ConsumerStatefulWidget {
+  const TextToSpeechView({super.key});
 
   @override
-  ConsumerState<TTSPage> createState() => _TTSPageState();
+  ConsumerState<TextToSpeechView> createState() => _TextToSpeechViewState();
 }
 
-class _TTSPageState extends ConsumerState<TTSPage> with TTSMixin {
+class _TextToSpeechViewState extends ConsumerState<TextToSpeechView>
+    with TextToSpeechViewMixin {
   @override
   Widget build(BuildContext context) {
     final ttsState = ref.watch(ttsProvider);
@@ -60,29 +61,28 @@ class _TTSPageState extends ConsumerState<TTSPage> with TTSMixin {
           ),
         ],
       ),
-      body: Padding(
-        padding: VPadding.pagePadding(),
-        child: Column(
-          spacing: 24,
-          children: [
-            _TTSInputSection(controller: textController),
-            if (ttsState.isLoading)
-              const Center(child: CircularProgressIndicator.adaptive())
-            else
-              const _VoiceSelector(),
-            _TTSActionButton(
-              onTap: onConvertPressed,
-            ),
+      body: ttsState.isLoading
+          ? const Center(child: CircularProgressIndicator.adaptive())
+          : Padding(
+              padding: VPadding.pagePadding(),
+              child: Column(
+                spacing: 24,
+                children: [
+                  _TTSInputSection(controller: textController),
 
-            if (ttsState.audioRecord != null && !ttsState.isLoading)
-              _TTSPlayerControl(
-                record: ttsState.audioRecord!,
-                onPlay: () => playAudio(ttsState.audioRecord!.filePath),
-                onShare: () => shareRecord(ttsState.audioRecord!.filePath),
+                  const _VoiceSelector(),
+                  _TTSActionButton(onTap: onConvertPressed),
+
+                  if (ttsState.audioRecord != null && !ttsState.isLoading)
+                    _TTSPlayerControl(
+                      record: ttsState.audioRecord!,
+                      onPlay: () => playAudio(ttsState.audioRecord!.filePath),
+                      onShare: () =>
+                          shareRecord(ttsState.audioRecord!.filePath),
+                    ),
+                ],
               ),
-          ],
-        ),
-      ),
+            ),
     );
   }
 }

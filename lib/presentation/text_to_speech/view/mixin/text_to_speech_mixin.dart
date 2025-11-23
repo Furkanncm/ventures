@@ -11,7 +11,8 @@ import 'package:ventures/common/utils/extensions/future_extension.dart';
 import 'package:ventures/common/utils/snackbar/v_snackbar.dart';
 import 'package:ventures/domain/share/share_repository.dart';
 
-mixin TTSMixin<T extends ConsumerStatefulWidget> on ConsumerState<T> {
+mixin TextToSpeechViewMixin<T extends ConsumerStatefulWidget>
+    on ConsumerState<T> {
   late final TextEditingController textController;
   late final AudioPlayer audioPlayer;
 

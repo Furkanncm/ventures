@@ -49,7 +49,7 @@ final GoRouter router = GoRouter(
           path: RoutePaths.Audio.path,
           name: RoutePaths.Audio.name,
           pageBuilder: (context, state) => const NoTransitionPage(
-            child: TTSPage(),
+            child: TextToSpeechView(),
           ),
           routes: [
             GoRoute(

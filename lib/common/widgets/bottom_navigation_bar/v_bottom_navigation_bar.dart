@@ -1,7 +1,7 @@
-import 'package:codegen/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ventures/common/router/router.dart';
+import 'package:ventures/common/utils/decoration/box_decoration.dart';
 import 'package:ventures/common/utils/enum/route_path.dart';
 import 'package:ventures/common/widgets/container/behind_container.dart';
 
@@ -26,16 +26,18 @@ final class AppNavigationBar extends StatelessWidget {
 
     return Scaffold(
       body: child,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await context.pushNamed(RoutePaths.chat.name);
-        },
-        backgroundColor: ColorName.primary,
-        elevation: 4,
-        child: const Icon(
-          Icons.chat_bubble_outline_rounded,
-          color: ColorName.backgroundLight,
-          size: 28,
+      floatingActionButton: Container(
+        height: 64,
+        width: 64,
+        decoration: CustomBoxDecoration.aiGradient(),
+        child: FloatingActionButton(
+          onPressed: () async => context.pushNamed(RoutePaths.chat.name),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: const Icon(
+            Icons.auto_awesome_rounded,
+            size: 30,
+          ),
         ),
       ),
 
