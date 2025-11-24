@@ -40,7 +40,6 @@ final GoRouter router = GoRouter(
       path: RoutePaths.chat.path,
       builder: (context, state) => const ChatView(),
     ),
-
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) => AppNavigationBar(child: child),
@@ -56,15 +55,16 @@ final GoRouter router = GoRouter(
               path: RoutePaths.audioHistory.path,
               name: RoutePaths.audioHistory.name,
               pageBuilder: (context, state) =>
-                  const NoTransitionPage(child: AudioHistoryView()),
+                  const NoTransitionPage(child: TextToSpeechHistoryView()),
             ),
           ],
         ),
         GoRoute(
           path: RoutePaths.Image.path,
           name: RoutePaths.Image.name,
-          pageBuilder: (context, state) =>
-              const NoTransitionPage(child: ImageView()),
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: ImageView(),
+          ),
           routes: [
             GoRoute(
               path: RoutePaths.imageHistory.path,
@@ -92,8 +92,9 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: RoutePaths.Profile.path,
           name: RoutePaths.Profile.name,
-          pageBuilder: (context, state) =>
-              const NoTransitionPage(child: ProfileView()),
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: ProfileView(),
+          ),
         ),
       ],
     ),

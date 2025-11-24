@@ -7,13 +7,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ventures/common/dialog/v_dialog.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
+import 'package:ventures/common/utils/enum/feature_type.dart';
 import 'package:ventures/common/utils/padding/v_padding.dart';
 import 'package:ventures/common/widgets/appbar/v_app_bar.dart';
+import 'package:ventures/common/widgets/other/no_history_found.dart';
 import 'package:ventures/common/widgets/sized_box/v_sized_box.dart';
-import 'package:ventures/common/widgets/text/v_text.dart';
 import 'package:ventures/presentation/image/view/mixin/image_history_mixin.dart';
 
-part 'widgets/empty_image.dart';
 part 'widgets/image_card_item.dart';
 part 'widgets/image_grid.dart';
 
@@ -36,11 +36,7 @@ class _ImageHistoryViewState extends ConsumerState<ImageHistoryView>
       body: imagesAsync.when(
         data: (images) {
           if (images.isEmpty) {
-            return ImageHistoryEmpty(
-              onRefresh: () async {
-                final _ = ref.refresh(imageHistoryProvider);
-              },
-            );
+            return const NotFound(type: FeatureType.imageGeneration);
           }
           return ImageGrid(
             images: images,

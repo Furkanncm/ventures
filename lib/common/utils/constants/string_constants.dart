@@ -256,11 +256,21 @@ App Features:
 2. Text to Speech (TTS): Converts text to speech, downloadable as MP3.
 3. Image Generation: Generates images from text prompts.
 4. History: All transactions (Docs, Audio, Images) are saved in history.
-5. Credit System: Free users have 3 daily credits per feature. Premium is unlimited.
+5. Credit System: Free users have 3 credits per feature. Premium is unlimited.
 
 Rules:
 - NEVER answer general questions like history, math, coding, or weather.
 - If asked about non-app topics, reply: "I can only assist with the Ventures app."
 - Keep answers concise, polite, and use emojis.
 ''';
+
+  static const String exitAppTitle = 'Exit App';
+  static const String exitAppContent =
+      'Do you really want to close the application?';
+  static const String exit = 'Exit';
+  static const String cancel = 'Cancel';
+
+  static const String noImageHistory = 'No generated images found.';
+  static const String noAudioHistory = 'No voice recordings found.';
+  static const String noDocumentHistory = 'No analysis history found.';
 }

@@ -6,8 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
+import 'package:ventures/common/utils/enum/feature_type.dart';
 import 'package:ventures/common/utils/padding/v_padding.dart';
 import 'package:ventures/common/widgets/appbar/v_app_bar.dart';
+import 'package:ventures/common/widgets/other/no_history_found.dart';
 import 'package:ventures/common/widgets/sized_box/v_sized_box.dart';
 import 'package:ventures/common/widgets/text/v_fadded_text.dart';
 import 'package:ventures/common/widgets/text/v_text.dart';
@@ -28,24 +30,12 @@ class DocumentHistoryView extends ConsumerWidget with DocumentHistoryMixin {
       body: historyAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, stack) =>
-            Center(child: Text('${StringConstants.errorGeneric}: $err')),
+            Center(child: VText('${StringConstants.errorGeneric}: $err')),
         data: (records) {
-          if (records.isEmpty) {
-            return const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.history_edu_rounded,
-                    size: 64,
-                    color: ColorName.gray,
-                  ),
-                  VSizedBox.verticalBox16,
-                  VFaddedText(text: StringConstants.noAnalysisHistory),
-                ],
-              ),
-            );
-          }
+          if (records.isEmpty)
+            {
+              return const NotFound(type: FeatureType.documentAnalysis);
+            }
 
           return ListView.separated(
             padding: VPadding.all(),

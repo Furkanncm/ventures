@@ -12,6 +12,7 @@ final class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: ColorName.backgroundLight,
       elevation: 0,
       forceMaterialTransparency: true,
+
       title: const Row(
         mainAxisSize: MainAxisSize.min,
         children: [

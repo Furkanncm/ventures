@@ -16,11 +16,7 @@ final class _ImageField extends StatelessWidget {
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 500),
         child: state.imageUrl == null
-            ? Center(
-                child: VText(
-                  state.error ?? StringConstants.noImageMessage,
-                ),
-              )
+            ? const NotFound(type: FeatureType.imageGeneration)
             : Stack(
                 fit: StackFit.expand,
                 children: [

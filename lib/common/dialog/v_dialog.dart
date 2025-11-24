@@ -82,4 +82,19 @@ abstract class VDialogs {
       builder: (context) => _DocumentDetailDialog(record: record),
     );
   }
+
+  static Future<bool?> exitAppDialog(BuildContext context) async {
+    return showAdaptiveDialog<bool>(
+      context: context,
+      builder: (context) {
+        return _BaseDialog(
+          title: StringConstants.exitAppTitle,
+          content: StringConstants.exitAppContent,
+          onPositiveButton: () => Navigator.of(context).pop(true),
+          negativeButtonLabel: StringConstants.cancel,
+          positiveButtonLabel: StringConstants.exit,
+        );
+      },
+    );
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:codegen/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ventures/common/router/router.dart';
@@ -20,7 +21,8 @@ final class AppNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final location = GoRouterState.of(context).uri.toString();
+    final location = GoRouterState.of(context).uri.path;
+
     var currentIndex = tabs.indexWhere(location.startsWith);
     if (currentIndex == -1) currentIndex = 0;
 
@@ -29,23 +31,33 @@ final class AppNavigationBar extends StatelessWidget {
       floatingActionButton: Container(
         height: 64,
         width: 64,
-        decoration: CustomBoxDecoration.aiGradient(),
+        margin: const EdgeInsets.only(top: 8),
+        decoration: CustomBoxDecoration.aiGradient().copyWith(
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: ColorName.primary.withValues(alpha: 0.3),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
         child: FloatingActionButton(
           onPressed: () async => context.pushNamed(RoutePaths.chat.name),
           backgroundColor: Colors.transparent,
           elevation: 0,
+          shape: const CircleBorder(),
           child: const Icon(
             Icons.auto_awesome_rounded,
             size: 30,
+            color: Colors.white,
           ),
         ),
       ),
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
-        onTap: (index) {
-          router.go(tabs[index]);
-        },
+        onTap: (index) => router.go(tabs[index]),
         type: BottomNavigationBarType.fixed,
         showSelectedLabels: true,
         showUnselectedLabels: true,

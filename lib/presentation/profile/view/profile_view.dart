@@ -5,10 +5,12 @@ import 'package:ventures/common/dialog/v_dialog.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/enum/subscription_type.dart';
+import 'package:ventures/common/utils/extensions/string_extension.dart';
 import 'package:ventures/common/utils/padding/v_padding.dart';
 import 'package:ventures/common/widgets/appbar/v_app_bar.dart';
 import 'package:ventures/common/widgets/button/v_elevated_button.dart';
 import 'package:ventures/common/widgets/sized_box/v_sized_box.dart';
+import 'package:ventures/common/widgets/text/v_fadded_text.dart';
 import 'package:ventures/common/widgets/text/v_text.dart';
 import 'package:ventures/data/model/user/user_info.dart';
 import 'package:ventures/presentation/profile/viewmodel/profile_notifier.dart';
@@ -19,12 +21,20 @@ part 'widgets/profile_header.dart';
 part 'widgets/subscription_card.dart';
 part 'widgets/usage_statistics.dart';
 
+
 @immutable
-final class ProfileView extends ConsumerWidget {
+final class ProfileView extends ConsumerStatefulWidget {
   const ProfileView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ProfileView> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends ConsumerState<ProfileView> {
+
+
+  @override
+  Widget build(BuildContext context) {
     final state = ref.watch(profileNotifierProvider);
     final notifier = ref.read(profileNotifierProvider.notifier);
 
@@ -41,12 +51,17 @@ final class ProfileView extends ConsumerWidget {
             if (state.error != null) {
               return Center(child: VText(state.error!));
             }
+
             if (state.user == null) {
               return const Center(
                 child: VText(StringConstants.errorUserNotFound),
               );
             }
-            return _Body(state: state, notifier: notifier);
+
+            return _Body(
+              state: state,
+              notifier: notifier,
+            );
           },
         ),
       ),
