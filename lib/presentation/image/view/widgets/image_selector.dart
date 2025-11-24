@@ -4,12 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stability_image_generation/stability_image_generation.dart';
 import 'package:ventures/common/bottom_sheet/v_bottom_sheets.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
+import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/padding/v_padding.dart';
 import 'package:ventures/common/widgets/sized_box/v_sized_box.dart';
 import 'package:ventures/common/widgets/text/v_fadded_text.dart';
 import 'package:ventures/common/widgets/text/v_text.dart';
 
-class StyleSelector extends ConsumerWidget {
+@immutable
+final class StyleSelector extends ConsumerWidget {
   const StyleSelector({super.key});
 
   @override
@@ -23,8 +25,7 @@ class StyleSelector extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const VFaddedText(
-          text:
-              'Select Style', 
+          text: StringConstants.imageSelectStyle,
           textStyleType: VTextStyleType.titleSmall,
         ),
         VSizedBox.verticalBox8,
@@ -57,7 +58,6 @@ class StyleSelector extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Stil Adı
                       VText(
                         _formatStyleName(selectedStyle),
                         fontWeight: FontWeight.bold,
@@ -65,7 +65,7 @@ class StyleSelector extends ConsumerWidget {
                       if (selectedStyle != ImageAIStyle.noStyle) ...[
                         VSizedBox.verticalBox4,
                         const VText(
-                          'AI Art Style',
+                          StringConstants.aiSelectyStyle,
                           type: VTextStyleType.bodySmall,
                           color: ColorName.gray,
                         ),
@@ -87,7 +87,7 @@ class StyleSelector extends ConsumerWidget {
   }
 
   String _formatStyleName(ImageAIStyle style) {
-    if (style == ImageAIStyle.noStyle) return 'No Style';
+    if (style == ImageAIStyle.noStyle) return StringConstants.noStyleImage;
 
     final name = style.name;
     return name.replaceAllMapped(RegExp('([a-z])([A-Z])'), (Match m) {
@@ -96,7 +96,8 @@ class StyleSelector extends ConsumerWidget {
   }
 }
 
-class _StyleIcon extends StatelessWidget {
+@immutable
+final class _StyleIcon extends StatelessWidget {
   const _StyleIcon({required this.style});
 
   final ImageAIStyle style;
@@ -106,7 +107,7 @@ class _StyleIcon extends StatelessWidget {
     final isNoStyle = style == ImageAIStyle.noStyle;
 
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: VPadding.all() / 3,
       decoration: BoxDecoration(
         color: isNoStyle
             ? ColorName.gray.withValues(alpha: 0.1)
@@ -134,7 +135,7 @@ class _StyleIcon extends StatelessWidget {
       ImageAIStyle.studioPhoto ||
       ImageAIStyle.portraitPhoto => Icons.camera_alt,
       ImageAIStyle.christmas => Icons.ac_unit,
-      _ => Icons.palette_outlined, 
+      _ => Icons.palette_outlined,
     };
   }
 }

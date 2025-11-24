@@ -24,7 +24,10 @@ final class _StyleSelectionSheet extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             shrinkWrap: true,
             itemCount: styles.length,
-            separatorBuilder: (_, __) => const Divider(height: 1, indent: 60),
+            separatorBuilder: (_, _) => Padding(
+              padding: VPadding.verticalMediumPadding() / 4,
+              child: const Divider(height: 1, indent: 60),
+            ),
             itemBuilder: (context, index) {
               final style = styles[index];
               final isSelected = style == selectedStyle;
@@ -33,7 +36,7 @@ final class _StyleSelectionSheet extends StatelessWidget {
                 onTap: () => onStyleSelected(style),
                 borderRadius: BorderRadius.circular(12),
                 child: Container(
-                  padding: const VPadding.outlinedPadding(),
+                  padding: const VPadding.outlinedPadding() / 2,
                   decoration: BoxDecoration(
                     color: isSelected
                         ? ColorName.primary.withValues(alpha: 0.05)
@@ -43,7 +46,7 @@ final class _StyleSelectionSheet extends StatelessWidget {
                   child: Row(
                     children: [
                       Container(
-                        padding: VPadding.all(),
+                        padding: VPadding.all() / 2,
                         decoration: BoxDecoration(
                           color: isSelected
                               ? ColorName.primary.withValues(alpha: 0.1)
@@ -67,7 +70,7 @@ final class _StyleSelectionSheet extends StatelessWidget {
                             fontWeight: isSelected
                                 ? FontWeight.bold
                                 : FontWeight.w500,
-                            fontSize: 16,
+                            fontSize: 14,
                             color: isSelected ? ColorName.primary : null,
                           ),
                         ),

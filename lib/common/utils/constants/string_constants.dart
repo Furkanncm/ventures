@@ -109,6 +109,7 @@ final class StringConstants {
       'An error occurred while generating the image.';
   static const String imageSelectStyle = 'Select Style';
   static const String noStyleImage = 'No Style';
+  static const String aiSelectyStyle = 'AI Art Style';
 
   // -----------------------------
   // Document Analysis

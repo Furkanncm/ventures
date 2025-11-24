@@ -52,9 +52,7 @@ abstract class VBottomSheets {
       isScrollControlled: true,
       useRootNavigator: true,
       backgroundColor: Colors.transparent,
-      constraints: BoxConstraints(
-        maxHeight: context.screenHeight * 0.7,
-      ),
+      constraints: BoxConstraints(maxHeight: context.screenHeight * 0.5),
       builder: (ctx) => VBaseBottomSheet(
         child: _VoiceSelectionSheet(
           voices: voices,
@@ -78,9 +76,7 @@ abstract class VBottomSheets {
       isScrollControlled: true,
       useRootNavigator: true,
       backgroundColor: Colors.transparent,
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.7,
-      ),
+      constraints: BoxConstraints(maxHeight: context.screenHeight * 0.5),
       builder: (ctx) => VBaseBottomSheet(
         child: _StyleSelectionSheet(
           selectedStyle: selectedStyle,

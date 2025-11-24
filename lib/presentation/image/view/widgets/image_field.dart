@@ -12,7 +12,8 @@ final class _ImageField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return AspectRatio(
+      aspectRatio: 1,
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 500),
         child: state.imageUrl == null

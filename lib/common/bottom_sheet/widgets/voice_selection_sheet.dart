@@ -23,7 +23,10 @@ final class _VoiceSelectionSheet extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             shrinkWrap: true,
             itemCount: voices.length,
-            separatorBuilder: (_, __) => const Divider(height: 1, indent: 60),
+            separatorBuilder: (_, __) => Padding(
+              padding: VPadding.verticalMediumPadding() / 4,
+              child: const Divider(height: 1, indent: 60),
+            ),
             itemBuilder: (context, index) {
               final voice = voices[index];
               final isSelected = voice == selectedVoice;

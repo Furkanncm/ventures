@@ -16,9 +16,11 @@ final class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SingleChildScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
       padding: VPadding.pagePadding(),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: 24,
         children: [
           InputCard(controller: controller),
@@ -32,6 +34,7 @@ final class _Body extends StatelessWidget {
           ),
           const StyleSelector(),
           _ImageField(state: state, onSharePressed: onSharePressed),
+          VSizedBox.verticalBox48,
         ],
       ),
     );

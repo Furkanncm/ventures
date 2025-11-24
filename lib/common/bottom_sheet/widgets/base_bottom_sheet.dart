@@ -31,7 +31,6 @@ final class VBaseBottomSheet extends StatelessWidget {
                 ),
               ),
             ),
-            // ----------------------------------
             Flexible(
               child: Padding(
                 padding: const VPadding.onlyBottomPadding() * 2,
