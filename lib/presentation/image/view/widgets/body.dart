@@ -30,6 +30,7 @@ final class _Body extends StatelessWidget {
             icon: const Icon(Icons.gradient),
             label: StringConstants.generateButtonLabel,
           ),
+          const StyleSelector(),
           _ImageField(state: state, onSharePressed: onSharePressed),
         ],
       ),

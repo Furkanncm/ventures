@@ -3,6 +3,7 @@ import 'dart:io' show Directory, File;
 import 'package:flutter/foundation.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:stability_image_generation/stability_image_generation.dart';
 import 'package:ventures/common/utils/enum/share_prefs_keys.dart';
 import 'package:ventures/data/data_source/remote/image_remote_ds.dart';
 import 'package:ventures/domain/shared_pref/share_pref_manager.dart';
@@ -10,7 +11,10 @@ import 'package:ventures/domain/shared_pref/share_pref_manager.dart';
 abstract class IImageRepository {
   String? get uid;
 
-  Future<(Uint8List, File)> generateImage(String prompt);
+  Future<(Uint8List, File)> generateImage(
+    String prompt, {
+    ImageAIStyle imageAiStyle = ImageAIStyle.studioPhoto,
+  });
 
   Future<File> saveImage(Uint8List bytes, String fileName);
 
@@ -34,7 +38,10 @@ class ImageRepository implements IImageRepository {
       SharedPrefsManager().getString(SharedPrefsKeys.isUserLoggedIn);
 
   @override
-  Future<(Uint8List, File)> generateImage(String prompt) async {
+  Future<(Uint8List, File)> generateImage(
+    String prompt, {
+    ImageAIStyle imageAiStyle = ImageAIStyle.studioPhoto,
+  }) async {
     final result = await remote.generateImage(prompt);
 
     final imageFile = await saveImage(
@@ -45,7 +52,6 @@ class ImageRepository implements IImageRepository {
     return (result, imageFile);
   }
 
-  /// UID altına resim kaydet
   @override
   Future<File> saveImage(Uint8List bytes, String fileName) async {
     final dir = await _userImagesDirectory;

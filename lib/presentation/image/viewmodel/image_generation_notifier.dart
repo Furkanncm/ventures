@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:stability_image_generation/stability_image_generation.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
 import 'package:ventures/common/utils/enum/feature_type.dart';
 import 'package:ventures/domain/image/image_repository.dart';
@@ -14,13 +15,20 @@ class ImageGenerationNotifier extends StateNotifier<ImageGenerationState> {
   final IImageRepository repo;
   final Ref ref;
 
+  void selectStyle(ImageAIStyle style) {
+    state = state.copyWith(selectedStyle: style);
+  }
+
   Future<bool> generate(String prompt) async {
     if (state.error != null) {
       state = state.copyWith();
     }
     try {
       state = state.copyWith(loading: true);
-      final (bytes, imageFile) = await repo.generateImage(prompt);
+      final (bytes, imageFile) = await repo.generateImage(
+        prompt,
+        imageAiStyle: state.selectedStyle,
+      );
 
       unawaited(
         ref

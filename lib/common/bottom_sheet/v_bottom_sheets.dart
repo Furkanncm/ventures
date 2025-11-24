@@ -1,5 +1,6 @@
 import 'package:codegen/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:stability_image_generation/stability_image_generation.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/extensions/context_extension.dart';
 import 'package:ventures/common/utils/padding/v_padding.dart';
@@ -13,6 +14,7 @@ part 'widgets/base_bottom_sheet.dart';
 part 'widgets/document_bottom_sheet.dart';
 part 'widgets/sheet_header.dart';
 part 'widgets/sheet_option.dart';
+part 'widgets/stlye_selection_sheet.dart';
 part 'widgets/voice_selection_sheet.dart';
 
 abstract class VBottomSheets {
@@ -47,7 +49,7 @@ abstract class VBottomSheets {
   }) async {
     await showModalBottomSheet<void>(
       context: context,
-      isScrollControlled: true, 
+      isScrollControlled: true,
       useRootNavigator: true,
       backgroundColor: Colors.transparent,
       constraints: BoxConstraints(
@@ -58,8 +60,33 @@ abstract class VBottomSheets {
           voices: voices,
           selectedVoice: selectedVoice,
           onVoiceSelected: (voice) {
-            Navigator.pop(ctx); 
+            Navigator.pop(ctx);
             onVoiceSelected(voice);
+          },
+        ),
+      ),
+    );
+  }
+
+  static Future<void> showStyleSelectionSheet({
+    required BuildContext context,
+    required ImageAIStyle selectedStyle,
+    required ValueChanged<ImageAIStyle> onStyleSelected,
+  }) async {
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      useRootNavigator: true,
+      backgroundColor: Colors.transparent,
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.7,
+      ),
+      builder: (ctx) => VBaseBottomSheet(
+        child: _StyleSelectionSheet(
+          selectedStyle: selectedStyle,
+          onStyleSelected: (style) {
+            Navigator.pop(ctx);
+            onStyleSelected(style);
           },
         ),
       ),

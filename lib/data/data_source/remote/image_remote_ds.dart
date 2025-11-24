@@ -17,14 +17,16 @@ class ImageRemoteDS {
 
   final ai = StabilityAI();
   final String? apiKey = EnvType.stabilityApiKey.value;
-  final ImageAIStyle imageAIStyle = ImageAIStyle.studioPhoto;
 
-  Future<Uint8List> generateImage(String prompt) async {
+  Future<Uint8List> generateImage(
+    String prompt, {
+    ImageAIStyle imageAiStyle = ImageAIStyle.noStyle,
+  }) async {
     if (apiKey == null) throw Exception(StringConstants.apiKeyNotFound);
     final result = await ai.generateImage(
       prompt: prompt,
       apiKey: apiKey!,
-      imageAIStyle: imageAIStyle,
+      imageAIStyle: imageAiStyle,
     );
     return result;
   }

@@ -107,6 +107,8 @@ final class StringConstants {
   static const String imageSuccessMessage = 'Image generated successfully!';
   static const String imageErrorMessage =
       'An error occurred while generating the image.';
+  static const String imageSelectStyle = 'Select Style';
+  static const String noStyleImage = 'No Style';
 
   // -----------------------------
   // Document Analysis
