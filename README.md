@@ -91,27 +91,27 @@ Screenshots regarding the main features of the application are below:
 ### 1. Onboarding & Auth
 | Splash Screen | Login & Register |
 |:---:|:---:|
-| ![Splash Screen](screenshots/splash_screen.jpg) | ![User Profile](screenshots/free_user_profile.jpg) |
+| <img src="screenshots/splash_screen.jpg" width="250"> | <img src="screenshots/free_user_profile.jpg" width="250"> |
 
 ### 2. AI Image Generation (Stability AI)
 | Style Selection | Generation Result | History |
 |:---:|:---:|:---:|
-| ![Image Style](screenshots/image_generation_style.jpg) | ![Image Result](screenshots/image_generation_result.jpg) | ![Image History](screenshots/image_generation_history_view.jpg) |
+| <img src="screenshots/image_generation_style.jpg" width="250"> | <img src="screenshots/image_generation_result.jpg" width="250"> | <img src="screenshots/image_generation_history_view.jpg" width="250"> |
 
 ### 3. Document Analysis (Gemini Vision)
 | Document Selection & Analysis | Analysis Result | History |
 |:---:|:---:|:---:|
-| ![Doc Detail](screenshots/document_analysis.jpg) | ![Doc Result](screenshots/document_analysis_result.jpg) | ![Doc History](screenshots/document_analysis_history_screen.jpg) |
+| <img src="screenshots/document_analysis_detail.jpg" width="250"> | <img src="screenshots/document_analysis_result.jpg" width="250"> | <img src="screenshots/document_analysis_history_screen.jpg" width="250"> |
 
 ### 4. Text to Speech (TTS) & Image Gen
 | TTS Screen | Voice Selection | Image Result |
 |:---:|:---:|:---:|
-| ![TTS Screen](screenshots/text_to_speech_screen.jpg) | ![Voice Choices](screenshots/voice_choices.jpg) | ![Image Result](screenshots/image_generation_result.jpg) |
+| <img src="screenshots/text_to_speech_screen.jpg" width="250"> | <img src="screenshots/voice_choices.jpg" width="250"> | <img src="screenshots/image_generation_result.jpg" width="250"> |
 
 ### 5. AI Chat Assistant
 | Chat Interface | AI Response |
 |:---:|:---:|
-| ![Chat Screen](screenshots/chat_screen.jpg) | ![Chat Response](screenshots/chat_response.jpg) |
+| <img src="screenshots/chat_screen.jpg" width="250"> | <img src="screenshots/chat_response.jpg" width="250"> |
 
 ## 🚀 Installation
 
