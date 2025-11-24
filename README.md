@@ -66,21 +66,21 @@ This project is developed using industry-standard architectures for scalability 
 
 The project is separated into layers according to the Separation of Concerns (SoC) principle:
 
-```bash
-lib/
-├── common/             # Common components (Widgets, Constants, Extensions, Network)
-├── data/               # Data layer (API calls, Models, DTOs)
-│   ├── data_source/    # Remote (API) and Local (DB) data sources
-│   ├── model/          # JSON serializable models (JsonSerializable)
-│   └── repository/     # Repository implementations
-├── domain/             # Business logic layer (Repository interfaces)
-├── presentation/       # UI layer (View, ViewModel/Notifier, State, Mixin)
-│   ├── auth/           # Login, Register, Splash
-│   ├── chat/           # AI Chat module
-│   ├── image/          # Image generation module
-│   ├── document/       # Document analysis module
-│   └── profile/        # Profile and Settings
-└── main.dart           # Application entry point
+    ```bash
+    lib/
+    ├── common/             # Common components (Widgets, Constants, Extensions, Network)
+    ├── data/               # Data layer (API calls, Models, DTOs)
+    │   ├── data_source/    # Remote (API) and Local (DB) data sources
+    │   ├── model/          # JSON serializable models (JsonSerializable)
+    ├── domain/             # Business logic layer (Repository interfaces)
+    │   └── repository/     # Repository implementations
+    ├── presentation/       # UI layer (View, ViewModel/Notifier, State, Mixin)
+    │   ├── auth/           # Login, Register, Splash
+    │   ├── chat/           # AI Chat module
+    │   ├── image/          # Image generation module
+    │   ├── document/       # Document analysis module
+    │   └── profile/        # Profile and Settings
+    └── main.dart           # Application entry point
 
 ---
 
@@ -91,81 +91,81 @@ Screenshots regarding the main features of the application are below:
 ### 1. Onboarding & Auth
 | Splash Screen | Login & Register |
 |:---:|:---:|
-| ![Splash Screen](assets/screenshots/splash_screen.jpg) | ![User Profile](assets/screenshots/free_user_profile.jpg) |
+| ![Splash Screen](screenshots/splash_screen.jpg) | ![User Profile](screenshots/free_user_profile.jpg) |
 
 ### 2. AI Image Generation (Stability AI)
 | Style Selection | Generation Result | History |
 |:---:|:---:|:---:|
-| ![Image Style](assets/screenshots/image_generation_style.jpg) | ![Image Result](assets/screenshots/image_generation_result.jpg) | ![Image History](assets/screenshots/image_generation_history_view.jpg) |
+| ![Image Style](screenshots/image_generation_style.jpg) | ![Image Result](screenshots/image_generation_result.jpg) | ![Image History](screenshots/image_generation_history_view.jpg) |
 
 ### 3. Document Analysis (Gemini Vision)
 | Document Selection & Analysis | Analysis Result | History |
 |:---:|:---:|:---:|
-| ![Doc Detail](assets/screenshots/document_analysis_detail.jpg) | ![Doc Result](assets/screenshots/document_analysis_result.jpg) | ![Doc History](assets/screenshots/document_analysis_history_screen.jpg) |
+| ![Doc Detail](screenshots/document_analysis.jpg) | ![Doc Result](screenshots/document_analysis_result.jpg) | ![Doc History](screenshots/document_analysis_history_screen.jpg) |
 
 ### 4. Text to Speech (TTS) & Image Gen
 | TTS Screen | Voice Selection | Image Result |
 |:---:|:---:|:---:|
-| ![TTS Screen](assets/screenshots/text_to_speech_screen.jpg) | ![Voice Choices](assets/screenshots/voice_choices.jpg) | ![Image Result](assets/screenshots/image_generation_result.jpg) |
+| ![TTS Screen](screenshots/text_to_speech_screen.jpg) | ![Voice Choices](screenshots/voice_choices.jpg) | ![Image Result](screenshots/image_generation_result.jpg) |
 
 ### 5. AI Chat Assistant
 | Chat Interface | AI Response |
 |:---:|:---:|
-| ![Chat Screen](assets/screenshots/chat_screen.jpg) | ![Chat Response](assets/screenshots/chat_response.jpg) |
+| ![Chat Screen](screenshots/chat_screen.jpg) | ![Chat Response](screenshots/chat_response.jpg) |
 
 ## 🚀 Installation
 
 Follow the steps below to run the project in your local environment.
 
 ### 1. Clone the Repository
-```bash
-git clone [https://github.com/Furkanncm/ventures.git](https://github.com/Furkanncm/ventures.git)
-cd ventures
+    ```bash
+    git clone [https://github.com/Furkanncm/ventures.git](https://github.com/Furkanncm/ventures.git)
+    cd ventures
 
 ---
 
 ### 2. Install Dependencies
-```bash
-flutter pub get
+    ```bash
+    flutter pub get
 
 ---
 
 ### 3. Set Environment Variables (.env)
 Create a .env file in the project root directory and add your own API keys:
 
-```env
-GEMINI_API_KEY=AIzaSyD...
-STABILITY_API_KEY=sk-...
-EVENTLAB_API_KEY=xi-...
+    ```env
+    GEMINI_API_KEY=AIzaSyD...
+    STABILITY_API_KEY=sk-...
+    EVENTLAB_API_KEY=xi-...
 
 ---
 
 ### 4. Firebase Configuration
 Create your Firebase project and configure it using FlutterFire CLI:
 
-```bash
-flutterfire configure
+    ```bash
+    flutterfire configure
 
 ---
 
 ### 5. Code Generation (Build Runner)
 To generate models and JSON serialization codes:
 
-```bash
-flutter pub run build_runner build --delete-conflicting-outputs
+    ```bash
+    flutter pub run build_runner build --delete-conflicting-outputs
 
 ---
 
 ### 6. Run
 
-```bash
-flutter run
+    ```bash
+    flutter run
 
 ---
 
 ## 🤝 Contributing
 
-ontributions are welcome! Please follow these steps:
+Contributions are welcome! Please follow these steps:
 
 1.  Fork this repository.
 2.  Create a new feature branch (`git checkout -b feature/new-feature`).
