@@ -130,34 +130,31 @@ Follow the steps below to run the project in your local environment.
 
 ---
 
-### 3. Set Environment Variables (.env)
+### 3. Firebase Configuration
+Create your Firebase project and configure it using FlutterFire CLI:
+    
+    flutterfire configure
+
+---
+
+### 4. Set Environment Variables (.env)
 Create a .env file in the project root directory and add your own API keys:
 
-    
+    WEB_CLIENT_ID=your_google_web_client_id
     GEMINI_API_KEY=AIzaSyD...
     STABILITY_API_KEY=sk-...
     EVENTLAB_API_KEY=xi-...
 
 ---
 
-### 4. Firebase Configuration
-Create your Firebase project and configure it using FlutterFire CLI:
-
-    
-    flutterfire configure
-
----
-
 ### 5. Code Generation (Build Runner)
 To generate models and JSON serialization codes:
-
    
     flutter pub run build_runner build --delete-conflicting-outputs
 
 ---
 
 ### 6. Run
-
     
     flutter run
 

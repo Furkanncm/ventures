@@ -12,6 +12,10 @@ final class _SelectionContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isImage =
+        state.selectedBytes != null &&
+        (state.mimeType == 'image/jpeg' || state.mimeType == 'image/png');
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -24,14 +28,37 @@ final class _SelectionContainer extends StatelessWidget {
             color: ColorName.gray.withValues(alpha: 0.5),
             width: 1.5,
           ),
-          image: (state.selectedBytes != null && state.mimeType == 'image/jpeg')
-              ? DecorationImage(
-                  image: MemoryImage(state.selectedBytes!),
-                  fit: BoxFit.fill,
-                )
-              : null,
         ),
-        child: _PreviewContent(state: state),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(18), 
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              if (isImage) ...[
+                Image.memory(
+                  state.selectedBytes!,
+                  fit: BoxFit.cover,
+                ),
+
+                BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+                  child: Container(
+                    color: ColorName.backgroundDark.withValues(alpha: 0.5),
+                    alignment: Alignment.center,
+                  ),
+                ),
+
+                Center(
+                  child: Image.memory(
+                    state.selectedBytes!,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ] else
+                _PreviewContent(state: state),
+            ],
+          ),
+        ),
       ),
     );
   }
