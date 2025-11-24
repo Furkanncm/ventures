@@ -14,12 +14,24 @@ import 'package:flutter/widgets.dart';
 class $AssetsImageGen {
   const $AssetsImageGen();
 
+  /// File path: assets/image/ic_app_icon.png
+  AssetGenImage get icAppIcon =>
+      const AssetGenImage('assets/image/ic_app_icon.png');
+
+  /// File path: assets/image/ic_app_icon_without_background.png
+  AssetGenImage get icAppIconWithoutBackground =>
+      const AssetGenImage('assets/image/ic_app_icon_without_background.png');
+
   /// File path: assets/image/ic_google.png
   AssetGenImage get icGoogle =>
       const AssetGenImage('assets/image/ic_google.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [icGoogle];
+  List<AssetGenImage> get values => [
+    icAppIcon,
+    icAppIconWithoutBackground,
+    icGoogle,
+  ];
 }
 
 class Assets {

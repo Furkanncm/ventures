@@ -20,7 +20,6 @@ mixin LoginListenerMixin on ConsumerState<LoginView> {
     super.dispose();
   }
 
-  //furkankazimcam@gmail.com
   void useLoginListener() {
     ref.listen<LoginState>(loginNotifierProvider, (prev, next) {
       if (next.user != null) {
@@ -48,9 +47,6 @@ mixin LoginListenerMixin on ConsumerState<LoginView> {
 
   Future<void> loginWithGoogle() async {
     final notifier = ref.read(loginNotifierProvider.notifier);
-    await notifier
-        .loginWithGoogle()
-        .withLoading(context)
-        .withSnackbar(context, successMessage: StringConstants.loginSuccess);
+    await notifier.loginWithGoogle().withLoading(context);
   }
 }

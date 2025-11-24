@@ -5,19 +5,17 @@ import 'dart:typed_data';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
-import 'package:ventures/common/utils/enum/pref_keys.dart';
 import 'package:ventures/common/utils/enum/share_prefs_keys.dart';
 import 'package:ventures/data/model/document_analysis/document_analysis_record.dart';
 import 'package:ventures/data/model/text_to_speech/audio_record.dart';
-import 'package:ventures/domain/cache/cache_repository.dart';
 import 'package:ventures/domain/shared_pref/share_pref_manager.dart';
 
 class HistoryService {
   final Uuid _uuid = const Uuid();
   final SharedPrefsManager _prefsManager = SharedPrefsManager();
 
-  String? get _currentUid => CacheRepository.instance.getString(
-    PrefKeys.isUserLoggedIn,
+  String? get _currentUid => SharedPrefsManager().getString(
+    SharedPrefsKeys.isUserLoggedIn,
   );
 
   Future<AudioRecord> saveAudio({

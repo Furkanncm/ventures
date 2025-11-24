@@ -2,11 +2,11 @@ import 'package:flutter_riverpod/legacy.dart';
 import 'package:ventures/common/router/router.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/enum/feature_type.dart';
-import 'package:ventures/common/utils/enum/pref_keys.dart';
 import 'package:ventures/common/utils/enum/route_path.dart';
+import 'package:ventures/common/utils/enum/share_prefs_keys.dart';
 import 'package:ventures/data/model/user/user_info.dart';
 import 'package:ventures/domain/auth/auth_repository.dart';
-import 'package:ventures/domain/cache/cache_repository.dart';
+import 'package:ventures/domain/shared_pref/share_pref_manager.dart';
 import 'package:ventures/domain/user/user_repository.dart';
 import 'package:ventures/presentation/profile/viewmodel/profile_state.dart';
 
@@ -20,10 +20,10 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
   }
 
   final IUserRepository _repository;
-  final ICacheRepository _cache;
+  final SharedPrefsManager _cache;
   final IAuthRepository authRepository;
 
-  String? get uid => _cache.getString(PrefKeys.isUserLoggedIn);
+  String? get uid => _cache.getString(SharedPrefsKeys.isUserLoggedIn);
 
   void _init() {
     if (_repository.currentUser != null) {
@@ -73,7 +73,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     }
   }
 
-  // --- EKSİK OLAN FONKSİYON BU ---
   Future<void> upgradeToPremium() async {
     final userId = uid;
     if (userId == null) return;
@@ -88,7 +87,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       await getUser();
     }
   }
-  // -------------------------------
 
   Future<void> reportError(String error) async {
     final userId = uid;
@@ -102,11 +100,11 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     final response = await authRepository.logout();
 
     if (response.success ?? false) {
-      await _cache.remove(PrefKeys.isUserLoggedIn);
+      router.goNamed(RoutePaths.login.name);
+      await _cache.remove(SharedPrefsKeys.isUserLoggedIn);
       _repository.clearCurrentUser();
 
       state = ProfileState.initial();
-      router.goNamed(RoutePaths.login.name);
     } else {
       state = state.copyWith(
         isLoading: false,

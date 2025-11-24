@@ -3,10 +3,10 @@ import 'package:stability_image_generation/stability_image_generation.dart';
 import 'package:ventures/common/utils/constants/string_constants.dart';
 import 'package:ventures/common/utils/enum/env_type.dart';
 import 'package:ventures/common/utils/enum/feature_type.dart';
-import 'package:ventures/common/utils/enum/pref_keys.dart';
+import 'package:ventures/common/utils/enum/share_prefs_keys.dart';
 import 'package:ventures/common/utils/extensions/env_extension.dart';
 import 'package:ventures/data/data_source/remote/store_remote_ds.dart';
-import 'package:ventures/domain/cache/cache_repository.dart';
+import 'package:ventures/domain/shared_pref/share_pref_manager.dart';
 
 class ImageRemoteDS {
   ImageRemoteDS(
@@ -20,7 +20,7 @@ class ImageRemoteDS {
   final ImageAIStyle imageAIStyle = ImageAIStyle.studioPhoto;
 
   Future<Uint8List> generateImage(String prompt) async {
-    if (apiKey == null) throw Exception('Stablitiy api key not found');
+    if (apiKey == null) throw Exception(StringConstants.apiKeyNotFound);
     final result = await ai.generateImage(
       prompt: prompt,
       apiKey: apiKey!,
@@ -30,7 +30,7 @@ class ImageRemoteDS {
   }
 
   String? get uid =>
-      CacheRepository.instance.getString(PrefKeys.isUserLoggedIn);
+      SharedPrefsManager().getString(SharedPrefsKeys.isUserLoggedIn);
 
   Future<void> incrementUserFreeUsage() async {
     if (uid == null) throw Exception(StringConstants.noUserLoggedIn);

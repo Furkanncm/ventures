@@ -1,40 +1,46 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:ventures/common/utils/enum/pref_keys.dart';
-import 'package:ventures/domain/cache/cache_repository.dart';
+import 'package:ventures/common/network/dio_manager.dart';
+import 'package:ventures/common/utils/enum/share_prefs_keys.dart';
+import 'package:ventures/domain/shared_pref/share_pref_manager.dart';
 import 'package:ventures/domain/user/user_repository.dart';
 
-// Splash ekranının durumları
 enum SplashStatus { loading, authenticated, unauthenticated, error }
 
 class SplashNotifier extends StateNotifier<SplashStatus> {
-  SplashNotifier(this._userRepo, this._cacheRepo)
-    : super(SplashStatus.loading) {
-    _checkSession();
-  }
+  SplashNotifier(this._userRepo, this._cacheRepo) : super(SplashStatus.loading);
 
   final IUserRepository _userRepo;
-  final ICacheRepository _cacheRepo;
+  final SharedPrefsManager _cacheRepo;
+
+  Future<void> init() async {
+    try {
+      await Future<void>.delayed(const Duration(seconds: 1));
+      await dotenv.load();
+
+      await SharedPrefsManager().init();
+
+      await DioManager().init();
+
+      await _checkSession();
+      await Future<void>.delayed(const Duration(seconds: 1));
+    } catch (e) {
+      state = SplashStatus.error;
+    }
+  }
 
   Future<void> _checkSession() async {
-    // 1. Logo görünsün diye kısa bir bekleme (İsteğe bağlı, kaldırabilirsin)
-    await Future<void>.delayed(const Duration(seconds: 1));
+    final uid = _cacheRepo.getString(SharedPrefsKeys.isUserLoggedIn);
 
-    // 2. Cache'den UID'yi al
-    final uid = _cacheRepo.getString(PrefKeys.isUserLoggedIn);
-
-    // 3. UID kontrolü
     if (uid != null && uid.isNotEmpty) {
-      // UID var, Firebase'e git ve veriyi çek
       final response = await _userRepo.getUser(uid);
 
       if (response.success ?? false) {
-        // Veri çekildi ve repo'ya setlendi -> İçeri al
         state = SplashStatus.authenticated;
       } else {
         state = SplashStatus.unauthenticated;
       }
     } else {
-      // UID yok -> Login'e at
       state = SplashStatus.unauthenticated;
     }
   }

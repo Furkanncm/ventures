@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:ventures/common/providers/repository_providers.dart';
@@ -20,9 +22,11 @@ class ImageGenerationNotifier extends StateNotifier<ImageGenerationState> {
       state = state.copyWith(loading: true);
       final (bytes, imageFile) = await repo.generateImage(prompt);
 
-      ref
-          .read(profileNotifierProvider.notifier)
-          .incrementLocalUsage(FeatureType.imageGeneration);
+      unawaited(
+        ref
+            .read(profileNotifierProvider.notifier)
+            .incrementLocalUsage(FeatureType.imageGeneration),
+      );
 
       state = state.copyWith(
         loading: false,

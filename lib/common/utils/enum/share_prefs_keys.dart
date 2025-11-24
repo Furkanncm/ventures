@@ -1,1 +1,1 @@
-enum SharedPrefsKeys { audioHistory,documentHistory ,voiceList,}
+enum SharedPrefsKeys { audioHistory,documentHistory ,voiceList,isUserLoggedIn}

@@ -3,33 +3,25 @@ import 'dart:io' show Directory, File;
 import 'package:flutter/foundation.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:ventures/common/utils/enum/pref_keys.dart';
+import 'package:ventures/common/utils/enum/share_prefs_keys.dart';
 import 'package:ventures/data/data_source/remote/image_remote_ds.dart';
-import 'package:ventures/domain/cache/cache_repository.dart';
+import 'package:ventures/domain/shared_pref/share_pref_manager.dart';
 
 abstract class IImageRepository {
-  /// Kullanıcı UID'si
   String? get uid;
 
-  /// Prompt'tan görüntü üretir ve kaydeder
   Future<(Uint8List, File)> generateImage(String prompt);
 
-  /// Görüntüyü UID klasörüne kaydeder
   Future<File> saveImage(Uint8List bytes, String fileName);
 
-  /// Belirli bir resmi yükler
   Future<Uint8List?> loadImage(String fileName);
 
-  /// Kullanıcının tüm resimlerini listeler
   Future<List<File>> listImages();
 
-  /// Belirli bir resmi siler
   Future<void> deleteImage(String fileName);
 
-  /// Bu kullanıcıya ait tüm resimleri siler
   Future<void> clearAll();
 
-  /// Galeriye kaydeder (Android & iOS)
   Future<bool> saveImageToGallery(Uint8List bytes, String fileName);
 }
 
@@ -39,9 +31,8 @@ class ImageRepository implements IImageRepository {
 
   @override
   String? get uid =>
-      CacheRepository.instance.getString(PrefKeys.isUserLoggedIn);
+      SharedPrefsManager().getString(SharedPrefsKeys.isUserLoggedIn);
 
-  /// Yeni resim oluştur → UID klasörüne kaydet → bytes'ı geri döndür
   @override
   Future<(Uint8List, File)> generateImage(String prompt) async {
     final result = await remote.generateImage(prompt);

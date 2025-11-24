@@ -1,10 +1,10 @@
 import 'package:ventures/common/base/base_remote_response.dart';
-import 'package:ventures/common/utils/enum/pref_keys.dart';
+import 'package:ventures/common/utils/enum/share_prefs_keys.dart';
 import 'package:ventures/data/data_source/remote/auth_remote_ds.dart';
 import 'package:ventures/data/data_source/remote/store_remote_ds.dart';
 import 'package:ventures/data/model/user/user_auth.dart';
 import 'package:ventures/data/model/user/user_info.dart';
-import 'package:ventures/domain/cache/cache_repository.dart';
+import 'package:ventures/domain/shared_pref/share_pref_manager.dart';
 
 abstract class IAuthRepository {
   Future<BaseRemoteResponse<AuthUser>> registerWithEmail({
@@ -34,7 +34,7 @@ class AuthRepository implements IAuthRepository {
 
   Future<void> _setUserLoggedIn(String? uid) async {
     if (uid == null) return;
-    await CacheRepository.instance.setString(PrefKeys.isUserLoggedIn, uid);
+    await SharedPrefsManager().setString(SharedPrefsKeys.isUserLoggedIn, uid);
   }
 
   @override
@@ -116,7 +116,7 @@ class AuthRepository implements IAuthRepository {
     final response = await _authRemoteDS.logout();
 
     if (response.success ?? false) {
-      await CacheRepository.instance.remove(PrefKeys.isUserLoggedIn);
+      await SharedPrefsManager().remove(SharedPrefsKeys.isUserLoggedIn);
     }
 
     return response;
