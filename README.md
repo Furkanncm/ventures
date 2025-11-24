@@ -66,7 +66,7 @@ This project is developed using industry-standard architectures for scalability 
 
 The project is separated into layers according to the Separation of Concerns (SoC) principle:
 
-    ```bash
+    
     lib/
     ├── common/             # Common components (Widgets, Constants, Extensions, Network)
     ├── data/               # Data layer (API calls, Models, DTOs)
@@ -89,7 +89,7 @@ The project is separated into layers according to the Separation of Concerns (So
 Screenshots regarding the main features of the application are below:
 
 ### 1. Onboarding & Auth
-| Splash Screen | Login & Register |
+| Splash Screen | Profile |
 |:---:|:---:|
 | <img src="screenshots/splash_screen.jpg" width="250"> | <img src="screenshots/free_user_profile.jpg" width="250"> |
 
@@ -118,14 +118,14 @@ Screenshots regarding the main features of the application are below:
 Follow the steps below to run the project in your local environment.
 
 ### 1. Clone the Repository
-    ```bash
+    
     git clone [https://github.com/Furkanncm/ventures.git](https://github.com/Furkanncm/ventures.git)
     cd ventures
 
 ---
 
 ### 2. Install Dependencies
-    ```bash
+    
     flutter pub get
 
 ---
@@ -133,7 +133,7 @@ Follow the steps below to run the project in your local environment.
 ### 3. Set Environment Variables (.env)
 Create a .env file in the project root directory and add your own API keys:
 
-    ```env
+    
     GEMINI_API_KEY=AIzaSyD...
     STABILITY_API_KEY=sk-...
     EVENTLAB_API_KEY=xi-...
@@ -143,7 +143,7 @@ Create a .env file in the project root directory and add your own API keys:
 ### 4. Firebase Configuration
 Create your Firebase project and configure it using FlutterFire CLI:
 
-    ```bash
+    
     flutterfire configure
 
 ---
@@ -151,14 +151,14 @@ Create your Firebase project and configure it using FlutterFire CLI:
 ### 5. Code Generation (Build Runner)
 To generate models and JSON serialization codes:
 
-    ```bash
+   
     flutter pub run build_runner build --delete-conflicting-outputs
 
 ---
 
 ### 6. Run
 
-    ```bash
+    
     flutter run
 
 ---
